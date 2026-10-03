@@ -272,6 +272,10 @@ h1, h2 { font-weight: 800; }
 @media (prefers-reduced-motion: reduce) { .tldr div { transition: none; } }
 
 /* ================= Professional pass ================= */
+/* Top bar scrolls away with the page instead of staying pinned */
+.topbar { position: relative; top: auto; z-index: 20; background: transparent; backdrop-filter: none; }
+html { scroll-padding-top: 16px; }
+.case { scroll-margin-top: 16px; }
 /* Work grid cards: clean white cards with a soft note colour on each icon */
 #tiles .tile { border-radius: 14px; box-shadow: 0 6px 14px -10px rgba(29,29,27,.3); }
 #tiles .tile:hover { box-shadow: 0 16px 26px -14px rgba(29,29,27,.35); }
