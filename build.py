@@ -272,6 +272,15 @@ h1, h2 { font-weight: 800; }
 @media (prefers-reduced-motion: reduce) { .tldr div { transition: none; } }
 
 /* ================= Professional pass ================= */
+/* Work grid cards: clean white cards with a soft note colour on each icon */
+#tiles .tile { border-radius: 14px; box-shadow: 0 6px 14px -10px rgba(29,29,27,.3); }
+#tiles .tile:hover { box-shadow: 0 16px 26px -14px rgba(29,29,27,.35); }
+#tiles .tile .icon-tile { color: var(--fg); box-shadow: none; }
+#tiles .tile:nth-child(4n+1) .icon-tile { background: var(--note-yellow); }
+#tiles .tile:nth-child(4n+2) .icon-tile { background: var(--note-mint); }
+#tiles .tile:nth-child(4n+3) .icon-tile { background: var(--note-pink); }
+#tiles .tile:nth-child(4n+4) .icon-tile { background: var(--note-blue); }
+#tiles .tile .tags .badge.brand { background: var(--fg); color: #fff; border-color: var(--fg); }
 /* Softer note colours and a quieter background */
 :root { --note-yellow: #FFECAE; --note-mint: #D3F0E4; --note-pink: #FDDDE4; --note-blue: #D6E8FA; }
 body { background-image: radial-gradient(#E3E5E8 1px, transparent 1.1px); }
@@ -543,31 +552,8 @@ for cid, slug, demo in TOOLS:
     work = work.replace(f'<a class="tile wide" href="#{cid}"', f'<a class="tile wide" href="work/{slug}.html" data-href="work/{slug}.html"')
 assert 'href="#' not in re.sub(r'href="#i-', "", work), "a tile still points at an in page anchor"
 
-# Rebuild the grid as a product board: lanes by status, tools as sticky notes.
-LANES = [("spec", "Spec", ["In progress"]), ("pilot", "Pilot", ["Pilot"]),
-         ("use", "In use", ["In use"]), ("live", "Live", ["In production", "Live beta"])]
-notes = {}
-for m in re.finditer(r'<a class="tile[^"]*" href="(work/[\w-]+\.html)" data-href="[^"]+" data-group="([^"]+)">(.*?)</a>', work, re.S):
-    href, group, inner = m.groups()
-    status = re.search(r'<span class="badge \w+"><span class="dot"></span>([^<]+)</span>', inner).group(1)
-    title = re.search(r"<h3>(.*?)</h3>", inner).group(1)
-    result = re.search(r'<p class="result">(.*?)</p>', inner).group(1)
-    tags = re.search(r'<div class="tags">(.*?)</div>', inner, re.S).group(1)
-    where = "Personal" if "personal" in group else "Efficio"
-    notes.setdefault(status, []).append(
-        f'<a class="tile note" href="{href}" data-href="{href}" data-group="{group}">'
-        f'<span class="where">{where} · {status}</span><h3>{title}</h3><p class="result">{result}</p>'
-        f'<div class="tags">{tags}</div><span class="go">Open case study<svg class="i"><use href="#i-arrow"/></svg></span></a>')
-lanes_html = ""
-for key, label, statuses in LANES:
-    items = [n for st in statuses for n in notes.get(st, [])]
-    lanes_html += (f'<div class="lane lane-{key}"><div class="lane-head"><h3>{label}</h3><span class="count">{len(items)}</span></div>'
-                   + "".join(items) + "</div>")
-assert sum(len(v) for v in notes.values()) == len(TOOLS), "every tool should be on the board"
-work = re.sub(r'<div class="grid" id="tiles">.*?</div>\s*</div>\s*</section>',
-              lambda m: f'<p class="board-note">Pick a sticky note to open its case study</p>\n      <div class="board" id="tiles">{lanes_html}</div>\n    </div>\n  </section>',
-              work, flags=re.S)
-assert 'class="board"' in work
+# The work section stays a grid of cards (the board layout was dropped).
+
 
 arrow = '<li class="arrow" aria-hidden="true"><svg class="i"><use href="#i-arrow"/></svg></li>'
 stage = lambda icon, label: f'<li><span class="icon-tile"><svg class="i"><use href="#{icon}"/></svg></span>{label}</li>'

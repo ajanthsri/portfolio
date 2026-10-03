@@ -538,6 +538,15 @@ h1, h2 { font-weight: 800; }
 @media (prefers-reduced-motion: reduce) { .tldr div { transition: none; } }
 
 /* ================= Professional pass ================= */
+/* Work grid cards: clean white cards with a soft note colour on each icon */
+#tiles .tile { border-radius: 14px; box-shadow: 0 6px 14px -10px rgba(29,29,27,.3); }
+#tiles .tile:hover { box-shadow: 0 16px 26px -14px rgba(29,29,27,.35); }
+#tiles .tile .icon-tile { color: var(--fg); box-shadow: none; }
+#tiles .tile:nth-child(4n+1) .icon-tile { background: var(--note-yellow); }
+#tiles .tile:nth-child(4n+2) .icon-tile { background: var(--note-mint); }
+#tiles .tile:nth-child(4n+3) .icon-tile { background: var(--note-pink); }
+#tiles .tile:nth-child(4n+4) .icon-tile { background: var(--note-blue); }
+#tiles .tile .tags .badge.brand { background: var(--fg); color: #fff; border-color: var(--fg); }
 /* Softer note colours and a quieter background */
 :root { --note-yellow: #FFECAE; --note-mint: #D3F0E4; --note-pink: #FDDDE4; --note-blue: #D6E8FA; }
 body { background-image: radial-gradient(#E3E5E8 1px, transparent 1.1px); }
