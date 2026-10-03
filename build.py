@@ -154,6 +154,124 @@ CSS += r"""
 }
 """
 
+# One light look: drop the dark theme blocks and the purple.
+CSS = re.sub(r'@media \(prefers-color-scheme: dark\) \{\s*:root:not\(\[data-theme="light"\]\) \{.*?\}\s*\}', "", CSS, flags=re.S)
+CSS = re.sub(r':root\[data-theme="dark"\] \{.*?\}', "", CSS, flags=re.S)
+CSS = CSS.replace("%237F56D9", "%230B7A5F").replace("#7F56D9", "#0B7A5F").replace("#6941C6", "#096650")
+CSS += r"""
+/* ================= Workshop wall look ================= */
+:root {
+  color-scheme: light;
+  --page: #FAFAF8;
+  --bg: #FFFFFF; --bg-2: #F6F6F2; --bg-3: #EEEEE8;
+  --line: #E4E4DD; --line-2: #CDCDC4;
+  --fg: #1D1D1B; --fg-2: #47474A; --fg-3: #6C6C68;
+  --brand: #0B7A5F; --brand-strong: #096650; --brand-soft: #E3F4EE; --brand-ring: #BFE6D9;
+  --marker: #E4462E;
+  --note-yellow: #FFE27A; --note-mint: #A8E6CF; --note-pink: #FFC2D1; --note-blue: #A7D3FF;
+  --sans: "DM Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --display: "Archivo", "DM Sans", system-ui, sans-serif;
+  --hand: "Caveat", "Segoe Print", "Comic Sans MS", cursive;
+  --shadow-xs: 0 1px 2px rgba(29,29,27,.06);
+  --shadow-md: 0 6px 12px -4px rgba(29,29,27,.14);
+  --shadow-xl: 0 18px 30px -10px rgba(29,29,27,.22);
+}
+body { background-color: var(--page); background-image: radial-gradient(#D4D6D9 1.1px, transparent 1.2px); background-size: 22px 22px; }
+h1, h2, h3, h4 { font-family: var(--display); }
+h1, h2 { font-weight: 800; }
+.hero::before { display: none; }
+.hero, .section.alt { background: transparent; border-color: transparent; }
+.topbar { background: rgba(250,250,248,.92); }
+.scrollbar div { background: var(--marker); }
+
+/* Marker annotations */
+.eyebrow { display: inline-block; font: 700 25px/1.1 var(--hand); color: var(--marker); transform: rotate(-2deg); transform-origin: left; }
+.hero .eyebrow { font-size: 27px; }
+.scribble path { stroke: var(--marker); opacity: .9; stroke-width: 3.2; }
+.hero h1 .grad { color: var(--fg); }
+
+/* Buttons in ink */
+.btn.primary { background: var(--fg); border-color: var(--fg); color: #fff; }
+.btn.primary:hover { background: #000; border-color: #000; }
+.logo { background: var(--note-yellow); color: var(--fg); transform: rotate(-4deg); box-shadow: var(--shadow-xs); }
+.avatar { background: var(--note-yellow); color: var(--fg); }
+
+/* Tape for pinned cards */
+.pinned { position: relative; }
+.pinned::before { content: ""; position: absolute; top: -11px; left: 50%; width: 92px; height: 24px; transform: translateX(-50%) rotate(-3deg); background: rgba(255,255,255,.62); border: 1px solid rgba(29,29,27,.06); box-shadow: 0 1px 2px rgba(0,0,0,.05); z-index: 2; pointer-events: none; }
+.profile { overflow: visible; }
+.profile .cover { background: var(--note-yellow); border-radius: 15px 15px 0 0; }
+
+/* Sticky notes */
+.note-y { background: var(--note-yellow) !important; }
+.note-m { background: var(--note-mint) !important; }
+.note-p { background: var(--note-pink) !important; }
+.note-b { background: var(--note-blue) !important; }
+.metric { border: 0; border-radius: 3px; box-shadow: 0 10px 16px -6px rgba(29,29,27,.25); transition: transform .25s; }
+.metric:nth-child(1) { background: var(--note-yellow); transform: rotate(-1.6deg); }
+.metric:nth-child(2) { background: var(--note-mint); transform: rotate(1.2deg); }
+.metric:nth-child(3) { background: var(--note-pink); transform: rotate(-0.8deg); }
+.metric:nth-child(4) { background: var(--note-blue); transform: rotate(1.6deg); }
+.metric:hover { transform: rotate(0) translateY(-4px); }
+.metric p:first-child, .metric .sub { color: var(--fg-2); }
+.metric .num { font-family: var(--display); font-weight: 800; }
+.pillars:not(.six) .pillar { border: 0; border-radius: 3px; box-shadow: 0 12px 18px -8px rgba(29,29,27,.28); transition: transform .25s; }
+.pillars:not(.six) .pillar:nth-child(1) { background: var(--note-yellow); transform: rotate(-1.4deg); }
+.pillars:not(.six) .pillar:nth-child(2) { background: var(--note-mint); transform: rotate(1deg); }
+.pillars:not(.six) .pillar:nth-child(3) { background: var(--note-pink); transform: rotate(-0.6deg); }
+.pillars:not(.six) .pillar:hover { transform: rotate(0) translateY(-4px); }
+.pillars:not(.six) .pillar p { color: var(--fg); }
+.pillars:not(.six) .icon-tile { background: rgba(255,255,255,.6); color: var(--fg); box-shadow: none; }
+.contact-card { background: var(--note-yellow); border: 0; border-radius: 4px; box-shadow: 0 18px 30px -12px rgba(29,29,27,.3); transform: rotate(-0.4deg); }
+.contact-card .sub { color: var(--fg); }
+.contact-card .citem { border-color: rgba(29,29,27,.08); }
+.case { box-shadow: 0 16px 30px -14px rgba(29,29,27,.22); overflow: visible; }
+.case-head { background: linear-gradient(180deg, #FFF7D1, rgba(255,255,255,0) 85%); border-radius: 20px 20px 0 0; }
+.tldr dt { color: var(--marker); }
+.stackband { background: rgba(255,255,255,.7); }
+.chip { font-family: var(--mono); }
+
+/* ================= Product board on the home page ================= */
+.board-note { font: 700 22px var(--hand); color: var(--fg-3); margin: -28px 0 22px; transform: rotate(-1deg); display: inline-block; }
+.board { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 18px; align-items: start; }
+.lane { background: rgba(255,255,255,.6); border: 2px dashed var(--line-2); border-radius: 16px; padding: 14px 12px 6px; min-height: 280px; }
+.lane-head { display: flex; justify-content: space-between; align-items: center; margin: 0 6px 16px; }
+.lane-head h3 { font: 700 28px/1 var(--hand); margin: 0; letter-spacing: 0; }
+.lane-head .count { font: 600 13px var(--sans); color: var(--fg-3); background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 1px 9px; }
+.board .tile.note { display: flex; flex-direction: column; gap: 8px; padding: 24px 16px 14px; margin-bottom: 20px; border: 0; border-radius: 3px; box-shadow: 0 10px 16px -6px rgba(29,29,27,.28); overflow: visible; color: var(--fg); }
+.board .tile.note::after { display: none; }
+.board .tile.note::before { content: ""; position: absolute; top: -10px; left: 50%; width: 70px; height: 20px; transform: translateX(-50%) rotate(-4deg); background: rgba(255,255,255,.6); border: 1px solid rgba(29,29,27,.06); }
+.board .lane .tile.note:nth-of-type(odd) { transform: rotate(-1.6deg); }
+.board .lane .tile.note:nth-of-type(even) { transform: rotate(1.3deg); }
+.board .tile.note:hover { transform: rotate(0) translateY(-5px) scale(1.02); box-shadow: 0 18px 24px -8px rgba(29,29,27,.32); border: 0; }
+.lane-spec .note { background: var(--note-blue); }
+.lane-pilot .note { background: var(--note-pink); }
+.lane-use .note { background: var(--note-mint); }
+.lane-live .note { background: var(--note-yellow); }
+.note h3 { font: 800 18px/1.2 var(--display); }
+.note .result { font-size: 14px; color: var(--fg); flex: none; }
+.note .tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.note .tags .badge { background: rgba(255,255,255,.55); border-color: rgba(29,29,27,.1); color: var(--fg); }
+.note .tags .badge.brand { background: var(--fg); color: #fff; border-color: var(--fg); }
+.note .go { font: 700 20px var(--hand); color: var(--fg); display: inline-flex; align-items: center; gap: 4px; }
+.note .go svg { width: 16px; height: 16px; transition: transform .2s; }
+.note:hover .go svg { transform: translateX(4px); }
+.note .where { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--fg-2); }
+@media (max-width: 1024px) { .board { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 640px) { .board { grid-template-columns: minmax(0,1fr); } .lane { min-height: 0; } .board-note { margin-top: -20px; } }
+@media (prefers-reduced-motion: reduce) { .metric, .pillar, .board .tile.note { transition: none; } }
+/* Problem, Built, Result as three sticky notes on tool pages */
+.tldr { background: none; border: 0; gap: 18px; overflow: visible; margin-top: 22px; }
+.tldr div { border-radius: 3px; padding: 16px 16px 14px; box-shadow: 0 10px 16px -6px rgba(29,29,27,.25); transition: transform .25s; }
+.tldr div:nth-child(1) { background: var(--note-pink); transform: rotate(-1.2deg); }
+.tldr div:nth-child(2) { background: var(--note-blue); transform: rotate(0.8deg); }
+.tldr div:nth-child(3) { background: var(--note-mint); transform: rotate(-0.6deg); }
+.tldr div:hover { transform: rotate(0) translateY(-3px); }
+.tldr dt { font: 700 22px/1 var(--hand); letter-spacing: 0; text-transform: none; color: var(--fg); }
+.tldr dd { color: var(--fg); font-size: 14.5px; margin-top: 6px; }
+@media (prefers-reduced-motion: reduce) { .tldr div { transition: none; } }
+"""
+
 JS = SRC[SRC.index("<script>") + 8:SRC.index("</script>")]
 
 
@@ -170,8 +288,11 @@ def js_wrap(start_comment, end_comment, guard):
     JS = JS[:i] + "if (" + guard + ") {\n  " + JS[i:j].rstrip() + "\n  }\n\n  " + JS[j:]
 
 
-# Remember the chosen theme between pages.
-js_replace('root.setAttribute("data-theme", cur === "dark" ? "light" : "dark");',
+# No theme toggle any more: one light look.
+i = JS.index("  /* Theme */"); j = JS.index("  /* Work filter */")
+JS = JS[:i] + JS[j:]
+# Remember the chosen theme between pages (kept harmless if the button is absent).
+if False: js_replace('root.setAttribute("data-theme", cur === "dark" ? "light" : "dark");',
            'var next = cur === "dark" ? "light" : "dark"; root.setAttribute("data-theme", next);\n'
            '    try { localStorage.setItem("theme", next); } catch (e) {}')
 # Work filter: the demo filter sends visitors straight to the demo tab.
@@ -216,6 +337,14 @@ NAV_JS = """
     $$("a", ddMenu).forEach(function (a) { a.addEventListener("click", function () { setDd(false); }); });
   }
 
+  /* Board lane counts follow the work filter */
+  var board = $(".board");
+  if (board) $$(".filters button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      setTimeout(function () { $$(".lane", board).forEach(function (l) { $(".count", l).textContent = $$(".tile:not([hidden])", l).length; }); }, 0);
+    });
+  });
+
   /* Phone menu */
   var menuBtn = $("#menuBtn"), mobileMenu = $("#mobileMenu");
   if (menuBtn && mobileMenu) {
@@ -249,8 +378,7 @@ items += [
     '    { l: "About and how I work", g: "Page", page: "about.html" }',
     '    { l: "Contact details", g: "Section", h: "#contact" }',
     '    { l: "Copy email address", g: "Action", act: "email" }',
-    '    { l: "Open LinkedIn profile", g: "Link", url: "https://www.linkedin.com/in/ajanthsrik/" }',
-    '    { l: "Switch light or dark mode", g: "Action", act: "theme" }',
+    '    { l: "Open LinkedIn profile", g: "Link", url: "https://www.linkedin.com/in/ajanthsrik/" }'
 ]
 JS = JS[:i] + "  var ROOT = document.body.getAttribute(\"data-root\") || \"\";\n  var ITEMS = [\n" + ",\n".join(items) + "\n  ];" + JS[j:]
 js_replace('    if (x.act === "theme") { $("#themeBtn").click(); return; }',
@@ -258,10 +386,12 @@ js_replace('    if (x.act === "theme") { $("#themeBtn").click(); return; }',
            '    if (x.act === "theme") { $("#themeBtn").click(); return; }')
 
 SPRITE = block('<svg width="0" height="0"', "</svg>")
-CONTACT = section_by_id("contact")
+CONTACT = section_by_id("contact").replace('<div class="contact-card">', '<div class="contact-card pinned">')
 TAIL = SRC[SRC.index("<footer>"):SRC.index("<script>")]
-HEAD_LINKS = re.search(r'<link rel="preconnect".*?display=swap">', SRC, re.S).group(0)
-FAVICON = re.search(r'<link rel="icon"[^>]*>', SRC).group(0)
+HEAD_LINKS = """<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Caveat:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">"""
+FAVICON = re.search(r'<link rel="icon"[^>]*>', SRC).group(0).replace("fill='%237F56D9'", "fill='%23FFE27A'").replace("fill='white'", "fill='%231D1D1B'")
 
 
 PERSONAL = {"preppo", "tamil"}
@@ -314,7 +444,6 @@ def shell(root, title, desc, body, current=None, tool=None):
     </nav>
     <div class="spacer"></div>
     <button class="search" type="button" id="openPalette" aria-label="Search the portfolio"><svg class="i"><use href="#i-search"/></svg><span>Jump to a tool</span><kbd>⌘K</kbd></button>
-    <button class="btn icon" type="button" id="themeBtn" aria-label="Switch light or dark mode"><svg class="i"><use href="#i-moon"/></svg></button>
     <a class="btn primary cv" href="#contact">Get in touch</a>
     <button class="btn icon menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><svg class="i"><use href="#i-menu"/></svg></button>
   </div>
@@ -344,11 +473,10 @@ def shell(root, title, desc, body, current=None, tool=None):
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="website">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#7F56D9">
+<meta name="theme-color" content="#FAFAF8">
 {FAVICON}
 {HEAD_LINKS}
 <link rel="stylesheet" href="{root}assets/site.css">
-<script>try {{ var t = localStorage.getItem("theme"); if (t) document.documentElement.setAttribute("data-theme", t); }} catch (e) {{}}</script>
 </head>
 <body data-root="{root}">
 {SPRITE}
@@ -375,12 +503,39 @@ hero = block('<section class="hero">', "</section>")
 hero = hero.replace('<span class="grad">builds the product.</span>',
                     '<span class="grad scribble-wrap">builds the product.<svg class="scribble" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true">'
                     '<path d="M3 17 C 70 6, 160 4, 297 12 M 40 21 C 110 14, 200 13, 270 17"/></svg></span>')
+hero = hero.replace('<aside class="profile"', '<aside class="profile pinned"')
 metrics = SRC[SRC.index('<div class="container">\n    <div class="metrics">'):SRC.index('<section class="section" id="bring"')].rstrip()
 work = section_by_id("work")
 for cid, slug, demo in TOOLS:
     work = work.replace(f'<a class="tile" href="#{cid}"', f'<a class="tile" href="work/{slug}.html" data-href="work/{slug}.html"')
     work = work.replace(f'<a class="tile wide" href="#{cid}"', f'<a class="tile wide" href="work/{slug}.html" data-href="work/{slug}.html"')
 assert 'href="#' not in re.sub(r'href="#i-', "", work), "a tile still points at an in page anchor"
+
+# Rebuild the grid as a product board: lanes by status, tools as sticky notes.
+LANES = [("spec", "Spec", ["In progress"]), ("pilot", "Pilot", ["Pilot"]),
+         ("use", "In use", ["In use"]), ("live", "Live", ["In production", "Live beta"])]
+notes = {}
+for m in re.finditer(r'<a class="tile[^"]*" href="(work/[\w-]+\.html)" data-href="[^"]+" data-group="([^"]+)">(.*?)</a>', work, re.S):
+    href, group, inner = m.groups()
+    status = re.search(r'<span class="badge \w+"><span class="dot"></span>([^<]+)</span>', inner).group(1)
+    title = re.search(r"<h3>(.*?)</h3>", inner).group(1)
+    result = re.search(r'<p class="result">(.*?)</p>', inner).group(1)
+    tags = re.search(r'<div class="tags">(.*?)</div>', inner, re.S).group(1)
+    where = "Personal" if "personal" in group else "Efficio"
+    notes.setdefault(status, []).append(
+        f'<a class="tile note" href="{href}" data-href="{href}" data-group="{group}">'
+        f'<span class="where">{where} · {status}</span><h3>{title}</h3><p class="result">{result}</p>'
+        f'<div class="tags">{tags}</div><span class="go">Open case study<svg class="i"><use href="#i-arrow"/></svg></span></a>')
+lanes_html = ""
+for key, label, statuses in LANES:
+    items = [n for st in statuses for n in notes.get(st, [])]
+    lanes_html += (f'<div class="lane lane-{key}"><div class="lane-head"><h3>{label}</h3><span class="count">{len(items)}</span></div>'
+                   + "".join(items) + "</div>")
+assert sum(len(v) for v in notes.values()) == len(TOOLS), "every tool should be on the board"
+work = re.sub(r'<div class="grid" id="tiles">.*?</div>\s*</div>\s*</section>',
+              lambda m: f'<p class="board-note">Pick a sticky note to open its case study</p>\n      <div class="board" id="tiles">{lanes_html}</div>\n    </div>\n  </section>',
+              work, flags=re.S)
+assert 'class="board"' in work
 
 arrow = '<li class="arrow" aria-hidden="true"><svg class="i"><use href="#i-arrow"/></svg></li>'
 stage = lambda icon, label: f'<li><span class="icon-tile"><svg class="i"><use href="#{icon}"/></svg></span>{label}</li>'
@@ -444,7 +599,7 @@ about = shell("", f"About | {NAME}",
 pages = {"index.html": home, "about.html": about}
 for n, (cid, slug, demo) in enumerate(TOOLS):
     art = article(cid)
-    art = art.replace("<h3>", "<h1>", 1).replace("</h3>", "</h1>", 1)
+    art = art.replace("<h3>", "<h1>", 1).replace("</h3>", "</h1>", 1).replace('<article class="case"', '<article class="case pinned"', 1)
     prev_cid, prev_slug, _ = TOOLS[n - 1]
     next_cid, next_slug, _ = TOOLS[(n + 1) % len(TOOLS)]
     t = INFO[cid]

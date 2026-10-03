@@ -7,14 +7,6 @@
   var toastT;
   function toast(msg) { $("#toastMsg").textContent = msg; $("#toast").hidden = false; clearTimeout(toastT); toastT = setTimeout(function () { $("#toast").hidden = true; }, 1800); }
 
-  /* Theme */
-  $("#themeBtn").addEventListener("click", function () {
-    var root = document.documentElement;
-    var cur = root.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    var next = cur === "dark" ? "light" : "dark"; root.setAttribute("data-theme", next);
-    try { localStorage.setItem("theme", next); } catch (e) {}
-  });
-
   /* Work filter */
   $$(".filters button").forEach(function (b) {
     b.addEventListener("click", function () {
@@ -215,8 +207,7 @@
     { l: "About and how I work", g: "Page", page: "about.html" },
     { l: "Contact details", g: "Section", h: "#contact" },
     { l: "Copy email address", g: "Action", act: "email" },
-    { l: "Open LinkedIn profile", g: "Link", url: "https://www.linkedin.com/in/ajanthsrik/" },
-    { l: "Switch light or dark mode", g: "Action", act: "theme" }
+    { l: "Open LinkedIn profile", g: "Link", url: "https://www.linkedin.com/in/ajanthsrik/" }
   ];
   var sel = 0, filtered = ITEMS;
   function openP() { $("#overlay").hidden = false; $("#pq").value = ""; filterP(); setTimeout(function () { $("#pq").focus(); }, 0); }
@@ -275,6 +266,14 @@
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !ddMenu.hidden) { setDd(false); ddBtn.focus(); } });
     $$("a", ddMenu).forEach(function (a) { a.addEventListener("click", function () { setDd(false); }); });
   }
+
+  /* Board lane counts follow the work filter */
+  var board = $(".board");
+  if (board) $$(".filters button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      setTimeout(function () { $$(".lane", board).forEach(function (l) { $(".count", l).textContent = $$(".tile:not([hidden])", l).length; }); }, 0);
+    });
+  });
 
   /* Phone menu */
   var menuBtn = $("#menuBtn"), mobileMenu = $("#mobileMenu");
