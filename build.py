@@ -566,7 +566,7 @@ teaser = f"""<section class="section alt" id="approach">
       <div class="head">
         <p class="eyebrow">How I work</p>
         <h2>How I take a feature from idea to live</h2>
-        <p class="sub">The process I follow for every new feature, plus what I bring, where I work and how I make product calls.</p>
+        <p class="sub">The process I follow for every feature. The About page covers what I bring and how I make product calls.</p>
       </div>
       <ol class="flowrow">
         {stage('i-file', 'Specify')}{arrow}{stage('i-pen', 'Prototype')}{arrow}{stage('i-users', 'Test')}{arrow}{stage('i-rocket', 'Build')}

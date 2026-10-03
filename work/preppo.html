@@ -57,9 +57,9 @@
       <div class="dd" id="workDd">
         <button class="dd-btn current" type="button" aria-expanded="false" aria-controls="workMenu">Work<svg class="i"><use href="#i-chev"/></svg></button>
         <div class="dd-menu" id="workMenu" hidden>
-          <div class="dd-col"><p class="dd-h">At Efficio</p><a class="dd-item" href="../work/contract-analysis.html"><span class="icon-tile"><svg class="i"><use href="#i-file"/></svg></span><span><b>AI contract analysis</b><small>Review cut from a day or two to about an hour and a half, saving around 300 hours a week.</small></span></a>
-<a class="dd-item" href="../work/market-intelligence.html"><span class="icon-tile"><svg class="i"><use href="#i-chart"/></svg></span><span><b>Market Intelligence</b><small>Reports that took days by hand, now self served. Around 400 so far.</small></span></a>
-<a class="dd-item" href="../work/backlog-hub.html"><span class="icon-tile"><svg class="i"><use href="#i-list"/></svg></span><span><b>Backlog Prioritisation Hub</b><small>Shorter refinement and faster triage, with a voting mode for the engagement team.</small></span></a>
+          <div class="dd-col"><p class="dd-h">At Efficio</p><a class="dd-item" href="../work/contract-analysis.html"><span class="icon-tile"><svg class="i"><use href="#i-file"/></svg></span><span><b>AI contract analysis</b><small>Contract review down from a day or more to about 1.5 hours, saving around 300 consultant hours a week.</small></span></a>
+<a class="dd-item" href="../work/market-intelligence.html"><span class="icon-tile"><svg class="i"><use href="#i-chart"/></svg></span><span><b>Market Intelligence</b><small>Reports that took days to write by hand are now self serve. Around 400 generated so far.</small></span></a>
+<a class="dd-item" href="../work/backlog-hub.html"><span class="icon-tile"><svg class="i"><use href="#i-list"/></svg></span><span><b>Backlog Prioritisation Hub</b><small>Shorter refinement and faster triage, with anonymous voting for the engagement team.</small></span></a>
 <a class="dd-item" href="../work/supplier-framework.html"><span class="icon-tile"><svg class="i"><use href="#i-search"/></svg></span><span><b>Supplier Framework</b><small>537 suppliers across 73 public sector frameworks, searchable in one place.</small></span></a>
 <a class="dd-item" href="../work/po-toolkit.html"><span class="icon-tile"><svg class="i"><use href="#i-layers"/></svg></span><span><b>AI Product Owner Toolkit</b><small>Used by Product Owners across Efficio, from stories to retrospectives.</small></span></a></div>
           <div class="dd-col"><p class="dd-h">Personal</p><a class="dd-item" href="../work/preppo.html" aria-current="page"><span class="icon-tile"><svg class="i"><use href="#i-chat"/></svg></span><span><b>PrepPO</b><small>AI interview coach for Product Owners, live and free.</small></span></a>
@@ -138,15 +138,15 @@
               </div>
               <div class="chat" id="chat"></div>
               <div class="demo-bar" style="border-top:1px solid var(--line);border-bottom:0"><span style="font-size:14px;color:var(--fg-2)" id="chatCount">Turn 1 of 5</span><span style="display:flex;gap:8px"><button class="btn sm" type="button" id="chatAll">Show all</button><button class="btn primary sm" type="button" id="chatNext">Next turn</button></span></div>
-              <p class="demo-note">The coaching plan for each round, taken from the PrepPO code. The live tool tailors every question to your CV and the job.</p>
+              <p class="demo-note">The coaching plan for each round, taken from the PrepPO code.</p>
             </div>
           </div>
           <div class="panel" data-panel="how" hidden>
             <ol class="timeline">
-              <li><span class="n">1</span><div><h5>Upload</h5><p>A CV as PDF, Word or text, plus the job description pasted or fetched from its link with Gemini and Google Search.</p></div></li>
+              <li><span class="n">1</span><div><h5>Upload</h5><p>Add a CV as PDF, Word or text, then paste the job description or its link. PrepPO fetches the posting using Gemini with Google Search.</p></div></li>
               <li><span class="n">2</span><div><h5>Brief</h5><p>PrepPO reads the CV first: strongest experiences, every metric, and the two biggest gaps against the job.</p></div></li>
               <li><span class="n">3</span><div><h5>Coach</h5><p>A five turn conversation tailored to the round, with suggested answers built from what you have already said.</p></div></li>
-              <li><span class="n">4</span><div><h5>Cheat sheet</h5><p>Streams in: STAR stories, gap analysis with suggested wording, likely questions and company research.</p></div></li>
+              <li><span class="n">4</span><div><h5>Cheat sheet</h5><p>The sheet streams in with STAR stories, a gap analysis with suggested wording, likely questions and company research.</p></div></li>
               <li><span class="n">5</span><div><h5>Practise</h5><p>A mock interview based on your sheet, and a PDF download.</p></div></li>
             </ol>
           </div>
@@ -155,7 +155,7 @@
               <div class="part"><h4>How I built it</h4>
                 <ul class="checks">
                   <li>Solo, from spec to live product.</li>
-                  <li>Designed for a public beta: no signup, limits on how often each user can call the AI, and automated tests.</li>
+                  <li>Covered by automated tests.</li>
                   <li>The paid version is already specified, with accounts and payments.</li>
                 </ul>
                 <h4 style="margin-top:20px">Product decisions for the beta</h4>
