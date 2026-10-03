@@ -4,20 +4,378 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ajanth Sri Kathirkamanthan | Product Owner</title>
-<meta name="description" content="Product Owner in London who builds the product. Seven tools, how they work and what they changed.">
+<meta name="description" content="Product Owner in London who builds the product. Case studies of seven tools, from AI contract analysis to an interview coach for Product Owners.">
 <meta property="og:title" content="Ajanth Sri Kathirkamanthan | Product Owner">
-<meta property="og:description" content="Product Owner in London who builds the product. Seven tools, how they work and what they changed.">
+<meta property="og:description" content="A Product Owner who builds the product. Seven tools, how they work and what they changed.">
 <meta property="og:type" content="website">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#7F56D9">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%237F56D9'/%3E%3Ctext x='16' y='21' font-family='Arial,sans-serif' font-size='13' font-weight='700' fill='white' text-anchor='middle'%3EAS%3C/text%3E%3C/svg%3E">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/site.css">
-<script>try { var t = localStorage.getItem("theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch (e) {}</script>
+<style>
+/* Layout: Untitled UI inspired. Sticky bar with command palette; hero over a faded grid with profile card; metric cards; approach steps; filterable work grid; case studies as tabbed cards with live sample demos; contact card; toast. */
+:root {
+  --bg: #FFFFFF;
+  --bg-2: #F9FAFB;
+  --bg-3: #F2F4F7;
+  --line: #EAECF0;
+  --line-2: #D0D5DD;
+  --fg: #101828;
+  --fg-2: #475467;
+  --fg-3: #667085;
+  --brand: #7F56D9;
+  --brand-strong: #6941C6;
+  --brand-soft: #F9F5FF;
+  --brand-ring: #E9D7FE;
+  --ok: #067647; --ok-bg: #ECFDF3; --ok-line: #ABEFC6;
+  --warn: #B54708; --warn-bg: #FFFAEB; --warn-line: #FEDF89;
+  --bad: #B42318; --bad-bg: #FEF3F2; --bad-line: #FECDCA;
+  --shadow-xs: 0 1px 2px rgba(16,24,40,.05);
+  --shadow-md: 0 4px 8px -2px rgba(16,24,40,.10), 0 2px 4px -2px rgba(16,24,40,.06);
+  --shadow-xl: 0 20px 24px -4px rgba(16,24,40,.08), 0 8px 8px -4px rgba(16,24,40,.03);
+  --sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0C111D; --bg-2: #161B26; --bg-3: #1F242F; --line: #1F242F; --line-2: #333741;
+    --fg: #F5F5F6; --fg-2: #CECFD2; --fg-3: #94969C;
+    --brand: #9E77ED; --brand-strong: #B692F6; --brand-soft: #1F1638; --brand-ring: #3E2A78;
+    --ok: #75E0A7; --ok-bg: #053321; --ok-line: #085D3A;
+    --warn: #FEC84B; --warn-bg: #4E1D09; --warn-line: #93370D;
+    --bad: #FDA29B; --bad-bg: #55160C; --bad-line: #912018;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,.3); --shadow-md: 0 4px 8px -2px rgba(0,0,0,.4); --shadow-xl: 0 20px 24px -4px rgba(0,0,0,.5);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0C111D; --bg-2: #161B26; --bg-3: #1F242F; --line: #1F242F; --line-2: #333741;
+  --fg: #F5F5F6; --fg-2: #CECFD2; --fg-3: #94969C;
+  --brand: #9E77ED; --brand-strong: #B692F6; --brand-soft: #1F1638; --brand-ring: #3E2A78;
+  --ok: #75E0A7; --ok-bg: #053321; --ok-line: #085D3A;
+  --warn: #FEC84B; --warn-bg: #4E1D09; --warn-line: #93370D;
+  --bad: #FDA29B; --bad-bg: #55160C; --bad-line: #912018;
+  --shadow-xs: 0 1px 2px rgba(0,0,0,.3); --shadow-md: 0 4px 8px -2px rgba(0,0,0,.4); --shadow-xl: 0 20px 24px -4px rgba(0,0,0,.5);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: 84px; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.container { max-width: 1216px; margin: 0 auto; padding-inline: 24px; }
+h1, h2, h3, h4 { margin: 0; line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; font-weight: 600; }
+p, ul, ol, dl { margin: 0; }
+a { color: var(--brand-strong); text-underline-offset: 3px; }
+button { font-family: inherit; }
+:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--brand-ring); border-radius: 8px; }
+svg.i { width: 20px; height: 20px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Buttons and badges */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: 600 14px var(--sans); padding: 10px 16px; border-radius: 8px; border: 1px solid var(--line-2); background: var(--bg); color: var(--fg-2); box-shadow: var(--shadow-xs); text-decoration: none; cursor: pointer; white-space: nowrap; transition: background .15s, border-color .15s; }
+.btn:hover { background: var(--bg-2); color: var(--fg); }
+.btn.primary { background: var(--brand); border-color: var(--brand); color: #fff; }
+.btn.primary:hover { background: var(--brand-strong); border-color: var(--brand-strong); }
+.btn.sm { padding: 6px 12px; font-size: 13px; }
+.btn.icon { padding: 9px; }
+.btn[disabled] { opacity: .55; cursor: default; }
+.badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; padding: 2px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg-2); color: var(--fg-2); white-space: nowrap; line-height: 1.5; }
+.badge .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.badge.ok { background: var(--ok-bg); border-color: var(--ok-line); color: var(--ok); }
+.badge.warn { background: var(--warn-bg); border-color: var(--warn-line); color: var(--warn); }
+.badge.bad { background: var(--bad-bg); border-color: var(--bad-line); color: var(--bad); }
+.badge.brand { background: var(--brand-soft); border-color: var(--brand-ring); color: var(--brand-strong); }
+.eyebrow { font-size: 14px; font-weight: 600; color: var(--brand-strong); }
+kbd { font: 500 11px var(--mono); padding: 1px 6px; border: 1px solid var(--line-2); border-bottom-width: 2px; border-radius: 5px; color: var(--fg-3); background: var(--bg); }
+.icon-tile { width: 48px; height: 48px; border-radius: 10px; display: grid; place-items: center; background: var(--brand-soft); color: var(--brand-strong); box-shadow: 0 0 0 6px color-mix(in srgb, var(--brand-soft) 50%, transparent); flex: none; }
+
+/* Topbar */
+.topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid var(--line); }
+.topbar .container { display: flex; align-items: center; gap: 16px; height: 68px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--fg); text-decoration: none; white-space: nowrap; }
+.logo { width: 32px; height: 32px; border-radius: 8px; background: var(--brand); color: #fff; display: grid; place-items: center; font-size: 13px; font-weight: 700; letter-spacing: 0; }
+.nav { display: flex; gap: 4px; margin-left: 16px; }
+.nav a { color: var(--fg-2); text-decoration: none; font-weight: 600; font-size: 15px; padding: 8px 12px; border-radius: 6px; }
+.nav a:hover { background: var(--bg-2); color: var(--fg); }
+.spacer { flex: 1; }
+.search { display: flex; align-items: center; gap: 8px; min-width: 220px; padding: 8px 10px 8px 12px; border: 1px solid var(--line-2); border-radius: 8px; background: var(--bg); color: var(--fg-3); font-size: 14px; cursor: pointer; box-shadow: var(--shadow-xs); }
+.search span { flex: 1; text-align: left; }
+
+/* Hero */
+.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+.hero::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 48px 48px; -webkit-mask-image: radial-gradient(ellipse 70% 60% at 30% 20%, #000 20%, transparent 75%); mask-image: radial-gradient(ellipse 70% 60% at 30% 20%, #000 20%, transparent 75%); pointer-events: none; }
+.hero .container { position: relative; padding-block: 88px 72px; display: grid; grid-template-columns: minmax(0,1.5fr) minmax(0,1fr); gap: 64px; align-items: center; }
+.pill { display: inline-flex; align-items: center; gap: 8px; padding: 4px 10px 4px 4px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--bg); font-size: 14px; font-weight: 500; color: var(--fg-2); box-shadow: var(--shadow-xs); }
+.pill .badge { padding: 0 8px; }
+.pulse { position: relative; }
+.pulse::after { content: ""; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid currentColor; opacity: 0; animation: ping 2s infinite; }
+@keyframes ping { 0% { transform: scale(.6); opacity: .6; } 100% { transform: scale(1.8); opacity: 0; } }
+.hero h1 { font-size: clamp(40px, 5.6vw, 60px); letter-spacing: -0.035em; line-height: 1.1; margin-top: 24px; }
+.hero h1 .grad { color: var(--brand); }
+.hero .lede { font-size: 20px; color: var(--fg-2); max-width: 32em; margin-top: 24px; line-height: 1.55; }
+.hero .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
+.hero .actions .btn { padding: 12px 20px; font-size: 16px; }
+
+.profile { background: var(--bg); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow-xl); overflow: hidden; }
+.profile .cover { height: 88px; background: linear-gradient(135deg, var(--brand-soft), var(--bg-3)); border-bottom: 1px solid var(--line); }
+.profile .body { padding: 0 24px 24px; display: flex; flex-direction: column; gap: 18px; }
+.avatar { width: 80px; height: 80px; border-radius: 50%; border: 4px solid var(--bg); box-shadow: var(--shadow-md); background: var(--brand-soft); color: var(--brand-strong); display: grid; place-items: center; font-size: 26px; font-weight: 600; margin-top: -40px; }
+.profile .name { font-size: 18px; font-weight: 600; }
+.profile .role { color: var(--fg-3); font-size: 14px; }
+.facts { display: flex; flex-direction: column; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 14px; }
+.facts div { display: flex; gap: 10px; color: var(--fg-2); }
+.facts svg { color: var(--fg-3); width: 18px; height: 18px; margin-top: 2px; }
+
+/* Metrics */
+.metrics { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 24px; padding-block: 64px; }
+.metric { border: 1px solid var(--line); border-radius: 12px; padding: 24px; box-shadow: var(--shadow-xs); display: flex; flex-direction: column; gap: 8px; background: var(--bg); }
+.metric p:first-child { font-size: 14px; font-weight: 500; color: var(--fg-3); }
+.metric .num { font-size: clamp(28px, 3vw, 36px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.metric .sub { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--fg-2); }
+.metric .sub b { color: var(--fg); font-weight: 600; }
+
+/* Sections */
+.section { padding-block: 96px; }
+.section.alt { background: var(--bg-2); border-block: 1px solid var(--line); }
+.head { display: flex; flex-direction: column; gap: 12px; max-width: 46em; margin-bottom: 48px; }
+.head h2 { font-size: clamp(30px, 3.6vw, 36px); letter-spacing: -0.02em; }
+.head p.sub { font-size: 20px; color: var(--fg-2); line-height: 1.5; }
+
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 32px; list-style: none; padding: 0; }
+.steps li { display: flex; flex-direction: column; gap: 16px; }
+.steps h3 { font-size: 20px; }
+.steps p { color: var(--fg-2); }
+.steps .k { font: 500 12px var(--mono); color: var(--fg-3); }
+
+/* Work grid */
+.filters { display: inline-flex; padding: 4px; gap: 4px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px; margin-bottom: 32px; }
+.filters button { font: 600 14px var(--sans); color: var(--fg-3); background: transparent; border: 0; padding: 8px 14px; border-radius: 6px; cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--bg); color: var(--fg); box-shadow: var(--shadow-xs); }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 24px; }
+.tile { position: relative; display: flex; flex-direction: column; gap: 14px; padding: 24px; border: 1px solid var(--line); border-radius: 16px; background: var(--bg); text-decoration: none; color: var(--fg); box-shadow: var(--shadow-xs); transition: box-shadow .2s, transform .2s, border-color .2s; }
+.tile:hover { box-shadow: var(--shadow-xl); transform: translateY(-3px); border-color: var(--line-2); }
+.tile.wide { grid-column: span 2; }
+@media (max-width: 1024px) { .tile.wide { grid-column: auto; } }
+.tile .top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.tile h3 { font-size: 20px; }
+.tile .result { color: var(--fg-2); flex: 1; }
+.tile .foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 14px; font-weight: 600; color: var(--brand-strong); }
+.tile .foot svg { transition: transform .2s; }
+.tile:hover .foot svg { transform: translateX(4px); }
+.tile .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* Case cards */
+.cases { display: flex; flex-direction: column; gap: 40px; }
+.case { border: 1px solid var(--line); border-radius: 20px; background: var(--bg); box-shadow: var(--shadow-md); overflow: hidden; scroll-margin-top: 84px; }
+.case-head { padding: 32px 32px 0; display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 24px; align-items: start; }
+.case-head .title { display: flex; gap: 16px; align-items: flex-start; }
+.case-head h3 { font-size: 30px; letter-spacing: -0.025em; }
+.case-head .summary { color: var(--fg-2); font-size: 17px; max-width: 44em; margin-top: 8px; }
+.case-head .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; padding: 28px 32px 0; }
+.kpi { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+.kpi p:first-child { font-size: 13px; font-weight: 500; color: var(--fg-3); }
+.kpi .num { font-size: 26px; font-weight: 600; letter-spacing: -0.02em; color: var(--fg); margin-top: 4px; font-variant-numeric: tabular-nums; }
+.kpi p:last-child { font-size: 13px; color: var(--fg-2); }
+.tabbar { display: flex; gap: 4px; padding: 0 32px; margin-top: 28px; border-bottom: 1px solid var(--line); overflow-x: auto; }
+.tabbar button { font: 600 14px var(--sans); color: var(--fg-3); background: none; border: 0; border-bottom: 2px solid transparent; padding: 12px 4px; margin-right: 16px; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
+.tabbar button:hover { color: var(--fg-2); }
+.tabbar button[aria-selected="true"] { color: var(--brand-strong); border-bottom-color: var(--brand); }
+.tabbar .new { font-size: 11px; padding: 0 6px; }
+.panel { padding: 32px; }
+.panel[hidden] { display: none; }
+.panel.fade { animation: fade .25s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 32px 48px; }
+.part { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.part h4 { font-size: 16px; }
+.part p, .part li { color: var(--fg-2); }
+.checks { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.checks li { display: grid; grid-template-columns: 22px minmax(0,1fr); gap: 10px; }
+.checks li::before { content: ""; width: 22px; height: 22px; border-radius: 50%; background: var(--brand-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237F56D9' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / 12px no-repeat; margin-top: 1px; }
+.stack { display: grid; grid-template-columns: 120px minmax(0,1fr); gap: 12px 20px; align-items: baseline; }
+.stack dt { font-size: 14px; font-weight: 500; color: var(--fg-3); }
+.stack dd { margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 500 13px var(--mono); padding: 3px 9px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg-2); color: var(--fg); }
+.callout { display: flex; gap: 14px; padding: 18px; border-radius: 12px; border: 1px solid var(--brand-ring); background: var(--brand-soft); }
+.callout h4 { color: var(--brand-strong); font-size: 15px; }
+.callout p { color: var(--fg-2); font-size: 15px; margin-top: 4px; }
+.callout.warn { border-color: var(--warn-line); background: var(--warn-bg); }
+.callout.warn h4 { color: var(--warn); }
+
+.timeline { list-style: none; padding: 0; display: flex; flex-direction: column; }
+.timeline li { display: grid; grid-template-columns: 40px minmax(0,1fr); gap: 16px; position: relative; padding-bottom: 24px; }
+.timeline li:last-child { padding-bottom: 0; }
+.timeline li::after { content: ""; position: absolute; left: 19px; top: 44px; bottom: 4px; width: 2px; background: var(--line); border-radius: 2px; }
+.timeline li:last-child::after { display: none; }
+.timeline .n { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--brand); color: var(--brand-strong); display: grid; place-items: center; font-weight: 600; font-size: 14px; background: var(--bg); box-shadow: 0 0 0 4px var(--brand-soft); }
+.timeline h5 { margin: 0; font-size: 16px; font-weight: 600; }
+.timeline p { color: var(--fg-2); margin-top: 2px; }
+
+/* Demos */
+.demo { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--bg); }
+.demo-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 18px; background: var(--bg-2); border-bottom: 1px solid var(--line); }
+.demo-bar .l { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 14px; }
+.demo-note { font-size: 13px; color: var(--fg-3); padding: 12px 18px; border-top: 1px solid var(--line); background: var(--bg-2); }
+.table-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { text-align: left; font-weight: 500; font-size: 12px; color: var(--fg-3); padding: 12px 18px; border-bottom: 1px solid var(--line); background: var(--bg); white-space: nowrap; }
+td { padding: 14px 18px; border-bottom: 1px solid var(--line); vertical-align: middle; color: var(--fg-2); }
+tr:last-child td { border-bottom: 0; }
+td.clause { color: var(--fg); font-weight: 500; white-space: nowrap; }
+.progress { height: 6px; background: var(--bg-3); border-radius: 999px; overflow: hidden; }
+.progress div { height: 100%; width: 0; background: var(--brand); border-radius: 999px; transition: width .3s ease; }
+.runlog { padding: 14px 18px; display: flex; flex-direction: column; gap: 10px; border-bottom: 1px solid var(--line); }
+.runlog p { font: 13px var(--mono); color: var(--fg-2); }
+.summary-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 14px 18px; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--fg-2); }
+.linkbtn { background: none; border: 0; color: var(--brand-strong); font: 600 13px var(--sans); cursor: pointer; padding: 0; white-space: nowrap; }
+
+.weights { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 16px 24px; align-items: center; padding: 18px; border-bottom: 1px solid var(--line); }
+.weights label { font-size: 14px; font-weight: 500; color: var(--fg); display: flex; justify-content: space-between; gap: 12px; }
+.weights label span { color: var(--fg-3); font-weight: 400; font-variant-numeric: tabular-nums; }
+input[type=range] { width: 100%; accent-color: var(--brand); margin-top: 8px; }
+.seg { display: inline-flex; padding: 3px; gap: 3px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 8px; }
+.seg button { font: 600 13px var(--sans); color: var(--fg-3); background: none; border: 0; padding: 6px 10px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--bg); color: var(--fg); box-shadow: var(--shadow-xs); }
+.rank { list-style: none; padding: 0; }
+.rank li { display: grid; grid-template-columns: 32px minmax(0,1fr) auto; gap: 14px; align-items: center; padding: 12px 18px; border-bottom: 1px solid var(--line); background: var(--bg); }
+.rank li:last-child { border-bottom: 0; }
+.rank .pos { font: 600 13px var(--mono); color: var(--fg-3); text-align: center; }
+.rank .t { font-weight: 500; color: var(--fg); font-size: 14px; }
+.rank .m { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.rank .score { font: 600 14px var(--mono); color: var(--brand-strong); font-variant-numeric: tabular-nums; }
+
+.chat { padding: 20px 18px; display: flex; flex-direction: column; gap: 14px; }
+.msg { display: grid; grid-template-columns: 36px minmax(0,1fr); gap: 12px; align-items: start; }
+.msg .av { width: 36px; height: 36px; border-radius: 50%; background: var(--brand); color: #fff; display: grid; place-items: center; font-size: 12px; font-weight: 700; }
+.msg .meta { font-size: 13px; color: var(--fg-3); }
+.msg .meta b { color: var(--fg); font-weight: 600; margin-right: 6px; }
+.bubble { margin-top: 4px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 0 10px 10px 10px; padding: 10px 14px; color: var(--fg); font-size: 15px; }
+.msg.sheet .bubble { background: var(--brand-soft); border-color: var(--brand-ring); }
+.modules { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+.module { border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; background: var(--bg); }
+.module h4 { font-size: 16px; }
+.module p { color: var(--fg-2); font-size: 15px; }
+
+/* Contact */
+.contact-card { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 48px; padding: 48px; border-radius: 24px; background: var(--bg-2); border: 1px solid var(--line); }
+.contact-card h2 { font-size: clamp(30px, 3.6vw, 36px); }
+.contact-card .sub { color: var(--fg-2); font-size: 18px; margin-top: 12px; max-width: 28em; }
+.contact-card .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.contact-list { display: flex; flex-direction: column; gap: 12px; }
+.citem { display: grid; grid-template-columns: 40px minmax(0,1fr) auto; gap: 14px; align-items: center; padding: 14px 16px; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-xs); }
+.citem .ic { width: 40px; height: 40px; border-radius: 8px; border: 1px solid var(--line); display: grid; place-items: center; color: var(--fg-2); }
+.citem .k { font-size: 13px; color: var(--fg-3); }
+.citem .v { font-weight: 500; color: var(--fg); overflow-wrap: anywhere; }
+footer { border-top: 1px solid var(--line); color: var(--fg-3); font-size: 14px; }
+footer .container { padding-block: 32px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+/* Command palette */
+.overlay { position: fixed; inset: 0; z-index: 50; background: rgba(12,17,29,.55); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: flex-start; padding: 12vh 16px 16px; }
+.palette { width: 100%; max-width: 560px; background: var(--bg); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-xl); overflow: hidden; animation: pop .15s ease; }
+@keyframes pop { from { opacity: 0; transform: scale(.98); } to { opacity: 1; transform: none; } }
+.palette .in { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--line); color: var(--fg-3); }
+.palette input { flex: 1; border: 0; outline: none; background: transparent; font: 16px var(--sans); color: var(--fg); }
+.palette ul { list-style: none; padding: 6px; max-height: 340px; overflow-y: auto; }
+.palette li { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; cursor: pointer; color: var(--fg-2); font-size: 15px; }
+.palette li .grp { margin-left: auto; font-size: 12px; color: var(--fg-3); }
+.palette li[aria-selected="true"] { background: var(--bg-2); color: var(--fg); }
+.palette .empty { padding: 18px; color: var(--fg-3); font-size: 14px; }
+.palette .foot { display: flex; gap: 16px; padding: 10px 16px; border-top: 1px solid var(--line); font-size: 12px; color: var(--fg-3); background: var(--bg-2); }
+
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 60; display: flex; align-items: center; gap: 10px; background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: 10px; font-size: 14px; font-weight: 500; box-shadow: var(--shadow-xl); }
+
+
+/* Added polish */
+.scrollbar { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; right: 0; height: 3px; z-index: 30; pointer-events: none; }
+.scrollbar div { height: 100%; width: 0; background: var(--brand); }
+.nav a.active { color: var(--brand-strong); background: var(--brand-soft); }
+.stackband { border-block: 1px solid var(--line); padding-block: 28px; background: var(--bg); overflow: hidden; }
+.stackband .lbl { font-size: 14px; font-weight: 500; color: var(--fg-3); margin-bottom: 18px; text-align: center; }
+.marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.track { display: flex; width: max-content; animation: slide 45s linear infinite; }
+.marquee:hover .track { animation-play-state: paused; }
+.track ul { display: flex; gap: 12px; list-style: none; padding: 0 6px; }
+.track li { display: flex; align-items: center; gap: 10px; white-space: nowrap; height: 48px; padding: 0 18px; border: 1px solid var(--line); border-radius: 12px; background: #FFFFFF; box-shadow: var(--shadow-xs); transition: transform .2s, box-shadow .2s; }
+.track li:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.track li img { height: 24px; width: auto; display: block; }
+.track li.mark img { height: 20px; }
+.track li span { font-weight: 600; font-size: 15px; color: #344054; }
+@keyframes slide { to { transform: translateX(-50%); } }
+.disclaimer { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; margin-bottom: 16px; border-radius: 12px; border: 1px solid var(--warn-line); background: var(--warn-bg); color: var(--warn); }
+.disclaimer .t { font-weight: 600; font-size: 14px; color: var(--warn); }
+.disclaimer p:last-child { font-size: 14px; color: var(--fg-2); margin-top: 2px; }
+.case-head { background: linear-gradient(180deg, var(--brand-soft), transparent 85%); padding-bottom: 4px; }
+.case.flash { animation: flash 1.4s ease; }
+@keyframes flash { 0%, 40% { box-shadow: 0 0 0 4px var(--brand-ring), var(--shadow-md); } 100% { box-shadow: var(--shadow-md); } }
+img.li { display: block; border-radius: 4px; flex: none; }
+.totop { position: fixed; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 25; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line-2); background: var(--bg); color: var(--fg-2); box-shadow: var(--shadow-md); display: grid; place-items: center; cursor: pointer; }
+.totop:hover { color: var(--brand-strong); border-color: var(--brand-ring); }
+@media (prefers-reduced-motion: reduce) { .track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; } .track ul[aria-hidden] { display: none; } .track ul { flex-wrap: wrap; justify-content: center; } }
+
+
+.kpi-note { padding: 10px 32px 0; font-size: 13px; color: var(--fg-3); }
+@media (max-width: 720px) { .kpi-note { padding: 10px 20px 0; } }
+.tldr { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1px; margin-top: 18px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.tldr div { background: var(--bg); padding: 12px 14px; min-width: 0; }
+.tldr dt { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--brand-strong); }
+.tldr dd { margin: 4px 0 0; font-size: 14px; color: var(--fg-2); line-height: 1.5; }
+.pillars { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 24px; }
+.pillar { display: flex; flex-direction: column; gap: 14px; padding: 28px; border: 1px solid var(--line); border-radius: 16px; background: var(--bg-2); }
+.pillar h3 { font-size: 20px; }
+.pillar p { color: var(--fg-2); }
+@media (max-width: 900px) { .tldr, .pillars { grid-template-columns: minmax(0,1fr); } }
+
+
+.platform { display: grid; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); gap: 32px; align-items: start; }
+.scope { display: flex; flex-direction: column; background: var(--bg); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.scope div { display: grid; grid-template-columns: 140px minmax(0,1fr); gap: 16px; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.scope div:last-child { border-bottom: 0; }
+.scope dt { font-size: 14px; font-weight: 500; color: var(--fg-3); }
+.scope dd { margin: 0; color: var(--fg); }
+.pwins { display: flex; flex-direction: column; gap: 16px; }
+.pillars.six { grid-template-columns: repeat(3, minmax(0,1fr)); }
+.pillar.link { text-decoration: none; color: var(--fg); background: var(--bg); transition: border-color .2s, box-shadow .2s; }
+.pillar.link:hover { border-color: var(--brand-ring); box-shadow: var(--shadow-md); }
+.pillar .more { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; font-size: 14px; font-weight: 600; color: var(--brand-strong); }
+@media (max-width: 900px) { .platform, .pillars.six { grid-template-columns: minmax(0,1fr); } .scope div { grid-template-columns: minmax(0,1fr); gap: 2px; } }
+
+@media (max-width: 1024px) {
+  .hero .container { grid-template-columns: minmax(0,1fr); gap: 48px; padding-block: 64px 56px; }
+  .metrics { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .steps { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .nav { display: none; }
+}
+@media (max-width: 720px) {
+  .section { padding-block: 72px; }
+  .search { min-width: 0; }
+  .search span, .search kbd { display: none; }
+  .topbar .cv { display: none; }
+  .metrics, .steps, .grid, .cols, .modules, .contact-card { grid-template-columns: minmax(0,1fr); }
+  .metrics { gap: 16px; padding-block: 48px; }
+  .case-head { padding: 20px 20px 0; grid-template-columns: minmax(0,1fr); }
+  .case-head .title { flex-direction: column; }
+  .kpis { padding: 20px 20px 0; }
+  .tabbar { padding: 0 20px; }
+  .panel { padding: 20px; }
+  .stack { grid-template-columns: minmax(0,1fr); gap: 4px; }
+  .stack dd { margin-bottom: 10px; }
+  .weights { grid-template-columns: minmax(0,1fr); }
+  .contact-card { padding: 28px 20px; gap: 32px; }
+  .filters { display: flex; overflow-x: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .tile:hover { transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
 </head>
-<body data-root="">
+<body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></symbol>
@@ -45,13 +403,17 @@
   <symbol id="i-profile" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="10" r="3"/><path d="M7 18a5 5 0 0 1 10 0"/></symbol>
   <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></symbol>
 </svg>
+
 <div class="scrollbar" aria-hidden="true"><div id="scrollFill"></div></div>
 <header class="topbar">
   <div class="container">
-    <a class="brand" href="index.html"><span class="logo">AS</span><span>Ajanth Sri</span></a>
+    <a class="brand" href="#top"><span class="logo">AS</span><span>Ajanth Sri</span></a>
     <nav class="nav" aria-label="Main">
+      <a href="#bring">About</a>
+      <a href="#platform">Platform</a>
+      <a href="#approach">Approach</a>
       <a href="#work">Work</a>
-      <a href="about.html">About</a>
+      <a href="#cases">Case studies</a>
       <a href="#contact">Contact</a>
     </nav>
     <div class="spacer"></div>
@@ -60,12 +422,13 @@
     <a class="btn primary cv" href="#contact">Get in touch</a>
   </div>
 </header>
+
 <main id="top">
   <section class="hero">
     <div class="container">
       <div>
         <p class="eyebrow">Product Owner · London, United Kingdom</p>
-        <h1>A Product Owner who <span class="grad scribble-wrap">builds the product.<svg class="scribble" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M3 17 C 70 6, 160 4, 297 12 M 40 21 C 110 14, 200 13, 270 17"/></svg></span></h1>
+        <h1>A Product Owner who <span class="grad">builds the product.</span></h1>
         <p class="lede">I find the slow, manual parts of how people work, then specify, prototype and test a fix with users before getting a working tool live. Three of the tools below have a simple demo you can try.</p>
         <div class="actions">
           <a class="btn primary" href="#work">See the work <svg class="i"><use href="#i-arrow"/></svg></a>
@@ -101,6 +464,75 @@
     </div>
   </div>
 
+
+  <section class="section" id="bring" style="padding-top:24px">
+    <div class="container">
+      <div class="head">
+        <p class="eyebrow">What I bring</p>
+        <h2>Three things a product team gets with me</h2>
+      </div>
+      <div class="pillars">
+        <div class="pillar"><span class="icon-tile"><svg class="i"><use href="#i-star"/></svg></span><h3>AI features in production</h3><p>I have shipped AI on AWS Bedrock and Gemini, and I know when not to use it: two of my tools use plain rules because users need to trust every result.</p></div>
+        <div class="pillar"><span class="icon-tile"><svg class="i"><use href="#i-layers"/></svg></span><h3>Procurement and B2B SaaS</h3><p>Four years at Efficio working on procurement software, with consultants, client data and three engineering teams.</p></div>
+        <div class="pillar"><span class="icon-tile"><svg class="i"><use href="#i-pen"/></svg></span><h3>Evidence before engineering</h3><p>I prototype every feature in Lovable and A/B test it with users before engineering time is spent, then build or lead the build.</p></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section alt" id="platform">
+    <div class="container">
+      <div class="head">
+        <p class="eyebrow">Where I work</p>
+        <h2>Connected Platform</h2>
+        <p class="sub">A B2B SaaS procurement intelligence platform used by over 200 consultants and clients. I own backlog prioritisation and deliver features across three teams. The five Efficio tools on this page grew out of that work.</p>
+      </div>
+      <div class="platform">
+        <dl class="scope">
+          <div><dt>What I own</dt><dd>Backlog prioritisation for the platform, and delivery of the features we build</dd></div>
+          <div><dt>Teams</dt><dd>Three agile delivery teams, each with a Tech Lead, backend and frontend engineers and QA</dd></div>
+          <div><dt>Stakeholders</dt><dd>Four senior stakeholders</dd></div>
+          <div><dt>Roadmap</dt><dd>Senior leaders set the themes. I shape them with evidence from the Backlog Hub</dd></div>
+          <div><dt>At Efficio</dt><dd>Since 2022</dd></div>
+        </dl>
+        <div class="pwins">
+          <div class="metric"><p>Supplier finder adoption</p><p class="num">+26%</p><p class="sub">After two months aligning the data model across the data and platform teams, agreeing structures with senior stakeholders, then A/B testing the screens</p></div>
+          <div class="metric"><p>Backlog</p><p class="num">500+ → structured</p><p class="sub">Tickets reorganised into a working backlog</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="approach">
+    <div class="container">
+      <div class="head">
+        <p class="eyebrow">Approach</p>
+        <h2>How I take a feature from idea to live</h2>
+        <p class="sub">The process I follow for every new feature.</p>
+      </div>
+      <ol class="steps">
+        <li><span class="icon-tile"><svg class="i"><use href="#i-file"/></svg></span><span class="k">Stage 1</span><h3>Specify</h3><p>Write the requirements, API specification and acceptance criteria.</p></li>
+        <li><span class="icon-tile"><svg class="i"><use href="#i-pen"/></svg></span><span class="k">Stage 2</span><h3>Prototype</h3><p>Mock up the screens in Lovable before engineering time is spent.</p></li>
+        <li><span class="icon-tile"><svg class="i"><use href="#i-users"/></svg></span><span class="k">Stage 3</span><h3>Test</h3><p>A/B test the screens with the people who will use them.</p></li>
+        <li><span class="icon-tile"><svg class="i"><use href="#i-rocket"/></svg></span><span class="k">Stage 4</span><h3>Build</h3><p>Build it myself, or lead the team that builds it, through to production.</p></li>
+      </ol>
+      <div class="head" style="margin-top:80px">
+        <p class="eyebrow">Judgement</p>
+        <h2>How I make product calls</h2>
+        <p class="sub">Six principles, each taken from a real decision on this page.</p>
+      </div>
+      <div class="pillars six">
+        <a class="pillar link" href="#preppo"><h3>Prove demand before building</h3><p>PrepPO launched free with no signup. Payments stay specified but unbuilt until real users validate the idea.</p><span class="more">Seen in PrepPO <svg class="i"><use href="#i-arrow"/></svg></span></a>
+        <a class="pillar link" href="#contract"><h3>Prioritise by value, not volume</h3><p>Every stakeholder wanted their category first. I chose IT, telecoms and professional services because they carry the most contract value.</p><span class="more">Seen in contract analysis <svg class="i"><use href="#i-arrow"/></svg></span></a>
+        <a class="pillar link" href="#backlog"><h3>Listen to users, let evidence decide</h3><p>The engagement team votes on tickets. Votes shape priorities and roadmap signals without overriding the formal score.</p><span class="more">Seen in the Backlog Hub <svg class="i"><use href="#i-arrow"/></svg></span></a>
+        <a class="pillar link" href="#supplier"><h3>Use rules when trust matters</h3><p>Supplier matching uses exact rules, not AI. Only confirmed matches are shown, because a wrong match costs more than a missing one.</p><span class="more">Seen in Supplier Framework <svg class="i"><use href="#i-arrow"/></svg></span></a>
+        <a class="pillar link" href="#backlog"><h3>Ask for the evidence</h3><p>A feature only scores high on roadmap alignment with a named source, and every supplier listing links to where it came from.</p><span class="more">Seen in the Backlog Hub <svg class="i"><use href="#i-arrow"/></svg></span></a>
+        <a class="pillar link" href="#market"><h3>Remove bottlenecks, including me</h3><p>Standard reports became self serve, and the Toolkit moved to Cloudflare so other Product Owners don't need me to run it.</p><span class="more">Seen in Market Intelligence <svg class="i"><use href="#i-arrow"/></svg></span></a>
+      </div>
+
+    </div>
+  </section>
+
   <section class="section" id="work">
     <div class="container">
       <div class="head">
@@ -114,28 +546,524 @@
         <button type="button" aria-pressed="false" data-filter="demo">Has a demo</button>
       </div>
       <div class="grid" id="tiles">
-        <a class="tile wide" href="work/contract-analysis.html" data-href="work/contract-analysis.html" data-group="efficio demo"><div class="top"><span class="icon-tile"><svg class="i"><use href="#i-file"/></svg></span><span class="badge ok"><span class="dot"></span>In production</span></div><h3>AI contract analysis</h3><p class="result">Review cut from a day or two to about an hour and a half, saving around 300 hours a week.</p><div class="tags"><span class="badge">AWS Bedrock</span><span class="badge brand">Simple demo</span></div><div class="foot">View case study <svg class="i"><use href="#i-arrow"/></svg></div></a>
-        <a class="tile" href="work/market-intelligence.html" data-href="work/market-intelligence.html" data-group="efficio"><div class="top"><span class="icon-tile"><svg class="i"><use href="#i-chart"/></svg></span><span class="badge ok"><span class="dot"></span>In production</span></div><h3>Market Intelligence</h3><p class="result">Reports that took days by hand, now self served. Around 400 so far.</p><div class="tags"><span class="badge">n8n</span></div><div class="foot">View case study <svg class="i"><use href="#i-arrow"/></svg></div></a>
-        <a class="tile" href="work/backlog-hub.html" data-href="work/backlog-hub.html" data-group="efficio demo"><div class="top"><span class="icon-tile"><svg class="i"><use href="#i-list"/></svg></span><span class="badge ok"><span class="dot"></span>In use</span></div><h3>Backlog Prioritisation Hub</h3><p class="result">Shorter refinement and faster triage, with a voting mode for the engagement team.</p><div class="tags"><span class="badge">Jira</span><span class="badge">Cloudflare</span><span class="badge brand">Simple demo</span></div><div class="foot">View case study <svg class="i"><use href="#i-arrow"/></svg></div></a>
-        <a class="tile" href="work/supplier-framework.html" data-href="work/supplier-framework.html" data-group="efficio"><div class="top"><span class="icon-tile"><svg class="i"><use href="#i-search"/></svg></span><span class="badge brand"><span class="dot"></span>Pilot</span></div><h3>Supplier Framework</h3><p class="result">537 suppliers across 73 public sector frameworks, searchable in one place.</p><div class="tags"><span class="badge">JavaScript</span><span class="badge">No AI by design</span></div><div class="foot">View case study <svg class="i"><use href="#i-arrow"/></svg></div></a>
-        <a class="tile" href="work/po-toolkit.html" data-href="work/po-toolkit.html" data-group="efficio"><div class="top"><span class="icon-tile"><svg class="i"><use href="#i-layers"/></svg></span><span class="badge ok"><span class="dot"></span>In use</span></div><h3>AI Product Owner Toolkit</h3><p class="result">Used by Product Owners across Efficio, from stories to retrospectives.</p><div class="tags"><span class="badge">Cloudflare Workers</span></div><div class="foot">View case study <svg class="i"><use href="#i-arrow"/></svg></div></a>
-        <a class="tile wide" href="work/preppo.html" data-href="work/preppo.html" data-group="personal demo"><div class="top"><span class="icon-tile"><svg class="i"><use href="#i-chat"/></svg></span><span class="badge ok"><span class="dot"></span>Live beta</span></div><h3>PrepPO</h3><p class="result">AI interview coach for Product Owners, live and free.</p><div class="tags"><span class="badge">Next.js</span><span class="badge">Gemini</span><span class="badge brand">Simple demo</span></div><div class="foot">View case study <svg class="i"><use href="#i-arrow"/></svg></div></a>
-        <a class="tile" href="work/tamil-app.html" data-href="work/tamil-app.html" data-group="personal"><div class="top"><span class="icon-tile"><svg class="i"><use href="#i-book"/></svg></span><span class="badge warn"><span class="dot"></span>In progress</span></div><h3>Tamil learning app</h3><p class="result">Proof of concept spec complete, build under way.</p><div class="tags"><span class="badge">Spec done</span></div><div class="foot">View case study <svg class="i"><use href="#i-arrow"/></svg></div></a>
+        <a class="tile wide" href="#contract" data-group="efficio demo"><div class="top"><span class="icon-tile"><svg class="i"><use href="#i-file"/></svg></span><span class="badge ok"><span class="dot"></span>In production</span></div><h3>AI contract analysis</h3><p class="result">Review cut from a day or two to about an hour and a half, saving around 300 hours a week.</p><div class="tags"><span class="badge">AWS Bedrock</span><span class="badge brand">Simple demo</span></div><div class="foot">View case study <svg class="i"><use href="#i-arrow"/></svg></div></a>
+        <a class="tile" href="#market" data-group="efficio"><div class="top"><span class="icon-tile"><svg class="i"><use href="#i-chart"/></svg></span><span class="badge ok"><span class="dot"></span>In production</span></div><h3>Market Intelligence</h3><p class="result">Reports that took days by hand, now self served. Around 400 so far.</p><div class="tags"><span class="badge">n8n</span></div><div class="foot">View case study <svg class="i"><use href="#i-arrow"/></svg></div></a>
+        <a class="tile" href="#backlog" data-group="efficio demo"><div class="top"><span class="icon-tile"><svg class="i"><use href="#i-list"/></svg></span><span class="badge ok"><span class="dot"></span>In use</span></div><h3>Backlog Prioritisation Hub</h3><p class="result">Shorter refinement and faster triage, with a voting mode for the engagement team.</p><div class="tags"><span class="badge">Jira</span><span class="badge">Cloudflare</span><span class="badge brand">Simple demo</span></div><div class="foot">View case study <svg class="i"><use href="#i-arrow"/></svg></div></a>
+        <a class="tile" href="#supplier" data-group="efficio"><div class="top"><span class="icon-tile"><svg class="i"><use href="#i-search"/></svg></span><span class="badge brand"><span class="dot"></span>Pilot</span></div><h3>Supplier Framework</h3><p class="result">537 suppliers across 73 public sector frameworks, searchable in one place.</p><div class="tags"><span class="badge">JavaScript</span><span class="badge">No AI by design</span></div><div class="foot">View case study <svg class="i"><use href="#i-arrow"/></svg></div></a>
+        <a class="tile" href="#toolkit" data-group="efficio"><div class="top"><span class="icon-tile"><svg class="i"><use href="#i-layers"/></svg></span><span class="badge ok"><span class="dot"></span>In use</span></div><h3>AI Product Owner Toolkit</h3><p class="result">Used by Product Owners across Efficio, from stories to retrospectives.</p><div class="tags"><span class="badge">Cloudflare Workers</span></div><div class="foot">View case study <svg class="i"><use href="#i-arrow"/></svg></div></a>
+        <a class="tile wide" href="#preppo" data-group="personal demo"><div class="top"><span class="icon-tile"><svg class="i"><use href="#i-chat"/></svg></span><span class="badge ok"><span class="dot"></span>Live beta</span></div><h3>PrepPO</h3><p class="result">AI interview coach for Product Owners, live and free.</p><div class="tags"><span class="badge">Next.js</span><span class="badge">Gemini</span><span class="badge brand">Simple demo</span></div><div class="foot">View case study <svg class="i"><use href="#i-arrow"/></svg></div></a>
+        <a class="tile" href="#tamil" data-group="personal"><div class="top"><span class="icon-tile"><svg class="i"><use href="#i-book"/></svg></span><span class="badge warn"><span class="dot"></span>In progress</span></div><h3>Tamil learning app</h3><p class="result">Proof of concept spec complete, build under way.</p><div class="tags"><span class="badge">Spec done</span></div><div class="foot">View case study <svg class="i"><use href="#i-arrow"/></svg></div></a>
       </div>
     </div>
   </section>
 
-  <section class="section alt" id="approach">
+  <section class="section alt" id="cases">
     <div class="container">
       <div class="head">
-        <p class="eyebrow">How I work</p>
-        <h2>How I take a feature from idea to live</h2>
-        <p class="sub">The process I follow for every new feature, plus what I bring, where I work and how I make product calls.</p>
+        <p class="eyebrow">Case studies</p>
+        <h2>How each tool works, and how I built it</h2>
+        <p class="sub">Three include a simple demo you can click through. The demos use made up data to show the idea, and are not the real tools.</p>
       </div>
-      <ol class="flowrow">
-        <li><span class="icon-tile"><svg class="i"><use href="#i-file"/></svg></span>Specify</li><li class="arrow" aria-hidden="true"><svg class="i"><use href="#i-arrow"/></svg></li><li><span class="icon-tile"><svg class="i"><use href="#i-pen"/></svg></span>Prototype</li><li class="arrow" aria-hidden="true"><svg class="i"><use href="#i-arrow"/></svg></li><li><span class="icon-tile"><svg class="i"><use href="#i-users"/></svg></span>Test</li><li class="arrow" aria-hidden="true"><svg class="i"><use href="#i-arrow"/></svg></li><li><span class="icon-tile"><svg class="i"><use href="#i-rocket"/></svg></span>Build</li>
-      </ol>
-      <a class="btn" href="about.html">More about how I work <svg class="i"><use href="#i-arrow"/></svg></a>
+      <div class="cases">
+
+        <!-- CONTRACT -->
+        <article class="case" id="contract" data-tabs>
+          <div class="case-head">
+            <div class="title">
+              <span class="icon-tile"><svg class="i"><use href="#i-file"/></svg></span>
+              <div>
+                <h3>AI contract analysis</h3>
+                <p class="summary">An AI review of supplier contracts inside Connected Platform. It checks every clause against Efficio best practice and the client's own playbook, so consultants start from a finished analysis.</p>
+                <div class="badges"><span class="badge ok"><span class="dot"></span>In production</span><span class="badge">Efficio</span><span class="badge">Led requirements and delivery</span></div>
+                <dl class="tldr"><div><dt>Problem</dt><dd>Reviewing one contract by hand took a consultant a full day, often two.</dd></div><div><dt>Built</dt><dd>AI clause analysis on AWS Bedrock, built into Connected Platform.</dd></div><div><dt>Result</dt><dd>About 1.5 hours per contract. Around 300 consultant hours saved a week.</dd></div></dl>
+              </div>
+            </div>
+          </div>
+          <div class="kpis">
+            <div class="kpi"><p>Before</p><p class="num">1 to 2 days</p><p>Manual review per contract</p></div>
+            <div class="kpi"><p>Now</p><p class="num">~20 min</p><p>Analysis, then about an hour of review</p></div>
+            <div class="kpi"><p>Usage</p><p class="num">~60 a week</p><p>Contracts across Efficio</p></div>
+            <div class="kpi"><p>Time saved</p><p class="num">~300 hrs</p><p>Consultant hours a week</p></div>
+          </div>
+          <p class="kpi-note">Time saved is a conservative estimate: one working day of manual review cut to about 1.5 hours, across around 60 contracts a week.</p>
+          <div class="tabbar" role="tablist">
+            <button role="tab" aria-selected="true" data-tab="overview">Overview</button>
+            <button role="tab" aria-selected="false" data-tab="how">How it works</button>
+            <button role="tab" aria-selected="false" data-tab="built">How I built it</button>
+            <button role="tab" aria-selected="false" data-tab="demo">Simple demo</button>
+          </div>
+          <div class="panel" data-panel="overview">
+            <div class="cols">
+              <div class="part"><h4>The problem</h4><p>Consultants reviewed client contracts clause by clause by hand, checking each position against best practice. A typical contract took a full day, and often two.</p></div>
+              <div class="part"><h4>What it does</h4>
+                <ul class="checks">
+                  <li>Checks each clause against Efficio best practice and the governing law.</li>
+                  <li>Flags risks and marks each position as met or not met.</li>
+                  <li>Remembers agreed deviations, so an accepted position is not flagged again.</li>
+                  <li>Applies the client's own playbook when one is uploaded.</li>
+                  <li>Keeps a person in the loop: a consultant reviews every analysis before acting on it.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="panel" data-panel="how" hidden>
+            <div class="cols">
+              <ol class="timeline">
+                <li><span class="n">1</span><div><h5>Send</h5><p>Connected Platform sends the contract and initiative metadata through the API.</p></div></li>
+                <li><span class="n">2</span><div><h5>Store and trigger</h5><p>The file lands in S3 and a Lambda starts the analysis.</p></div></li>
+                <li><span class="n">3</span><div><h5>Analyse</h5><p>AWS Bedrock checks each clause against best practice, governing law and the playbook.</p></div></li>
+                <li><span class="n">4</span><div><h5>Return</h5><p>Results come back through the API to Connected Platform.</p></div></li>
+                <li><span class="n">5</span><div><h5>Review</h5><p>The consultant opens View Results and reviews positions met and not met.</p></div></li>
+              </ol>
+              <div class="part"><h4>Stack</h4>
+                <dl class="stack">
+                  <dt>AI</dt><dd><span class="chip">AWS Bedrock</span></dd>
+                  <dt>Backend</dt><dd><span class="chip">AWS Lambda</span><span class="chip">Amazon S3</span><span class="chip">REST API</span></dd>
+                  <dt>Front end</dt><dd><span class="chip">OutSystems</span></dd>
+                  <dt>Prototyping</dt><dd><span class="chip">Lovable</span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div class="panel" data-panel="built" hidden>
+            <div class="cols">
+              <div class="part"><h4>My role</h4>
+                <ul class="checks">
+                  <li>Wrote the requirements, API specification and acceptance criteria.</li>
+                  <li>Prototyped the screens in Lovable and A/B tested them with consultants.</li>
+                  <li>Worked with the internal engineering team through to production.</li>
+                </ul>
+              </div>
+              <div class="part"><h4>The hardest decision</h4><p>Every stakeholder wanted their category covered first. I prioritised IT, telecoms and professional services because they carry the most contract value, and used that to agree the first business rules.</p></div>
+            </div>
+            <div class="callout" style="margin-top:32px">
+              <span class="icon-tile" style="width:40px;height:40px"><svg class="i"><use href="#i-star"/></svg></span>
+              <div><h4>Feature I designed: client playbooks</h4><p>Clients can upload their own playbook of what good looks like for them. I designed the data model with the data team and the front end with the Connected Platform team. Uploaded playbooks go to S3, are extracted into Efficio's best practice table format, and are applied in every later analysis for that client. It is live.</p></div>
+            </div>
+          </div>
+          <div class="panel" data-panel="demo" hidden>
+            <div class="disclaimer"><svg class="i"><use href="#i-info"/></svg><div><p class="t">Simple demo, not the real tool</p><p>A basic illustration of how the contract analysis works, built for this page with made up data. The real tool is more complete and looks different.</p></div></div>
+            <div class="demo">
+              <div class="demo-bar">
+                <span class="l"><svg class="i"><use href="#i-file"/></svg>Sample supplier agreement.pdf</span>
+                <span style="display:flex;gap:8px"><button class="btn sm" type="button" id="cReset"><svg class="i" style="width:16px;height:16px"><use href="#i-reset"/></svg>Reset</button><button class="btn primary sm" type="button" id="cRun"><svg class="i" style="width:16px;height:16px"><use href="#i-play"/></svg>Run analysis</button></span>
+              </div>
+              <div class="runlog" id="cLog" hidden><div class="progress"><div id="cBar"></div></div><p id="cStep">Starting</p></div>
+              <div class="summary-row" id="cSummary"><span class="badge">Not analysed yet</span><span>Press Run analysis to check six clauses against the sample playbook.</span></div>
+              <div class="table-scroll"><table><thead><tr><th>Clause</th><th>Contract says</th><th>Playbook position</th><th>Result</th><th></th></tr></thead><tbody id="cRows"></tbody></table></div>
+              <p class="demo-note">Made up clauses and positions. Contains no Efficio or client data.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- MARKET -->
+        <article class="case" id="market" data-tabs>
+          <div class="case-head">
+            <div class="title">
+              <span class="icon-tile"><svg class="i"><use href="#i-chart"/></svg></span>
+              <div>
+                <h3>Market Intelligence</h3>
+                <p class="summary">Self serve market reports inside Connected Platform. Consultants generate a report from their own initiative data themselves, instead of waiting days for one written by hand.</p>
+                <div class="badges"><span class="badge ok"><span class="dot"></span>In production</span><span class="badge">Efficio</span><span class="badge">Led with the R&amp;D team</span></div>
+                <dl class="tldr"><div><dt>Problem</dt><dd>The R&amp;D team wrote every report by hand, which could take a couple of days.</dd></div><div><dt>Built</dt><dd>An n8n report workflow, connected into Connected Platform through its API.</dd></div><div><dt>Result</dt><dd>Around 400 reports self served, freeing R&amp;D for bespoke work.</dd></div></dl>
+              </div>
+            </div>
+          </div>
+          <div class="kpis">
+            <div class="kpi"><p>Before</p><p class="num">A couple of days</p><p>Per report, written by hand</p></div>
+            <div class="kpi"><p>Now</p><p class="num">Self serve</p><p>Consultants generate their own</p></div>
+            <div class="kpi"><p>Reports</p><p class="num">~400</p><p>Generated in production</p></div>
+          </div>
+          <div class="tabbar" role="tablist">
+            <button role="tab" aria-selected="true" data-tab="overview">Overview</button>
+            <button role="tab" aria-selected="false" data-tab="how">How it works</button>
+          </div>
+          <div class="panel" data-panel="overview">
+            <div class="cols">
+              <div class="part"><h4>The problem</h4><p>Efficio's research and development team wrote market reports for consultants by hand. Each one could take a couple of days, and much of that time went on generic reports rather than the bespoke analysis only they could do.</p></div>
+              <div class="part"><h4>What I did</h4>
+                <ul class="checks">
+                  <li>Worked with the R&amp;D team to shape the report and helped them build the n8n workflow.</li>
+                  <li>Led the integration into Connected Platform through the n8n API, so consultants can run it themselves.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="callout" style="margin-top:32px">
+              <span class="icon-tile" style="width:40px;height:40px"><svg class="i"><use href="#i-users"/></svg></span>
+              <div><h4>The real win</h4><p>Consultants now self serve the standard reports, so the R&amp;D team spends its time on the bespoke reports that need an expert.</p></div>
+            </div>
+          </div>
+          <div class="panel" data-panel="how" hidden>
+            <div class="cols">
+              <ol class="timeline">
+                <li><span class="n">1</span><div><h5>Request</h5><p>A consultant asks for a report from their initiative in Connected Platform.</p></div></li>
+                <li><span class="n">2</span><div><h5>Send</h5><p>The platform passes the initiative data to the n8n workflow through its API.</p></div></li>
+                <li><span class="n">3</span><div><h5>Generate</h5><p>The workflow builds the report.</p></div></li>
+                <li><span class="n">4</span><div><h5>Deliver</h5><p>The finished report comes back into Connected Platform for the consultant.</p></div></li>
+              </ol>
+              <div class="part"><h4>Stack</h4>
+                <dl class="stack">
+                  <dt>Workflows</dt><dd><span class="chip">n8n</span><span class="chip">n8n API</span></dd>
+                  <dt>Front end</dt><dd><span class="chip">OutSystems</span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- BACKLOG -->
+        <article class="case" id="backlog" data-tabs>
+          <div class="case-head">
+            <div class="title">
+              <span class="icon-tile"><svg class="i"><use href="#i-list"/></svg></span>
+              <div>
+                <h3>Backlog Prioritisation Hub</h3>
+                <p class="summary">One workspace for refinement, prioritisation, sprint planning and delivery oversight. It brings Jira demand from two product lines together, ranks it on evidence, and records every decision.</p>
+                <div class="badges"><span class="badge ok"><span class="dot"></span>In use</span><span class="badge">Efficio</span><span class="badge">Built solo</span><span class="badge">Since June 2026</span></div>
+                <dl class="tldr"><div><dt>Problem</dt><dd>Over 200 tickets across two products, bugs mixed with features, no consistent ranking and no record of why.</dd></div><div><dt>Built</dt><dd>A Jira synced hub with separate paths for bugs and features, evidence based scoring, voting and a full audit trail.</dd></div><div><dt>Result</dt><dd>Shorter refinement, faster triage and less debate. Now the refinement group's primary tool.</dd></div></dl>
+              </div>
+            </div>
+          </div>
+          <div class="kpis">
+            <div class="kpi"><p>Tickets</p><p class="num">200+</p><p>Synced from Jira</p></div>
+            <div class="kpi"><p>Refinement</p><p class="num">Shorter</p><p>Faster triage, less debate</p></div>
+            <div class="kpi"><p>Adoption</p><p class="num">Primary tool</p><p>For the refinement group</p></div>
+          </div>
+          <div class="tabbar" role="tablist">
+            <button role="tab" aria-selected="true" data-tab="overview">Overview</button>
+            <button role="tab" aria-selected="false" data-tab="how">How it works</button>
+            <button role="tab" aria-selected="false" data-tab="decisions">Product decisions</button>
+            <button role="tab" aria-selected="false" data-tab="built">How I built it</button>
+            <button role="tab" aria-selected="false" data-tab="demo">Simple demo</button>
+          </div>
+          <div class="panel" data-panel="overview">
+            <div class="cols">
+              <div class="part"><h4>The problem</h4><p>Demand for two product lines sat in Jira as one long list. Bugs competed with feature requests, ranking took long debates in refinement, and the reasons behind decisions were not recorded.</p></div>
+              <div class="part"><h4>What changed</h4>
+                <ul class="checks">
+                  <li>Refinement sessions are shorter, with less time spent debating order.</li>
+                  <li>Triage is faster, because every ticket arrives classified and scored.</li>
+                  <li>The engagement team, who work directly with users, now has a voice in priorities.</li>
+                  <li>Roadmap themes are backed by demand evidence I can take to senior leaders.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="modules" style="margin-top:32px">
+              <div class="module"><span class="icon-tile"><svg class="i"><use href="#i-chart"/></svg></span><h4>Overview</h4><p>Sprint health, scope changes, blockers, decisions needing attention and roadmap demand signals, for leadership.</p></div>
+              <div class="module"><span class="icon-tile"><svg class="i"><use href="#i-list"/></svg></span><h4>Backlog</h4><p>A board per product line, moving tickets from first pass to review, estimate and proposed sprint, with a full ticket drawer.</p></div>
+              <div class="module"><span class="icon-tile"><svg class="i"><use href="#i-star"/></svg></span><h4>Feature Insights</h4><p>Ranked roadmap themes, ideas kept apart from validated demand, voting results and delivery history.</p></div>
+              <div class="module"><span class="icon-tile"><svg class="i"><use href="#i-reset"/></svg></span><h4>Delivery and Jira</h4><p>Release briefs, sprint scope changes and churn, sync settings and data quality reviews.</p></div>
+            </div>
+          </div>
+          <div class="panel" data-panel="how" hidden>
+            <div class="cols">
+              <ol class="timeline">
+                <li><span class="n">1</span><div><h5>Sync</h5><p>Pulls tickets and sprint history from Jira, with a separate query for each product line so one failure never affects the other.</p></div></li>
+                <li><span class="n">2</span><div><h5>Classify</h5><p>Separates bugs from features using the Jira issue type. Uncertain cases go to a human review queue.</p></div></li>
+                <li><span class="n">3</span><div><h5>Score</h5><p>Bugs are ordered by Jira severity, and critical bugs skip the queue as interrupt work. Features are scored on evidence, then adjusted by effort and MoSCoW.</p></div></li>
+                <li><span class="n">4</span><div><h5>Vote</h5><p>The engagement team votes anonymously, with an optional reason. Votes inform priorities and roadmap signals.</p></div></li>
+                <li><span class="n">5</span><div><h5>Plan</h5><p>Proposes the next sprint while keeping capacity split across product areas, so no one area takes the whole sprint.</p></div></li>
+              </ol>
+              <div class="part"><h4>What a feature is scored on</h4>
+                <ul class="checks">
+                  <li>User or client impact, and how many people it reaches.</li>
+                  <li>Roadmap alignment, which only counts as high with a named source such as a roadmap theme or client commitment.</li>
+                  <li>Client sensitivity, revenue, retention or adoption value.</li>
+                  <li>Efficiency gains and risk reduction.</li>
+                  <li>Then moderated by delivery effort and Jira priority, and adjusted by MoSCoW.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="panel" data-panel="decisions" hidden>
+            <div class="cols">
+              <div class="part"><h4>Trust over automation</h4>
+                <ul class="checks">
+                  <li>No generative AI in the scoring. Fixed, explainable rules make every rank auditable.</li>
+                  <li>Votes advise but never silently override the formal score or Jira priority.</li>
+                  <li>Jira stays the source of truth for tickets and sprints. The hub owns refinement decisions.</li>
+                  <li>Manual overrides survive every Jira refresh and are recorded in the audit history.</li>
+                </ul>
+              </div>
+              <div class="part"><h4>Guardrails</h4>
+                <ul class="checks">
+                  <li>A feature cannot be ranked until it has an estimate and an explicit MoSCoW choice.</li>
+                  <li>Ideas are kept separate from validated demand.</li>
+                  <li>A failed Jira sync never deletes tickets, and archived tickets are kept for reporting.</li>
+                  <li>Sprint changes use explicit actions, not free drag and drop, so scope changes are traceable.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="callout" style="margin-top:32px">
+              <span class="icon-tile" style="width:40px;height:40px"><svg class="i"><use href="#i-users"/></svg></span>
+              <div><h4>Feature I added: anonymous voting</h4><p>The engagement team works directly with users. Voting is optional: they can vote up or down on any active ticket and add an anonymous reason. Net support feeds the roadmap signals in Feature Insights, so what users ask for is visible when priorities are set. One vote per browser keeps it quick, with no login needed.</p></div>
+            </div>
+          </div>
+          <div class="panel" data-panel="built" hidden>
+            <div class="cols">
+              <div class="part"><h4>Built in stages, on my own</h4>
+                <ol class="timeline">
+                  <li><span class="n">J</span><div><h5>June 2026</h5><p>Scoring, Jira sync, team capacity and sprint planning, then a workflow board and MoSCoW.</p></div></li>
+                  <li><span class="n">J</span><div><h5>July</h5><p>Sprint history, carry over reviews, ideation and stakeholder briefs.</p></div></li>
+                  <li><span class="n">A</span><div><h5>August</h5><p>Delivery change tracking and the first Feature Insights roadmap themes.</p></div></li>
+                  <li><span class="n">S</span><div><h5>September</h5><p>A full redesign, separate intake per product line, voting with reasons, and sprint scope control.</p></div></li>
+                </ol>
+              </div>
+              <div class="part"><h4>Stack</h4>
+                <dl class="stack">
+                  <dt>Front end</dt><dd><span class="chip">TypeScript</span><span class="chip">React 19</span><span class="chip">Next.js</span><span class="chip">Vite</span></dd>
+                  <dt>Hosting</dt><dd><span class="chip">Cloudflare Workers</span></dd>
+                  <dt>Database</dt><dd><span class="chip">Cloudflare D1</span><span class="chip">Drizzle ORM</span></dd>
+                  <dt>Integration</dt><dd><span class="chip">Jira Cloud API</span><span class="chip">Jira Agile API</span></dd>
+                </dl>
+                <h4 style="margin-top:20px">Hardest problems</h4>
+                <ul class="checks">
+                  <li>Refreshing Jira data without losing votes, decisions or overrides.</li>
+                  <li>Telling planned, committed and current sprint scope apart without false alarms.</li>
+                  <li>Keeping hundreds of tickets usable across four board stages.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="panel" data-panel="demo" hidden>
+            <div class="disclaimer"><svg class="i"><use href="#i-info"/></svg><div><p class="t">Simple demo, not the real tool</p><p>A basic illustration of how the ranking works, built for this page with made up data. The real tool is more complete and looks different.</p></div></div>
+            <div class="demo">
+              <div class="weights">
+                <div>
+                  <label for="wImpact">Weight on client impact <span id="wOut">60% client impact · 40% roadmap</span></label>
+                  <input type="range" id="wImpact" min="0" max="100" step="10" value="60">
+                </div>
+                
+              </div>
+              <ol class="rank" id="rank"></ol>
+              <p class="demo-note">Made up feature tickets and a much simpler formula than the real one. In the real hub, bugs follow a separate path ordered by Jira severity.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- SUPPLIER -->
+        <article class="case" id="supplier" data-tabs>
+          <div class="case-head">
+            <div class="title">
+              <span class="icon-tile"><svg class="i"><use href="#i-search"/></svg></span>
+              <div>
+                <h3>Supplier Framework</h3>
+                <p class="summary">A searchable directory of suppliers and the public sector frameworks they are listed on. It lets Efficio's public sector consultants check where a supplier can be bought from, in one place.</p>
+                <div class="badges"><span class="badge brand"><span class="dot"></span>Pilot</span><span class="badge">Efficio</span><span class="badge">Built solo</span><span class="badge">First version in three days</span></div>
+                <dl class="tldr"><div><dt>Problem</dt><dd>Checking which frameworks and lots a supplier is on meant searching several provider websites.</dd></div><div><dt>Built</dt><dd>One directory with search, filters and a details drawer, matched to suppliers in Connected Platform.</dd></div><div><dt>Result</dt><dd>537 suppliers across 73 frameworks, now in pilot with public sector consultants.</dd></div></dl>
+              </div>
+            </div>
+          </div>
+          <div class="kpis">
+            <div class="kpi"><p>Suppliers</p><p class="num">537</p><p>Confirmed matches shown</p></div>
+            <div class="kpi"><p>Frameworks</p><p class="num">73</p><p>Public sector frameworks</p></div>
+            <div class="kpi"><p>Links</p><p class="num">1,003</p><p>Supplier to framework listings</p></div>
+          </div>
+          <div class="tabbar" role="tablist">
+            <button role="tab" aria-selected="true" data-tab="overview">Overview</button>
+            <button role="tab" aria-selected="false" data-tab="how">How it works</button>
+            <button role="tab" aria-selected="false" data-tab="decisions">Product decisions</button>
+          </div>
+          <div class="panel" data-panel="overview">
+            <div class="cols">
+              <div class="part"><h4>The problem</h4><p>Public sector procurement consultants need to know which frameworks and lots a supplier is available through. That meant searching across several framework provider websites, each laid out differently.</p></div>
+              <div class="part"><h4>What it does</h4>
+                <ul class="checks">
+                  <li>Search by supplier, framework, agreement or lot.</li>
+                  <li>Filter by framework and framework status.</li>
+                  <li>Open a drawer with lots, expiry, award routes, regulations and source links.</li>
+                  <li>Copy a supplier name straight into Connected Platform to carry on working.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="panel" data-panel="how" hidden>
+            <div class="cols">
+              <ol class="timeline">
+                <li><span class="n">1</span><div><h5>Collect</h5><p>A script pulls public supplier and framework data from a government API.</p></div></li>
+                <li><span class="n">2</span><div><h5>Match</h5><p>Supplier names are cleaned of punctuation and legal suffixes, then matched exactly against suppliers in Connected Platform.</p></div></li>
+                <li><span class="n">3</span><div><h5>Enrich</h5><p>Extra supplier to lot mappings are added, each with its evidence.</p></div></li>
+                <li><span class="n">4</span><div><h5>Search</h5><p>Everything is packaged into a static site, and search and filters run in the browser.</p></div></li>
+              </ol>
+              <div class="part"><h4>Stack</h4>
+                <dl class="stack">
+                  <dt>Front end</dt><dd><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span></dd>
+                  <dt>Data</dt><dd><span class="chip">Government supplier API</span><span class="chip">PowerShell</span></dd>
+                  <dt>Build</dt><dd><span class="chip">Node.js</span></dd>
+                  <dt>Design</dt><dd><span class="chip">Company design system</span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div class="panel" data-panel="decisions" hidden>
+            <div class="cols">
+              <div class="part"><h4>Accuracy over coverage</h4>
+                <ul class="checks">
+                  <li>Only confirmed matches are shown: 537 of the 2,906 suppliers in the source data. A wrong match is worse than a missing one.</li>
+                  <li>No AI and no fuzzy matching. Exact matching on cleaned names avoids publishing guesses.</li>
+                  <li>Every listing links to its source, so consultants can check before relying on it.</li>
+                  <li>Expired and expiring frameworks stay visible with their status instead of disappearing.</li>
+                </ul>
+              </div>
+              <div class="part"><h4>Shaped by feedback</h4>
+                <ul class="checks">
+                  <li>Summary cards and breadcrumbs were removed after user feedback.</li>
+                  <li>Details moved from inline expansion into a drawer, so the results grid stays compact.</li>
+                  <li>Kept deliberately separate and lightweight, with no writes back to Connected Platform.</li>
+                </ul>
+                <div class="callout warn" style="margin-top:16px"><div><h4>Where it stands</h4><p>In pilot with public sector consultants. We are gathering their feedback and improving the tool as it comes in. Automated data refresh is next on the list.</p></div></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- TOOLKIT -->
+        <article class="case" id="toolkit" data-tabs>
+          <div class="case-head">
+            <div class="title">
+              <span class="icon-tile"><svg class="i"><use href="#i-layers"/></svg></span>
+              <div>
+                <h3>AI Product Owner Toolkit</h3>
+                <p class="summary">One toolkit covering four parts of the Product Owner job, from writing stories to running the retrospective.</p>
+                <div class="badges"><span class="badge ok"><span class="dot"></span>In use</span><span class="badge">Efficio</span><span class="badge">Built solo</span></div>
+                <dl class="tldr"><div><dt>Problem</dt><dd>Writing stories from requirements and designs was slow and repetitive.</dd></div><div><dt>Built</dt><dd>One toolkit for stories, capacity, retrospectives and design audits.</dd></div><div><dt>Result</dt><dd>Used by Product Owners across Efficio, not just me.</dd></div></dl>
+              </div>
+            </div>
+          </div>
+          <div class="tabbar" role="tablist">
+            <button role="tab" aria-selected="true" data-tab="overview">What it covers</button>
+            <button role="tab" aria-selected="false" data-tab="built">How I built it</button>
+          </div>
+          <div class="panel" data-panel="overview">
+            <div class="modules">
+              <div class="module"><span class="icon-tile"><svg class="i"><use href="#i-pen"/></svg></span><h4>Story writing</h4><p>Turns requirements documents and Figma exports into reviewed Jira epics and stories with acceptance criteria.</p></div>
+              <div class="module"><span class="icon-tile"><svg class="i"><use href="#i-chart"/></svg></span><h4>Sprint capacity forecasting</h4><p>Plans what the team can realistically take on in a sprint.</p></div>
+              <div class="module"><span class="icon-tile"><svg class="i"><use href="#i-users"/></svg></span><h4>Retrospectives</h4><p>Runs the session, with responses that stay permanently anonymous.</p></div>
+              <div class="module"><span class="icon-tile"><svg class="i"><use href="#i-check"/></svg></span><h4>Screen implementation audit</h4><p>Checks built screens against the design.</p></div>
+            </div>
+          </div>
+          <div class="panel" data-panel="built" hidden>
+            <div class="cols">
+              <div class="part"><h4>The problem</h4><p>Turning requirements documents and Figma designs into well written Jira epics and stories is slow, repetitive work, and the rest of the Product Owner workflow lived in separate places.</p></div>
+              <div class="part"><h4>How I built it</h4><p>I built it on my own. It began as a Python FastAPI app that only I could run. I migrated it to TypeScript on Cloudflare Workers so other Product Owners at Efficio could use it too, which stopped me being the bottleneck.</p>
+                <dl class="stack" style="margin-top:12px">
+                  <dt>Now</dt><dd><span class="chip">TypeScript</span><span class="chip">Cloudflare Workers</span></dd>
+                  <dt>Before</dt><dd><span class="chip">Python</span><span class="chip">FastAPI</span></dd>
+                  <dt>Connects to</dt><dd><span class="chip">Jira</span><span class="chip">Figma exports</span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- PREPPO -->
+        <article class="case" id="preppo" data-tabs>
+          <div class="case-head">
+            <div class="title">
+              <span class="icon-tile"><svg class="i"><use href="#i-chat"/></svg></span>
+              <div>
+                <h3>PrepPO</h3>
+                <p class="summary">An interview coach for Product Owners. It learns your real experience through a short conversation, then writes a cheat sheet for the exact job and interview round you are facing.</p>
+                <div class="badges"><span class="badge ok"><span class="dot"></span>Live beta</span><span class="badge">Personal</span><span class="badge">Built solo</span></div>
+                <dl class="tldr"><div><dt>Problem</dt><dd>Generic interview prep ignores your CV and the job you want.</dd></div><div><dt>Built</dt><dd>An AI coach that turns a five turn conversation into a tailored cheat sheet.</dd></div><div><dt>Result</dt><dd>Live as a free public beta. Next step is finding the first users.</dd></div></dl>
+              </div>
+            </div>
+            <a class="btn primary" href="https://prep-po.vercel.app">Open PrepPO <svg class="i"><use href="#i-arrow"/></svg></a>
+          </div>
+          <div class="kpis">
+            <div class="kpi"><p>Time</p><p class="num">~10 min</p><p>Upload to finished sheet</p></div>
+            <div class="kpi"><p>Rounds</p><p class="num">4</p><p>Screen to final</p></div>
+            <div class="kpi"><p>Price</p><p class="num">Free</p><p>No account during beta</p></div>
+          </div>
+          <div class="tabbar" role="tablist">
+            <button role="tab" aria-selected="true" data-tab="demo">Simple demo</button>
+            <button role="tab" aria-selected="false" data-tab="how">How it works</button>
+            <button role="tab" aria-selected="false" data-tab="built">How I built it</button>
+          </div>
+          <div class="panel" data-panel="demo">
+            <div class="disclaimer"><svg class="i"><use href="#i-info"/></svg><div><p class="t">Simple demo, not the real tool</p><p>A basic illustration of how a PrepPO coaching session works, built for this page with made up data. The live tool asks questions tailored to your CV and the job. Open PrepPO above to try the real thing.</p></div></div>
+            <div class="demo">
+              <div class="demo-bar">
+                <span class="l">Pick an interview round</span>
+                <div class="seg" role="group" aria-label="Interview round" id="rounds">
+                  <button type="button" aria-pressed="false" data-round="talent">Screen</button>
+                  <button type="button" aria-pressed="true" data-round="hm">Hiring manager</button>
+                  <button type="button" aria-pressed="false" data-round="tech">Technical</button>
+                  <button type="button" aria-pressed="false" data-round="final">Final</button>
+                </div>
+              </div>
+              <div class="chat" id="chat"></div>
+              <div class="demo-bar" style="border-top:1px solid var(--line);border-bottom:0"><span style="font-size:14px;color:var(--fg-2)" id="chatCount">Turn 1 of 5</span><span style="display:flex;gap:8px"><button class="btn sm" type="button" id="chatAll">Show all</button><button class="btn primary sm" type="button" id="chatNext">Next turn</button></span></div>
+              <p class="demo-note">The coaching plan for each round, taken from the PrepPO code. The live tool tailors every question to your CV and the job.</p>
+            </div>
+          </div>
+          <div class="panel" data-panel="how" hidden>
+            <ol class="timeline">
+              <li><span class="n">1</span><div><h5>Upload</h5><p>A CV as PDF, Word or text, plus the job description pasted or fetched from its link with Gemini and Google Search.</p></div></li>
+              <li><span class="n">2</span><div><h5>Brief</h5><p>PrepPO reads the CV first: strongest experiences, every metric, and the two biggest gaps against the job.</p></div></li>
+              <li><span class="n">3</span><div><h5>Coach</h5><p>A five turn conversation tailored to the round, with suggested answers built from what you have already said.</p></div></li>
+              <li><span class="n">4</span><div><h5>Cheat sheet</h5><p>Streams in: STAR stories, gap analysis with suggested wording, likely questions and company research.</p></div></li>
+              <li><span class="n">5</span><div><h5>Practise</h5><p>A mock interview based on your sheet, and a PDF download.</p></div></li>
+            </ol>
+          </div>
+          <div class="panel" data-panel="built" hidden>
+            <div class="cols">
+              <div class="part"><h4>How I built it</h4>
+                <ul class="checks">
+                  <li>Solo, from spec to live product.</li>
+                  <li>Designed for a public beta: no signup, limits on how often each user can call the AI, and automated tests.</li>
+                  <li>The paid version is already specified, with accounts and payments.</li>
+                </ul>
+                <h4 style="margin-top:20px">Product decisions for the beta</h4>
+                <ul class="checks">
+                  <li>No signup, so anyone can start straight away.</li>
+                  <li>Usage limits per user, to keep AI costs predictable.</li>
+                  <li>No database yet. Sessions stay in memory until demand is proven.</li>
+                  <li>Payments are specified but not built until real users validate the idea.</li>
+                </ul>
+                <div class="callout warn" style="margin-top:16px"><div><h4>Where it stands</h4><p>Live as a free beta. The next step is finding the first users and learning from them before building the paid version.</p></div></div>
+              </div>
+              <div class="part"><h4>Stack</h4>
+                <dl class="stack">
+                  <dt>Front end</dt><dd><span class="chip">Next.js 15</span><span class="chip">React 19</span><span class="chip">TypeScript</span><span class="chip">Tailwind CSS</span></dd>
+                  <dt>AI</dt><dd><span class="chip">Gemini 2.5 Flash</span><span class="chip">Google Search grounding</span></dd>
+                  <dt>Documents</dt><dd><span class="chip">pdf parse</span><span class="chip">Mammoth</span><span class="chip">jsPDF</span></dd>
+                  <dt>Quality</dt><dd><span class="chip">Vitest</span></dd>
+                  <dt>Hosting</dt><dd><span class="chip">Vercel</span></dd>
+                  <dt>Planned</dt><dd><span class="chip">Supabase</span><span class="chip">Stripe</span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- TAMIL -->
+        <article class="case" id="tamil">
+          <div class="case-head">
+            <div class="title">
+              <span class="icon-tile"><svg class="i"><use href="#i-book"/></svg></span>
+              <div>
+                <h3>Tamil learning app</h3>
+                <p class="summary">A web app for learning Tamil as it is spoken, styled after retro Tamil cinema.</p>
+                <div class="badges"><span class="badge warn"><span class="dot"></span>In progress</span><span class="badge">Personal</span><span class="badge">Spec complete</span></div>
+                <dl class="tldr"><div><dt>Goal</dt><dd>Learning spoken Tamil, with nothing standing in the way of the first lesson.</dd></div><div><dt>Built</dt><dd>A proof of concept spec: no signup, four modules, Dialogues at the core.</dd></div><div><dt>Result</dt><dd>Spec complete and the build is under way.</dd></div></dl>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="cols">
+              <div class="part"><h4>The idea</h4><p>A way to learn Tamil as it is spoken in real conversations, with nothing standing between a learner and the first lesson.</p></div>
+              <div class="part"><h4>Product decisions so far</h4>
+                <ul class="checks">
+                  <li>No signup.</li>
+                  <li>Four modules, with Dialogues as the core.</li>
+                  <li>A look inspired by retro Tamil cinema.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -166,6 +1094,7 @@
     </div>
   </section>
 </main>
+
 <footer><div class="container"><span>Ajanth Sri Kathirkamanthan</span><span>Press <kbd>⌘K</kbd> or <kbd>/</kbd> to jump anywhere</span></div></footer>
 
 <div class="overlay" id="overlay" hidden>
@@ -178,6 +1107,265 @@
 <button class="totop" id="toTop" type="button" aria-label="Back to top" hidden><svg class="i"><use href="#i-up"/></svg></button>
 <div class="toast" id="toast" hidden><svg class="i" style="width:18px;height:18px"><use href="#i-check"/></svg><span id="toastMsg">Copied</span></div>
 
-<script src="assets/site.js"></script>
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+
+  /* Toast */
+  var toastT;
+  function toast(msg) { $("#toastMsg").textContent = msg; $("#toast").hidden = false; clearTimeout(toastT); toastT = setTimeout(function () { $("#toast").hidden = true; }, 1800); }
+
+  /* Theme */
+  $("#themeBtn").addEventListener("click", function () {
+    var root = document.documentElement;
+    var cur = root.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    root.setAttribute("data-theme", cur === "dark" ? "light" : "dark");
+  });
+
+  /* Work filter */
+  $$(".filters button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      $$(".filters button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      var f = b.dataset.filter;
+      $$("#tiles .tile").forEach(function (t) { t.hidden = !(f === "all" || t.dataset.group.split(" ").indexOf(f) > -1); });
+    });
+  });
+
+  /* Case tabs */
+  function selectTab(card, name) {
+    $$(".tabbar button", card).forEach(function (b) { b.setAttribute("aria-selected", b.dataset.tab === name ? "true" : "false"); });
+    $$(".panel", card).forEach(function (p) { var on = p.dataset.panel === name; p.hidden = !on; if (on) { p.classList.remove("fade"); void p.offsetWidth; p.classList.add("fade"); } });
+  }
+  $$("[data-tabs]").forEach(function (card) {
+    $$(".tabbar button", card).forEach(function (b) { b.addEventListener("click", function () { selectTab(card, b.dataset.tab); }); });
+  });
+  // Tiles marked with a demo open the demo tab
+  $$("#tiles .tile").forEach(function (t) {
+    t.addEventListener("click", function () {
+      if ($("[data-filter='demo']").getAttribute("aria-pressed") === "true") {
+        var card = $(t.getAttribute("href")); if (card && $("[data-tab='demo']", card)) selectTab(card, "demo");
+      }
+    });
+  });
+
+  /* Copy */
+  $$("[data-copy]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var el = document.getElementById(btn.dataset.copy), text = el.textContent.trim();
+      function fallback() { var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); toast("Selected. Press Ctrl C to copy"); }
+      try { navigator.clipboard.writeText(text).then(function () { toast("Copied to clipboard"); }, fallback); } catch (e) { fallback(); }
+    });
+  });
+
+  /* Contract demo */
+  var CLAUSES = [
+    { c: "Payment terms", k: "45 days", p: "60 days", met: false },
+    { c: "Liability cap", k: "150% of annual fees", p: "At least 100% of annual fees", met: true },
+    { c: "Termination notice", k: "90 days", p: "30 days", met: false },
+    { c: "Price increases", k: "Capped at inflation", p: "Capped at inflation", met: true },
+    { c: "Governing law", k: "England and Wales", p: "England and Wales", met: true },
+    { c: "Renewal", k: "Renews automatically for 12 months", p: "No automatic renewal", met: false }
+  ];
+  var cState = "idle", agreed = {};
+  function renderContract() {
+    var rows = CLAUSES.map(function (x, i) {
+      var res, act = "";
+      if (cState !== "done") res = '<span class="badge">Waiting</span>';
+      else if (x.met) res = '<span class="badge ok"><span class="dot"></span>Met</span>';
+      else if (agreed[i]) res = '<span class="badge brand"><span class="dot"></span>Agreed deviation</span>';
+      else { res = '<span class="badge bad"><span class="dot"></span>Not met</span>'; act = '<button class="linkbtn" type="button" data-agree="' + i + '">Mark as agreed</button>'; }
+      if (cState === "done" && agreed[i]) act = '<button class="linkbtn" type="button" data-undo="' + i + '">Undo</button>';
+      return "<tr><td class='clause'>" + x.c + "</td><td>" + x.k + "</td><td>" + x.p + "</td><td>" + res + "</td><td>" + act + "</td></tr>";
+    }).join("");
+    $("#cRows").innerHTML = rows;
+    var s = $("#cSummary");
+    if (cState === "done") {
+      var met = CLAUSES.filter(function (x) { return x.met; }).length;
+      var ag = Object.keys(agreed).length, open = CLAUSES.length - met - ag;
+      s.innerHTML = '<span class="badge ok"><span class="dot"></span>' + met + ' met</span><span class="badge bad"><span class="dot"></span>' + open + ' not met</span>' + (ag ? '<span class="badge brand"><span class="dot"></span>' + ag + ' agreed</span>' : "") + "<span>" + (ag ? "Agreed deviations will not be flagged as risks on the next run." : "Mark a position the client has accepted as an agreed deviation.") + "</span>";
+    } else if (cState === "idle") {
+      s.innerHTML = '<span class="badge">Not analysed yet</span><span>Press Run analysis to check six clauses against the sample playbook.</span>';
+    }
+    $$("[data-agree]").forEach(function (b) { b.addEventListener("click", function () { agreed[b.dataset.agree] = true; renderContract(); toast("Saved as an agreed deviation"); }); });
+    $$("[data-undo]").forEach(function (b) { b.addEventListener("click", function () { delete agreed[b.dataset.undo]; renderContract(); }); });
+  }
+  $("#cRun").addEventListener("click", function () {
+    if (cState === "running") return;
+    cState = "running"; agreed = {}; renderContract();
+    $("#cSummary").innerHTML = '<span class="badge warn"><span class="dot"></span>Analysing</span><span>Sample supplier agreement</span>';
+    $("#cRun").disabled = true; $("#cLog").hidden = false;
+    var steps = ["Sending payload to the contract API", "Stored in S3, Lambda started", "Bedrock reviewing clause 1 of 6", "Bedrock reviewing clause 3 of 6", "Bedrock reviewing clause 6 of 6", "Results returned to Connected Platform"];
+    var i = 0, gap = reduce ? 80 : 450;
+    (function next() {
+      if (i < steps.length) { $("#cStep").textContent = steps[i]; $("#cBar").style.width = Math.round(((i + 1) / steps.length) * 100) + "%"; i++; setTimeout(next, gap); }
+      else { cState = "done"; $("#cRun").disabled = false; $("#cLog").hidden = true; $("#cBar").style.width = "0"; renderContract(); toast("Analysis complete"); }
+    })();
+  });
+  $("#cReset").addEventListener("click", function () { cState = "idle"; agreed = {}; $("#cRun").disabled = false; $("#cLog").hidden = true; renderContract(); });
+  renderContract();
+
+  /* Backlog demo */
+  var TICKETS = [
+    { id: "CP-412", t: "Export reports straight to PowerPoint", type: "Feature", m: "Must", ci: 5, ra: 3 },
+    { id: "CP-388", t: "Bulk upload of supplier lists", type: "Feature", m: "Should", ci: 4, ra: 5 },
+    { id: "CP-401", t: "Save dashboard filter presets", type: "Feature", m: "Should", ci: 3, ra: 2 },
+    { id: "CP-375", t: "Single sign on for client users", type: "Feature", m: "Must", ci: 4, ra: 4 },
+    { id: "CP-420", t: "Dark mode for the savings summary", type: "Feature", m: "Could", ci: 1, ra: 1 },
+    { id: "CP-366", t: "Scheduled email digests", type: "Feature", m: "Could", ci: 2, ra: 4 },
+    { id: "CP-409", t: "Faster loading on the initiatives page", type: "Feature", m: "Should", ci: 4, ra: 3 },
+    { id: "CP-352", t: "Category benchmarking view", type: "Feature", m: "Should", ci: 3, ra: 5 }
+  ];
+  var MBASE = { Must: 40, Should: 25, Could: 10, "Won't": 0 }, typeF = "all";
+  function score(x, w) { return Math.round(MBASE[x.m] + (w * x.ci + (1 - w) * x.ra) * 12); }
+  function renderRank(animate) {
+    var w = $("#wImpact").value / 100;
+    $("#wOut").textContent = Math.round(w * 100) + "% client impact · " + Math.round((1 - w) * 100) + "% roadmap";
+    var list = $("#rank"), before = {};
+    $$("li", list).forEach(function (li) { before[li.dataset.id] = li.getBoundingClientRect().top; });
+    var items = TICKETS.filter(function (x) { return typeF === "all" || x.type === typeF; })
+      .map(function (x) { return { x: x, s: score(x, w) }; })
+      .sort(function (a, b) { return b.s - a.s; });
+    var existing = {}; $$("li", list).forEach(function (li) { existing[li.dataset.id] = li; });
+    list.innerHTML = "";
+    items.forEach(function (o, i) {
+      var li = existing[o.x.id] || document.createElement("li");
+      li.dataset.id = o.x.id;
+      var mClass = o.x.m === "Must" ? "bad" : o.x.m === "Should" ? "warn" : "";
+      li.innerHTML = '<span class="pos">' + (i + 1) + '</span><div><p class="t">' + o.x.t + '</p><div class="m"><span class="badge">' + o.x.id + '</span><span class="badge ' + (o.x.type === "Bug" ? "bad" : "brand") + '">' + o.x.type + '</span><span class="badge ' + mClass + '">' + o.x.m + ' have</span></div></div><span class="score">' + o.s + "</span>";
+      li.style.transition = "none"; li.style.transform = "";
+      list.appendChild(li);
+    });
+    if (animate && !reduce) {
+      $$("li", list).forEach(function (li) {
+        var b = before[li.dataset.id]; if (b === undefined) return;
+        var d = b - li.getBoundingClientRect().top; if (!d) return;
+        li.style.transform = "translateY(" + d + "px)";
+        requestAnimationFrame(function () { requestAnimationFrame(function () { li.style.transition = "transform .35s ease"; li.style.transform = ""; }); });
+      });
+    }
+  }
+  $("#wImpact").addEventListener("input", function () { renderRank(true); });
+  $$(".weights .seg button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      $$(".weights .seg button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      typeF = b.dataset.type; renderRank(false);
+    });
+  });
+  renderRank(false);
+
+  /* PrepPO demo */
+  var ROUNDS = {
+    talent: { turns: ["Your two minute career story, told as one clear thread towards this role.", "Why this company specifically.", "The one achievement on your CV most relevant to this role, with numbers.", "Notice period, salary expectations and start date.", "The questions you plan to ask the recruiter."],
+      sheet: "Career narrative, genuine motivation, salary and notice preparation, screening questions with answers, and questions for the recruiter." },
+    hm: { turns: ["Why your career moved the way it did, using the job titles on your CV.", "A project that matches the toughest requirement in the job description, with a measurable outcome.", "A time you pushed back on a stakeholder, and what happened.", "Your one or two biggest gaps against the job, and how you will handle them.", "Why this company, with something real about it."],
+      sheet: "Three deep STAR stories, an honest gap analysis with exact wording, likely hiring manager questions, and smart questions to ask." },
+    tech: { turns: ["Your confidence from 1 to 10 in each key tool in the job description, and the gaps.", "The frameworks you use day to day for prioritisation, discovery and delivery.", "How you would approach a specific problem from the job description.", "The most technically complex thing you have shipped, and your decisions.", "How you would approach a take home task."],
+      sheet: "Tool confidence ratings, framework examples, structured answers, and likely technical questions." },
+    final: { turns: ["Examples of you influencing product direction.", "A time you led without authority.", "A genuine professional failure and what changed afterwards.", "How your values connect to the company's values.", "Where you want to be in three to five years."],
+      sheet: "Strategic thinking examples, leadership stories, values alignment, your growth story, and questions for senior leaders." }
+  };
+  var round = "hm", shown = 1;
+  function msg(who, body, cls) {
+    return '<div class="msg ' + (cls || "") + '"><span class="av">P</span><div><p class="meta"><b>PrepPO</b>' + who + '</p><div class="bubble">' + body + "</div></div></div>";
+  }
+  function renderChat() {
+    var r = ROUNDS[round], html = "";
+    for (var i = 0; i < shown && i < 5; i++) html += msg("Turn " + (i + 1) + " of 5", r.turns[i]);
+    if (shown > 5) html += msg("Cheat sheet ready", "<b>Your sheet focuses on:</b> " + r.sheet, "sheet");
+    $("#chat").innerHTML = html;
+    $("#chatCount").textContent = shown > 5 ? "Cheat sheet ready" : "Turn " + shown + " of 5";
+    $("#chatNext").textContent = shown > 5 ? "Start again" : shown === 5 ? "Build cheat sheet" : "Next turn";
+    var last = $("#chat .msg:last-child"); if (last && !reduce) { last.classList.add("fade"); last.style.animation = "fade .3s ease"; }
+  }
+  $$("#rounds button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      $$("#rounds button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      round = b.dataset.round; shown = 1; renderChat();
+    });
+  });
+  $("#chatNext").addEventListener("click", function () { shown = shown > 5 ? 1 : shown + 1; renderChat(); });
+  $("#chatAll").addEventListener("click", function () { shown = 6; renderChat(); });
+  renderChat();
+
+
+  /* Scroll progress, active nav, back to top */
+  var navLinks = $$(".nav a"), secs = navLinks.map(function (a) { return document.querySelector(a.getAttribute("href")); });
+  function onScroll() {
+    var d = document.documentElement, max = d.scrollHeight - d.clientHeight;
+    $("#scrollFill").style.width = (max > 0 ? (d.scrollTop / max) * 100 : 0) + "%";
+    $("#toTop").hidden = d.scrollTop < 900;
+    var cur = -1;
+    secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top < 140) cur = i; });
+    navLinks.forEach(function (a, i) { a.classList.toggle("active", i === cur); });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  $("#toTop").addEventListener("click", function () { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); });
+  function flash(el) { el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
+  $$("#tiles .tile").forEach(function (t) { t.addEventListener("click", function () { var c = $(t.getAttribute("href")); if (c) flash(c); }); });
+
+  /* Command palette */
+  var ITEMS = [
+    { l: "AI contract analysis", g: "Efficio", h: "#contract" },
+    { l: "Contract analysis simple demo", g: "Demo", h: "#contract", tab: "demo" },
+    { l: "Market Intelligence", g: "Efficio", h: "#market" },
+    { l: "Backlog Prioritisation Hub", g: "Efficio", h: "#backlog" },
+    { l: "Backlog ranking simple demo", g: "Demo", h: "#backlog", tab: "demo" },
+    { l: "AI Product Owner Toolkit", g: "Efficio", h: "#toolkit" },
+    { l: "PrepPO", g: "Personal", h: "#preppo" },
+    { l: "Open PrepPO live", g: "Link", url: "https://prep-po.vercel.app" },
+    { l: "Tamil learning app", g: "Personal", h: "#tamil" },
+    { l: "Supplier Framework", g: "Efficio", h: "#supplier" },
+    { l: "How I work", g: "Section", h: "#approach" },
+    { l: "Connected Platform, my main product", g: "Section", h: "#platform" },
+    { l: "Contact details", g: "Section", h: "#contact" },
+    { l: "Copy email address", g: "Action", act: "email" },
+    { l: "Open LinkedIn profile", g: "Link", url: "https://www.linkedin.com/in/ajanthsrik/" },
+    { l: "Switch light or dark mode", g: "Action", act: "theme" }
+  ];
+  var sel = 0, filtered = ITEMS;
+  function openP() { $("#overlay").hidden = false; $("#pq").value = ""; filterP(); setTimeout(function () { $("#pq").focus(); }, 0); }
+  function closeP() { $("#overlay").hidden = true; }
+  function filterP() {
+    var q = $("#pq").value.toLowerCase().trim();
+    filtered = ITEMS.filter(function (x) { return !q || (x.l + " " + x.g).toLowerCase().indexOf(q) > -1; });
+    sel = 0; drawP();
+  }
+  function drawP() {
+    var ul = $("#plist");
+    if (!filtered.length) { ul.innerHTML = '<p class="empty">Nothing matches. Try a tool name such as PrepPO.</p>'; return; }
+    ul.innerHTML = filtered.map(function (x, i) { return '<li role="option" data-i="' + i + '" aria-selected="' + (i === sel) + '">' + x.l + '<span class="grp">' + x.g + "</span></li>"; }).join("");
+    $$("li", ul).forEach(function (li) {
+      li.addEventListener("click", function () { runP(filtered[+li.dataset.i]); });
+      li.addEventListener("mousemove", function () { if (sel !== +li.dataset.i) { sel = +li.dataset.i; drawP(); } });
+    });
+    var cur = $("li[aria-selected='true']", ul); if (cur) cur.scrollIntoView({ block: "nearest" });
+  }
+  function runP(x) {
+    closeP();
+    if (x.url) { var a = document.createElement("a"); a.href = x.url; a.target = "_blank"; a.rel = "noopener"; a.click(); return; }
+    if (x.act === "theme") { $("#themeBtn").click(); return; }
+    if (x.act === "email") { $("[data-copy='email']").click(); return; }
+    var el = $(x.h); if (!el) return;
+    if (x.tab && el.hasAttribute("data-tabs")) selectTab(el, x.tab);
+    if (el.classList.contains("case")) flash(el);
+    el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  }
+  $("#openPalette").addEventListener("click", openP);
+  $("#pq").addEventListener("input", filterP);
+  $("#overlay").addEventListener("click", function (e) { if (e.target.id === "overlay") closeP(); });
+  document.addEventListener("keydown", function (e) {
+    var open = !$("#overlay").hidden;
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); open ? closeP() : openP(); return; }
+    if (!open && e.key === "/" && !/input|textarea/i.test(document.activeElement.tagName)) { e.preventDefault(); openP(); return; }
+    if (!open) return;
+    if (e.key === "Escape") closeP();
+    else if (e.key === "ArrowDown") { e.preventDefault(); sel = Math.min(sel + 1, filtered.length - 1); drawP(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); sel = Math.max(sel - 1, 0); drawP(); }
+    else if (e.key === "Enter" && filtered[sel]) { e.preventDefault(); runP(filtered[sel]); }
+  });
+})();
+</script>
 </body>
 </html>
