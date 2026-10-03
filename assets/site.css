@@ -536,3 +536,35 @@ h1, h2 { font-weight: 800; }
 .tldr dt { font: 700 22px/1 var(--hand); letter-spacing: 0; text-transform: none; color: var(--fg); }
 .tldr dd { color: var(--fg); font-size: 14.5px; margin-top: 6px; }
 @media (prefers-reduced-motion: reduce) { .tldr div { transition: none; } }
+
+/* ================= Professional pass ================= */
+/* Softer note colours and a quieter background */
+:root { --note-yellow: #FFECAE; --note-mint: #D3F0E4; --note-pink: #FDDDE4; --note-blue: #D6E8FA; }
+body { background-image: radial-gradient(#E3E5E8 1px, transparent 1.1px); }
+/* Labels: clean sans in marker red, no tilt. Handwriting stays only in the hero label and board lane titles */
+.eyebrow { font: 600 14px/1.4 var(--sans); letter-spacing: .02em; transform: none; }
+.hero .eyebrow { font: 700 24px/1.1 var(--hand); transform: rotate(-1.5deg); }
+.board-note { font: 500 14px var(--sans); transform: none; margin: -24px 0 20px; }
+.lane-head h3 { font-size: 26px; }
+.note .go, .tldr dt { font-family: var(--sans); }
+.note .go { font-size: 14px; font-weight: 600; }
+.tldr dt { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-2); }
+/* Gentler tilts and softer shadows */
+.metric:nth-child(1), .pillars:not(.six) .pillar:nth-child(1), .tldr div:nth-child(1) { transform: rotate(-0.6deg); }
+.metric:nth-child(2), .pillars:not(.six) .pillar:nth-child(2), .tldr div:nth-child(2) { transform: rotate(0.5deg); }
+.metric:nth-child(3), .pillars:not(.six) .pillar:nth-child(3), .tldr div:nth-child(3) { transform: rotate(-0.4deg); }
+.metric:nth-child(4) { transform: rotate(0.6deg); }
+.board .lane .tile.note:nth-of-type(odd) { transform: rotate(-0.6deg); }
+.board .lane .tile.note:nth-of-type(even) { transform: rotate(0.5deg); }
+.metric, .pillars:not(.six) .pillar, .tldr div, .board .tile.note { box-shadow: 0 6px 14px -8px rgba(29,29,27,.28); border-radius: 6px; }
+.board .tile.note:hover { box-shadow: 0 12px 20px -10px rgba(29,29,27,.32); transform: rotate(0) translateY(-3px); }
+/* Tape only on the profile card */
+.board .tile.note::before, .case.pinned::before, .contact-card.pinned::before { display: none; }
+.board .tile.note { padding-top: 18px; }
+/* Calmer containers */
+.lane { border-style: solid; border-width: 1px; border-color: var(--line); background: rgba(255,255,255,.75); }
+.case-head { background: none; }
+.contact-card { background: var(--bg); border: 1px solid var(--line); border-radius: 20px; transform: none; box-shadow: 0 16px 30px -18px rgba(29,29,27,.25); }
+.contact-card .sub { color: var(--fg-2); }
+.contact-card .citem { background: var(--bg-2); box-shadow: none; }
+.profile .cover { background: var(--note-yellow); }
