@@ -259,4 +259,35 @@
     else if (e.key === "ArrowUp") { e.preventDefault(); sel = Math.max(sel - 1, 0); drawP(); }
     else if (e.key === "Enter" && filtered[sel]) { e.preventDefault(); runP(filtered[sel]); }
   });
+
+  /* Work dropdown */
+  var dd = $("#workDd");
+  if (dd) {
+    var ddBtn = $(".dd-btn", dd), ddMenu = $("#workMenu"), ddTimer;
+    var hoverable = window.matchMedia && matchMedia("(hover: hover)").matches;
+    function setDd(open) { ddMenu.hidden = !open; ddBtn.setAttribute("aria-expanded", open ? "true" : "false"); }
+    ddBtn.addEventListener("click", function () { setDd(hoverable ? true : ddMenu.hidden); });
+    if (hoverable) {
+      dd.addEventListener("mouseenter", function () { clearTimeout(ddTimer); setDd(true); });
+      dd.addEventListener("mouseleave", function () { ddTimer = setTimeout(function () { setDd(false); }, 160); });
+    }
+    document.addEventListener("click", function (e) { if (!dd.contains(e.target)) setDd(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !ddMenu.hidden) { setDd(false); ddBtn.focus(); } });
+    $$("a", ddMenu).forEach(function (a) { a.addEventListener("click", function () { setDd(false); }); });
+  }
+
+  /* Phone menu */
+  var menuBtn = $("#menuBtn"), mobileMenu = $("#mobileMenu");
+  if (menuBtn && mobileMenu) {
+    function setMenu(open) {
+      mobileMenu.hidden = !open;
+      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      $("use", menuBtn).setAttribute("href", open ? "#i-close" : "#i-menu");
+    }
+    menuBtn.addEventListener("click", function () { setMenu(mobileMenu.hidden); });
+    $$("a", mobileMenu).forEach(function (a) { a.addEventListener("click", function () { setMenu(false); }); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !mobileMenu.hidden) setMenu(false); });
+    window.addEventListener("resize", function () { if (innerWidth > 1024) setMenu(false); });
+  }
 })();

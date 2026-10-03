@@ -396,6 +396,48 @@ img.li { display: block; border-radius: 4px; flex: none; }
 .backall svg { width: 16px; height: 16px; transform: rotate(180deg); }
 .nav a.current { color: var(--brand-strong); background: var(--brand-soft); }
 .case-page + #contact { padding-block: 48px 72px; }
+
+/* Work dropdown */
+.dd { position: relative; }
+.dd-btn { display: inline-flex; align-items: center; gap: 4px; font: 600 15px var(--sans); color: var(--fg-2); background: none; border: 0; padding: 8px 12px; border-radius: 6px; cursor: pointer; }
+.dd-btn:hover, .dd-btn[aria-expanded="true"] { background: var(--bg-2); color: var(--fg); }
+.dd-btn.current { color: var(--brand-strong); background: var(--brand-soft); }
+.dd-btn svg { width: 16px; height: 16px; transition: transform .2s; }
+.dd-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.dd-menu { position: absolute; top: calc(100% + 10px); left: -12px; width: min(680px, calc(100vw - 48px)); display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px 16px; padding: 16px; background: var(--bg); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow-xl); z-index: 40; animation: pop .15s ease; }
+.dd-menu::before { content: ""; position: absolute; left: 0; right: 0; top: -12px; height: 12px; }
+.dd-col { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.dd-h { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-3); padding: 4px 10px 6px; }
+.dd-item { display: grid; grid-template-columns: 40px minmax(0,1fr); gap: 12px; align-items: start; padding: 10px; border-radius: 10px; text-decoration: none; color: var(--fg); }
+.dd-item:hover, .dd-item:focus-visible { background: var(--bg-2); }
+.dd-item[aria-current="page"] { background: var(--brand-soft); }
+.dd-item .icon-tile { width: 40px; height: 40px; box-shadow: none; }
+.dd-item b { display: block; font-size: 15px; font-weight: 600; }
+.dd-item small { display: block; font-size: 13px; color: var(--fg-3); line-height: 1.45; margin-top: 2px; }
+.dd-all { display: inline-flex; align-items: center; gap: 6px; margin: 10px 10px 4px; font-size: 14px; font-weight: 600; color: var(--brand-strong); text-decoration: none; }
+.dd-all svg { width: 16px; height: 16px; }
+
+/* Phone menu */
+.menu-btn { display: none; }
+.mobile-menu { border-top: 1px solid var(--line); background: var(--bg); max-height: calc(100vh - 68px); overflow-y: auto; }
+.topbar .mobile-menu .container { height: auto; padding-block: 16px 24px; display: flex; flex-direction: column; align-items: stretch; gap: 8px; }
+.mobile-menu .dd-h { padding: 8px 0 2px; }
+.m-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
+.m-tool { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; text-decoration: none; color: var(--fg); font-size: 14px; font-weight: 600; min-width: 0; }
+.m-tool svg { width: 18px; height: 18px; color: var(--brand-strong); }
+.m-tool[aria-current="page"] { background: var(--brand-soft); border-color: var(--brand-ring); }
+.m-links { display: flex; flex-direction: column; margin-top: 8px; border-top: 1px solid var(--line); }
+.m-links a { padding: 14px 2px; border-bottom: 1px solid var(--line); color: var(--fg); font-weight: 600; text-decoration: none; }
+.m-links a.current { color: var(--brand-strong); }
+.m-cta { margin-top: 12px; }
+@media (max-width: 1024px) { .menu-btn { display: inline-flex; } }
+
+/* Tool switcher on tool pages */
+.switcher { display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 14px; margin-bottom: 8px; scrollbar-width: thin; }
+.sw { display: inline-flex; align-items: center; gap: 8px; flex: none; padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); color: var(--fg-2); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; transition: border-color .15s, color .15s; }
+.sw svg { width: 16px; height: 16px; }
+.sw:hover { border-color: var(--line-2); color: var(--fg); }
+.sw[aria-current="page"] { background: var(--brand-soft); border-color: var(--brand-ring); color: var(--brand-strong); }
 @media (max-width: 720px) {
   .pn { grid-template-columns: minmax(0,1fr); }
   .pn .next { text-align: left; align-items: flex-start; }

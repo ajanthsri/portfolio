@@ -104,6 +104,48 @@ CSS += r"""
 .backall svg { width: 16px; height: 16px; transform: rotate(180deg); }
 .nav a.current { color: var(--brand-strong); background: var(--brand-soft); }
 .case-page + #contact { padding-block: 48px 72px; }
+
+/* Work dropdown */
+.dd { position: relative; }
+.dd-btn { display: inline-flex; align-items: center; gap: 4px; font: 600 15px var(--sans); color: var(--fg-2); background: none; border: 0; padding: 8px 12px; border-radius: 6px; cursor: pointer; }
+.dd-btn:hover, .dd-btn[aria-expanded="true"] { background: var(--bg-2); color: var(--fg); }
+.dd-btn.current { color: var(--brand-strong); background: var(--brand-soft); }
+.dd-btn svg { width: 16px; height: 16px; transition: transform .2s; }
+.dd-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.dd-menu { position: absolute; top: calc(100% + 10px); left: -12px; width: min(680px, calc(100vw - 48px)); display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px 16px; padding: 16px; background: var(--bg); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow-xl); z-index: 40; animation: pop .15s ease; }
+.dd-menu::before { content: ""; position: absolute; left: 0; right: 0; top: -12px; height: 12px; }
+.dd-col { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.dd-h { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-3); padding: 4px 10px 6px; }
+.dd-item { display: grid; grid-template-columns: 40px minmax(0,1fr); gap: 12px; align-items: start; padding: 10px; border-radius: 10px; text-decoration: none; color: var(--fg); }
+.dd-item:hover, .dd-item:focus-visible { background: var(--bg-2); }
+.dd-item[aria-current="page"] { background: var(--brand-soft); }
+.dd-item .icon-tile { width: 40px; height: 40px; box-shadow: none; }
+.dd-item b { display: block; font-size: 15px; font-weight: 600; }
+.dd-item small { display: block; font-size: 13px; color: var(--fg-3); line-height: 1.45; margin-top: 2px; }
+.dd-all { display: inline-flex; align-items: center; gap: 6px; margin: 10px 10px 4px; font-size: 14px; font-weight: 600; color: var(--brand-strong); text-decoration: none; }
+.dd-all svg { width: 16px; height: 16px; }
+
+/* Phone menu */
+.menu-btn { display: none; }
+.mobile-menu { border-top: 1px solid var(--line); background: var(--bg); max-height: calc(100vh - 68px); overflow-y: auto; }
+.topbar .mobile-menu .container { height: auto; padding-block: 16px 24px; display: flex; flex-direction: column; align-items: stretch; gap: 8px; }
+.mobile-menu .dd-h { padding: 8px 0 2px; }
+.m-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
+.m-tool { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; text-decoration: none; color: var(--fg); font-size: 14px; font-weight: 600; min-width: 0; }
+.m-tool svg { width: 18px; height: 18px; color: var(--brand-strong); }
+.m-tool[aria-current="page"] { background: var(--brand-soft); border-color: var(--brand-ring); }
+.m-links { display: flex; flex-direction: column; margin-top: 8px; border-top: 1px solid var(--line); }
+.m-links a { padding: 14px 2px; border-bottom: 1px solid var(--line); color: var(--fg); font-weight: 600; text-decoration: none; }
+.m-links a.current { color: var(--brand-strong); }
+.m-cta { margin-top: 12px; }
+@media (max-width: 1024px) { .menu-btn { display: inline-flex; } }
+
+/* Tool switcher on tool pages */
+.switcher { display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 14px; margin-bottom: 8px; scrollbar-width: thin; }
+.sw { display: inline-flex; align-items: center; gap: 8px; flex: none; padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); color: var(--fg-2); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; transition: border-color .15s, color .15s; }
+.sw svg { width: 16px; height: 16px; }
+.sw:hover { border-color: var(--line-2); color: var(--fg); }
+.sw[aria-current="page"] { background: var(--brand-soft); border-color: var(--brand-ring); color: var(--brand-strong); }
 @media (max-width: 720px) {
   .pn { grid-template-columns: minmax(0,1fr); }
   .pn .next { text-align: left; align-items: flex-start; }
@@ -156,6 +198,43 @@ js_replace('var navLinks = $$(".nav a"), secs',
 js_wrap("/* Contract demo */", "/* Backlog demo */", '$("#cRun")')
 js_wrap("/* Backlog demo */", "/* PrepPO demo */", '$("#rank")')
 js_wrap("/* PrepPO demo */", "/* Scroll progress", '$("#chat")')
+# Work dropdown and phone menu.
+NAV_JS = """
+  /* Work dropdown */
+  var dd = $("#workDd");
+  if (dd) {
+    var ddBtn = $(".dd-btn", dd), ddMenu = $("#workMenu"), ddTimer;
+    var hoverable = window.matchMedia && matchMedia("(hover: hover)").matches;
+    function setDd(open) { ddMenu.hidden = !open; ddBtn.setAttribute("aria-expanded", open ? "true" : "false"); }
+    ddBtn.addEventListener("click", function () { setDd(hoverable ? true : ddMenu.hidden); });
+    if (hoverable) {
+      dd.addEventListener("mouseenter", function () { clearTimeout(ddTimer); setDd(true); });
+      dd.addEventListener("mouseleave", function () { ddTimer = setTimeout(function () { setDd(false); }, 160); });
+    }
+    document.addEventListener("click", function (e) { if (!dd.contains(e.target)) setDd(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !ddMenu.hidden) { setDd(false); ddBtn.focus(); } });
+    $$("a", ddMenu).forEach(function (a) { a.addEventListener("click", function () { setDd(false); }); });
+  }
+
+  /* Phone menu */
+  var menuBtn = $("#menuBtn"), mobileMenu = $("#mobileMenu");
+  if (menuBtn && mobileMenu) {
+    function setMenu(open) {
+      mobileMenu.hidden = !open;
+      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      $("use", menuBtn).setAttribute("href", open ? "#i-close" : "#i-menu");
+    }
+    menuBtn.addEventListener("click", function () { setMenu(mobileMenu.hidden); });
+    $$("a", mobileMenu).forEach(function (a) { a.addEventListener("click", function () { setMenu(false); }); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !mobileMenu.hidden) setMenu(false); });
+    window.addEventListener("resize", function () { if (innerWidth > 1024) setMenu(false); });
+  }
+"""
+JS = JS.rstrip()
+assert JS.endswith("})();")
+JS = JS[:-5] + NAV_JS + "})();"
+
 # Search palette: page links instead of in page anchors.
 i = JS.index("  var ITEMS = [")
 j = JS.index("];", i) + 2
@@ -185,14 +264,51 @@ HEAD_LINKS = re.search(r'<link rel="preconnect".*?display=swap">', SRC, re.S).gr
 FAVICON = re.search(r'<link rel="icon"[^>]*>', SRC).group(0)
 
 
-def shell(root, title, desc, body, current=None):
+PERSONAL = {"preppo", "tamil"}
+NAV_SPRITE = """<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+</svg>"""
+
+
+def tool_links(root, current_cid, compact=False):
+    """Menu items for every tool, grouped by where it was built."""
+    out = {}
+    for group in ("At Efficio", "Personal"):
+        rows = []
+        for cid, slug, _ in TOOLS:
+            if (cid in PERSONAL) != (group == "Personal"):
+                continue
+            t = INFO[cid]
+            cur = ' aria-current="page"' if cid == current_cid else ""
+            if compact:
+                rows.append(f'<a class="m-tool" href="{root}work/{slug}.html"{cur}><svg class="i"><use href="#{t["icon"]}"/></svg>{t["title"]}</a>')
+            else:
+                rows.append(f'<a class="dd-item" href="{root}work/{slug}.html"{cur}><span class="icon-tile"><svg class="i"><use href="#{t["icon"]}"/></svg></span>'
+                            f'<span><b>{t["title"]}</b><small>{t["result"]}</small></span></a>')
+        out[group] = "\n".join(rows)
+    return out
+
+
+def shell(root, title, desc, body, current=None, tool=None):
     on = lambda key: ' class="current"' if current == key else ""
     work_href = "#work" if current == "home" else root + "index.html#work"
+    dd = tool_links(root, tool)
+    mm = tool_links(root, tool, compact=True)
     header = f"""<header class="topbar">
   <div class="container">
     <a class="brand" href="{root}index.html"><span class="logo">AS</span><span>Ajanth Sri</span></a>
     <nav class="nav" aria-label="Main">
-      <a href="{work_href}"{on('work')}>Work</a>
+      <div class="dd" id="workDd">
+        <button class="dd-btn{' current' if current == 'work' else ''}" type="button" aria-expanded="false" aria-controls="workMenu">Work<svg class="i"><use href="#i-chev"/></svg></button>
+        <div class="dd-menu" id="workMenu" hidden>
+          <div class="dd-col"><p class="dd-h">At Efficio</p>{dd["At Efficio"]}</div>
+          <div class="dd-col"><p class="dd-h">Personal</p>{dd["Personal"]}
+            <a class="dd-all" href="{work_href}">See all seven tools<svg class="i"><use href="#i-arrow"/></svg></a>
+          </div>
+        </div>
+      </div>
       <a href="{root}about.html"{on('about')}>About</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -200,6 +316,21 @@ def shell(root, title, desc, body, current=None):
     <button class="search" type="button" id="openPalette" aria-label="Search the portfolio"><svg class="i"><use href="#i-search"/></svg><span>Jump to a tool</span><kbd>⌘K</kbd></button>
     <button class="btn icon" type="button" id="themeBtn" aria-label="Switch light or dark mode"><svg class="i"><use href="#i-moon"/></svg></button>
     <a class="btn primary cv" href="#contact">Get in touch</a>
+    <button class="btn icon menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><svg class="i"><use href="#i-menu"/></svg></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu" hidden>
+    <div class="container">
+      <p class="dd-h">Work at Efficio</p>
+      <div class="m-grid">{mm["At Efficio"]}</div>
+      <p class="dd-h">Personal</p>
+      <div class="m-grid">{mm["Personal"]}</div>
+      <div class="m-links">
+        <a href="{work_href}">All work</a>
+        <a href="{root}about.html"{on('about')}>About and how I work</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a class="btn primary m-cta" href="#contact">Get in touch</a>
+    </div>
   </div>
 </header>"""
     return f"""<!doctype html>
@@ -221,6 +352,7 @@ def shell(root, title, desc, body, current=None):
 </head>
 <body data-root="{root}">
 {SPRITE}
+{NAV_SPRITE}
 <div class="scrollbar" aria-hidden="true"><div id="scrollFill"></div></div>
 {header}
 {body}
@@ -316,6 +448,9 @@ for n, (cid, slug, demo) in enumerate(TOOLS):
     prev_cid, prev_slug, _ = TOOLS[n - 1]
     next_cid, next_slug, _ = TOOLS[(n + 1) % len(TOOLS)]
     t = INFO[cid]
+    switch = "".join(
+        f'<a class="sw" href="{s2}.html"' + (' aria-current="page"' if c2 == cid else "") + f'><svg class="i"><use href="#{INFO[c2]["icon"]}"/></svg>{INFO[c2]["title"]}</a>'
+        for c2, s2, _ in TOOLS)
     pn = f"""<div class="pn">
         <a class="prev" href="{prev_slug}.html"><span class="k"><svg class="i"><use href="#i-arrow"/></svg>Previous tool</span><h3>{INFO[prev_cid]['title']}</h3><p>{INFO[prev_cid]['result']}</p></a>
         <a class="next" href="{next_slug}.html"><span class="k">Next tool<svg class="i"><use href="#i-arrow"/></svg></span><h3>{INFO[next_cid]['title']}</h3><p>{INFO[next_cid]['result']}</p></a>
@@ -325,6 +460,7 @@ for n, (cid, slug, demo) in enumerate(TOOLS):
   <section class="case-page">
     <div class="container">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span>/</span><a href="../index.html#work">Work</a><span>/</span><span>{t['title']}</span></nav>
+      <nav class="switcher" aria-label="All tools">{switch}</nav>
       {relink(art, '../work/'.replace('work/', '')).replace('href="../work/', 'href="')}
       {pn}
     </div>
@@ -332,7 +468,7 @@ for n, (cid, slug, demo) in enumerate(TOOLS):
 
   {CONTACT}
 </main>"""
-    pages[f"work/{slug}.html"] = shell("../", f"{t['title']} | {NAME}", summary_text(art), body, current="work")
+    pages[f"work/{slug}.html"] = shell("../", f"{t['title']} | {NAME}", summary_text(art), body, current="work", tool=cid)
 
 # ---------- Write ----------
 os.makedirs(os.path.join(HERE, "assets"), exist_ok=True)
