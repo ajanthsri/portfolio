@@ -538,6 +538,15 @@ h1, h2 { font-weight: 800; }
 @media (prefers-reduced-motion: reduce) { .tldr div { transition: none; } }
 
 /* ================= Professional pass ================= */
+/* Platforms strip: a still, centred grid of evenly sized logo tiles */
+.stackband .marquee { overflow: visible; -webkit-mask-image: none; mask-image: none; }
+.stackband .track { animation: none; width: auto; display: block; }
+.stackband .track ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 980px; margin: 0 auto; padding: 0 16px; }
+.stackband .track li { height: 44px; padding: 0 16px; gap: 8px; transition: none; }
+.stackband .track li:hover { transform: none; box-shadow: var(--shadow-xs); }
+.stackband .track li img { height: 20px; width: auto; }
+.stackband .track li.mark img { height: 18px; max-width: 92px; object-fit: contain; }
+.stackband .track li span { font-size: 14px; color: var(--fg-2); }
 /* Top bar scrolls away with the page instead of staying pinned */
 .topbar { position: relative; top: auto; z-index: 20; background: transparent; backdrop-filter: none; }
 html { scroll-padding-top: 16px; }
