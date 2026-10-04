@@ -538,15 +538,19 @@ h1, h2 { font-weight: 800; }
 @media (prefers-reduced-motion: reduce) { .tldr div { transition: none; } }
 
 /* ================= Professional pass ================= */
-/* Platforms strip: a still, centred grid of evenly sized logo tiles */
-.stackband .marquee { overflow: visible; -webkit-mask-image: none; mask-image: none; }
-.stackband .track { animation: none; width: auto; display: block; }
-.stackband .track ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 980px; margin: 0 auto; padding: 0 16px; }
-.stackband .track li { height: 44px; padding: 0 16px; gap: 8px; transition: none; }
-.stackband .track li:hover { transform: none; box-shadow: var(--shadow-xs); }
+/* Platforms strip: one line of evenly sized logos that scrolls slowly */
+.stackband .track ul { gap: 10px; padding: 0 5px; }
+.stackband .track li { height: 44px; padding: 0 16px; gap: 8px; }
 .stackband .track li img { height: 20px; width: auto; }
 .stackband .track li.mark img { height: 18px; max-width: 92px; object-fit: contain; }
 .stackband .track li span { font-size: 14px; color: var(--fg-2); }
+/* With Reduce Motion on: the same single line, still and swipeable, nothing cut off */
+@media (prefers-reduced-motion: reduce) {
+  .stackband .marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; scrollbar-width: none; }
+  .stackband .marquee::-webkit-scrollbar { display: none; }
+  .stackband .track, .stackband .track ul { flex-wrap: nowrap; width: max-content; justify-content: flex-start; }
+  .stackband .track { padding: 0 16px; }
+}
 /* Top bar scrolls away with the page instead of staying pinned */
 .topbar { position: relative; top: auto; z-index: 20; background: transparent; backdrop-filter: none; }
 html { scroll-padding-top: 16px; }
@@ -564,8 +568,8 @@ html { scroll-padding-top: 16px; }
 :root { --note-yellow: #FFECAE; --note-mint: #D3F0E4; --note-pink: #FDDDE4; --note-blue: #D6E8FA; }
 body { background-image: radial-gradient(#E3E5E8 1px, transparent 1.1px); }
 /* Labels: clean sans in marker red, no tilt. Handwriting stays only in the hero label and board lane titles */
-.eyebrow { font: 600 14px/1.4 var(--sans); letter-spacing: .02em; transform: none; }
-.hero .eyebrow { font: 700 24px/1.1 var(--hand); transform: rotate(-1.5deg); }
+.eyebrow { font: 600 13px/1.4 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--brand-strong); transform: none; }
+.hero .eyebrow { font-size: 13px; color: var(--fg-2); }
 .board-note { font: 500 14px var(--sans); transform: none; margin: -24px 0 20px; }
 .lane-head h3 { font-size: 26px; }
 .note .go, .tldr dt { font-family: var(--sans); }
