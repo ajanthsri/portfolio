@@ -539,6 +539,9 @@ h1, h2 { font-weight: 800; }
 
 /* ================= Professional pass ================= */
 /* Platforms strip: one line of evenly sized logos that scrolls slowly */
+.stackband .lg { display: block; height: 20px; flex: none; background: var(--fg-2); -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat; transition: background .2s; }
+.stackband .track li:hover .lg { background: var(--c); }
+.stackband .track li span:not(.lg) { font-weight: 600; }
 .stackband .track ul { gap: 10px; padding: 0 5px; }
 .stackband .track li { height: 44px; padding: 0 16px; gap: 8px; }
 .stackband .track li img { height: 20px; width: auto; }

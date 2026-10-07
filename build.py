@@ -273,6 +273,9 @@ h1, h2 { font-weight: 800; }
 
 /* ================= Professional pass ================= */
 /* Platforms strip: one line of evenly sized logos that scrolls slowly */
+.stackband .lg { display: block; height: 20px; flex: none; background: var(--fg-2); -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat; transition: background .2s; }
+.stackband .track li:hover .lg { background: var(--c); }
+.stackband .track li span:not(.lg) { font-weight: 600; }
 .stackband .track ul { gap: 10px; padding: 0 5px; }
 .stackband .track li { height: 44px; padding: 0 16px; gap: 8px; }
 .stackband .track li img { height: 20px; width: auto; }
@@ -535,6 +538,8 @@ def shell(root, title, desc, body, current=None, tool=None):
 {FAVICON}
 {HEAD_LINKS}
 <link rel="stylesheet" href="{root}assets/site.css">
+<script>window.va = window.va || function () {{ (window.vaq = window.vaq || []).push(arguments); }};
+if (/vercel\\.app$/.test(location.hostname)) {{ var va = document.createElement("script"); va.defer = true; va.src = "/_vercel/insights/script.js"; document.head.appendChild(va); }}</script>
 </head>
 <body data-root="{root}">
 {SPRITE}
@@ -588,6 +593,15 @@ teaser = f"""<section class="section alt" id="approach">
     </div>
   </section>"""
 logos = block('<section class="stackband"', "</section>")
+import json as _json
+_L = _json.load(open(os.path.join(HERE, "src", "logos.json"), encoding="utf-8"))
+def _logo_list(hidden):
+    items = "".join(
+        f'<li style="--c:{l["hex"]}"><span class="lg" style="--m:url({l["mask"]});width:{round(20 * l["ratio"])}px"' + ("" if hidden else f' role="img" aria-label="{l["name"]} logo"') + f'></span><span>{l["name"]}</span></li>'
+        for l in _L)
+    return ('<ul aria-hidden="true">' if hidden else "<ul>") + items + "</ul>"
+logos = re.sub(r'<div class="track">.*?</div></div>', lambda m: '<div class="track">' + _logo_list(False) + _logo_list(True) + "</div></div>", logos, count=1, flags=re.S)
+assert logos.count('class="lg"') == 2 * len(_L)
 
 home_body = f"""<main id="top">
   {hero}
