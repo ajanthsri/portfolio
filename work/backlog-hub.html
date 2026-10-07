@@ -4,16 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Backlog Prioritisation Hub | Ajanth Sri Kathirkamanthan</title>
-<meta name="description" content="One workspace for refinement, prioritisation, sprint planning and delivery oversight. It brings Jira demand from two product lines together, ranks it on evidence, and records every decision.">
+<meta name="description" content="One workspace for refinement, prioritisation, sprint planning and delivery oversight. It brings Jira demand from two product lines together, ranks it on evidence and records every decision.">
 <meta property="og:title" content="Backlog Prioritisation Hub | Ajanth Sri Kathirkamanthan">
-<meta property="og:description" content="One workspace for refinement, prioritisation, sprint planning and delivery oversight. It brings Jira demand from two product lines together, ranks it on evidence, and records every decision.">
+<meta property="og:description" content="One workspace for refinement, prioritisation, sprint planning and delivery oversight. It brings Jira demand from two product lines together, ranks it on evidence and records every decision.">
 <meta property="og:type" content="website">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#FAFAF8">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23FFE27A'/%3E%3Ctext x='16' y='21' font-family='Arial,sans-serif' font-size='13' font-weight='700' fill='%231D1D1B' text-anchor='middle'%3EAS%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
 <link rel="stylesheet" href="../assets/site.css">
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 if (/vercel\.app$/.test(location.hostname)) { var va = document.createElement("script"); va.defer = true; va.src = "/_vercel/insights/script.js"; document.head.appendChild(va); }</script>
@@ -109,7 +109,7 @@ if (/vercel\.app$/.test(location.hostname)) { var va = document.createElement("s
               <span class="icon-tile"><svg class="i"><use href="#i-list"/></svg></span>
               <div>
                 <h1>Backlog Prioritisation Hub</h1>
-                <p class="summary">One workspace for refinement, prioritisation, sprint planning and delivery oversight. It brings Jira demand from two product lines together, ranks it on evidence, and records every decision.</p>
+                <p class="summary">One workspace for refinement, prioritisation, sprint planning and delivery oversight. It brings Jira demand from two product lines together, ranks it on evidence and records every decision.</p>
                 <div class="badges"><span class="badge ok"><span class="dot"></span>In use</span><span class="badge">Efficio</span><span class="badge">Built solo</span><span class="badge">Since June 2026</span></div>
                 <dl class="tldr"><div><dt>Problem</dt><dd>Over 200 tickets across two products, bugs mixed with features, no consistent ranking and no record of why.</dd></div><div><dt>Built</dt><dd>A Jira synced hub with separate paths for bugs and features, evidence based scoring, voting and a full audit trail.</dd></div><div><dt>Result</dt><dd>Shorter refinement, faster triage and less debate. Now the refinement group's primary tool.</dd></div></dl>
               </div>
@@ -129,7 +129,6 @@ if (/vercel\.app$/.test(location.hostname)) { var va = document.createElement("s
           </div>
           <div class="panel" data-panel="overview">
             <div class="cols">
-              <div class="part"><h4>The problem</h4><p>Demand for two product lines sat in Jira as one long list. Bugs competed with feature requests, ranking took long debates in refinement, and the reasons behind decisions were not recorded.</p></div>
               <div class="part"><h4>What changed</h4>
                 <ul class="checks">
                   <li>Refinement sessions are shorter, with less time spent debating order.</li>
@@ -197,7 +196,7 @@ if (/vercel\.app$/.test(location.hostname)) { var va = document.createElement("s
                   <li><span class="n">Jun</span><div><h5>June 2026</h5><p>Scoring, Jira sync, team capacity and sprint planning, then a workflow board and MoSCoW.</p></div></li>
                   <li><span class="n">Jul</span><div><h5>July</h5><p>Sprint history, carry over reviews, ideation and stakeholder briefs.</p></div></li>
                   <li><span class="n">Aug</span><div><h5>August</h5><p>Delivery change tracking and the first Feature Insights roadmap themes.</p></div></li>
-                  <li><span class="n">Sep</span><div><h5>September</h5><p>A full redesign, separate intake per product line, voting with reasons, and sprint scope control.</p></div></li>
+                  <li><span class="n">Sep</span><div><h5>September</h5><p>A full redesign, separate intake per product line, voting with reasons and sprint scope control.</p></div></li>
                 </ol>
               </div>
               <div class="part"><h4>Stack</h4>
@@ -221,13 +220,13 @@ if (/vercel\.app$/.test(location.hostname)) { var va = document.createElement("s
             <div class="demo">
               <div class="weights">
                 <div>
-                  <label for="wImpact">Weight on client impact <span id="wOut">60% client impact · 40% roadmap</span></label>
+                  <label for="wImpact">Scoring weight <span id="wOut">60% client impact · 40% roadmap</span></label>
                   <input type="range" id="wImpact" min="0" max="100" step="10" value="60">
                 </div>
                 
               </div>
               <ol class="rank" id="rank"></ol>
-              <p class="demo-note">Made up feature tickets and a much simpler formula than the real one. In the real hub, bugs follow a separate path ordered by Jira severity.</p>
+              <p class="demo-note">The real hub ranks bugs separately, by Jira severity.</p>
             </div>
           </div>
         </article>

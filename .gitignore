@@ -1,2 +1,4 @@
 .preview/
 __pycache__/
+shots_before/
+shots_after/

@@ -35,7 +35,7 @@
   $$("[data-copy]").forEach(function (btn) {
     btn.addEventListener("click", function () {
       var el = document.getElementById(btn.dataset.copy), text = el.textContent.trim();
-      function fallback() { var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); toast("Selected. Press Ctrl C to copy"); }
+      function fallback() { var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); toast("Selected. Press Ctrl+C or Cmd+C to copy."); }
       try { navigator.clipboard.writeText(text).then(function () { toast("Copied to clipboard"); }, fallback); } catch (e) { fallback(); }
     });
   });
@@ -146,11 +146,11 @@
     talent: { turns: ["Your two minute career story, told as one clear thread towards this role.", "Why this company specifically.", "The one achievement on your CV most relevant to this role, with numbers.", "Notice period, salary expectations and start date.", "The questions you plan to ask the recruiter."],
       sheet: "Career narrative, genuine motivation, salary and notice preparation, screening questions with answers, and questions for the recruiter." },
     hm: { turns: ["Why your career moved the way it did, using the job titles on your CV.", "A project that matches the toughest requirement in the job description, with a measurable outcome.", "A time you pushed back on a stakeholder, and what happened.", "Your one or two biggest gaps against the job, and how you will handle them.", "Why this company, with something real about it."],
-      sheet: "Three deep STAR stories, an honest gap analysis with exact wording, likely hiring manager questions, and smart questions to ask." },
+      sheet: "Three deep STAR stories, an honest gap analysis with exact wording, likely hiring manager questions and smart questions to ask." },
     tech: { turns: ["Your confidence from 1 to 10 in each key tool in the job description, and the gaps.", "The frameworks you use day to day for prioritisation, discovery and delivery.", "How you would approach a specific problem from the job description.", "The most technically complex thing you have shipped, and your decisions.", "How you would approach a take home task."],
-      sheet: "Tool confidence ratings, framework examples, structured answers, and likely technical questions." },
+      sheet: "Tool confidence ratings, framework examples, structured answers and likely technical questions." },
     final: { turns: ["Examples of you influencing product direction.", "A time you led without authority.", "A genuine professional failure and what changed afterwards.", "How your values connect to the company's values.", "Where you want to be in three to five years."],
-      sheet: "Strategic thinking examples, leadership stories, values alignment, your growth story, and questions for senior leaders." }
+      sheet: "Strategic thinking examples, leadership stories, values alignment, your growth story and questions for senior leaders." }
   };
   var round = "hm", shown = 1;
   function msg(who, body, cls) {

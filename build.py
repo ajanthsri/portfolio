@@ -203,10 +203,6 @@ h1, h2 { font-weight: 800; }
 .profile .cover { background: var(--note-yellow); border-radius: 15px 15px 0 0; }
 
 /* Sticky notes */
-.note-y { background: var(--note-yellow) !important; }
-.note-m { background: var(--note-mint) !important; }
-.note-p { background: var(--note-pink) !important; }
-.note-b { background: var(--note-blue) !important; }
 .metric { border: 0; border-radius: 3px; box-shadow: 0 10px 16px -6px rgba(29,29,27,.25); transition: transform .25s; }
 .metric:nth-child(1) { background: var(--note-yellow); transform: rotate(-1.6deg); }
 .metric:nth-child(2) { background: var(--note-mint); transform: rotate(1.2deg); }
@@ -231,35 +227,7 @@ h1, h2 { font-weight: 800; }
 .stackband { background: rgba(255,255,255,.7); }
 .chip { font-family: var(--mono); }
 
-/* ================= Product board on the home page ================= */
-.board-note { font: 700 22px var(--hand); color: var(--fg-3); margin: -28px 0 22px; transform: rotate(-1deg); display: inline-block; }
-.board { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 18px; align-items: start; }
-.lane { background: rgba(255,255,255,.6); border: 2px dashed var(--line-2); border-radius: 16px; padding: 14px 12px 6px; min-height: 280px; }
-.lane-head { display: flex; justify-content: space-between; align-items: center; margin: 0 6px 16px; }
-.lane-head h3 { font: 700 28px/1 var(--hand); margin: 0; letter-spacing: 0; }
-.lane-head .count { font: 600 13px var(--sans); color: var(--fg-3); background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 1px 9px; }
-.board .tile.note { display: flex; flex-direction: column; gap: 8px; padding: 24px 16px 14px; margin-bottom: 20px; border: 0; border-radius: 3px; box-shadow: 0 10px 16px -6px rgba(29,29,27,.28); overflow: visible; color: var(--fg); }
-.board .tile.note::after { display: none; }
-.board .tile.note::before { content: ""; position: absolute; top: -10px; left: 50%; width: 70px; height: 20px; transform: translateX(-50%) rotate(-4deg); background: rgba(255,255,255,.6); border: 1px solid rgba(29,29,27,.06); }
-.board .lane .tile.note:nth-of-type(odd) { transform: rotate(-1.6deg); }
-.board .lane .tile.note:nth-of-type(even) { transform: rotate(1.3deg); }
-.board .tile.note:hover { transform: rotate(0) translateY(-5px) scale(1.02); box-shadow: 0 18px 24px -8px rgba(29,29,27,.32); border: 0; }
-.lane-spec .note { background: var(--note-blue); }
-.lane-pilot .note { background: var(--note-pink); }
-.lane-use .note { background: var(--note-mint); }
-.lane-live .note { background: var(--note-yellow); }
-.note h3 { font: 800 18px/1.2 var(--display); }
-.note .result { font-size: 14px; color: var(--fg); flex: none; }
-.note .tags { display: flex; flex-wrap: wrap; gap: 5px; }
-.note .tags .badge { background: rgba(255,255,255,.55); border-color: rgba(29,29,27,.1); color: var(--fg); }
-.note .tags .badge.brand { background: var(--fg); color: #fff; border-color: var(--fg); }
-.note .go { font: 700 20px var(--hand); color: var(--fg); display: inline-flex; align-items: center; gap: 4px; }
-.note .go svg { width: 16px; height: 16px; transition: transform .2s; }
-.note:hover .go svg { transform: translateX(4px); }
-.note .where { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--fg-2); }
-@media (max-width: 1024px) { .board { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-@media (max-width: 640px) { .board { grid-template-columns: minmax(0,1fr); } .lane { min-height: 0; } .board-note { margin-top: -20px; } }
-@media (prefers-reduced-motion: reduce) { .metric, .pillar, .board .tile.note { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .metric, .pillar { transition: none; } }
 /* Problem, Built, Result as three sticky notes on tool pages */
 .tldr { background: none; border: 0; gap: 18px; overflow: visible; margin-top: 22px; }
 .tldr div { border-radius: 3px; padding: 16px 16px 14px; box-shadow: 0 10px 16px -6px rgba(29,29,27,.25); transition: transform .25s; }
@@ -322,10 +290,10 @@ body { background-image: radial-gradient(#E3E5E8 1px, transparent 1.1px); }
 .metric, .pillars:not(.six) .pillar, .tldr div, .board .tile.note { box-shadow: 0 6px 14px -8px rgba(29,29,27,.28); border-radius: 6px; }
 .board .tile.note:hover { box-shadow: 0 12px 20px -10px rgba(29,29,27,.32); transform: rotate(0) translateY(-3px); }
 /* Tape only on the profile card */
-.board .tile.note::before, .case.pinned::before, .contact-card.pinned::before { display: none; }
+.case.pinned::before, .contact-card.pinned::before { display: none; }
+.cols > .part:only-child { grid-column: 1 / -1; }
 .board .tile.note { padding-top: 18px; }
 /* Calmer containers */
-.lane { border-style: solid; border-width: 1px; border-color: var(--line); background: rgba(255,255,255,.75); }
 .case-head { background: none; }
 .contact-card { background: var(--bg); border: 1px solid var(--line); border-radius: 20px; transform: none; box-shadow: 0 16px 30px -18px rgba(29,29,27,.25); }
 .contact-card .sub { color: var(--fg-2); }
@@ -451,7 +419,7 @@ CONTACT = section_by_id("contact").replace('<div class="contact-card">', '<div c
 TAIL = SRC[SRC.index("<footer>"):SRC.index("<script>")]
 HEAD_LINKS = """<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">"""
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">"""
 FAVICON = re.search(r'<link rel="icon"[^>]*>', SRC).group(0).replace("fill='%237F56D9'", "fill='%23FFE27A'").replace("fill='white'", "fill='%231D1D1B'")
 
 
@@ -584,7 +552,7 @@ teaser = f"""<section class="section alt" id="approach">
       <div class="head">
         <p class="eyebrow">How I work</p>
         <h2>How I take a feature from idea to live</h2>
-        <p class="sub">The process I follow for every feature. The About page covers what I bring and how I make product calls.</p>
+        <p class="sub">The process I follow for every feature.</p>
       </div>
       <ol class="flowrow">
         {stage('i-file', 'Specify')}{arrow}{stage('i-pen', 'Prototype')}{arrow}{stage('i-users', 'Test')}{arrow}{stage('i-rocket', 'Build')}
@@ -597,11 +565,12 @@ import json as _json
 _L = _json.load(open(os.path.join(HERE, "src", "logos.json"), encoding="utf-8"))
 def _logo_list(hidden):
     items = "".join(
-        f'<li style="--c:{l["hex"]}"><span class="lg" style="--m:url({l["mask"]});width:{round(20 * l["ratio"])}px"' + ("" if hidden else f' role="img" aria-label="{l["name"]} logo"') + f'></span><span>{l["name"]}</span></li>'
-        for l in _L)
+        f'<li class="lg{n}"><span class="lg"' + ("" if hidden else f' role="img" aria-label="{l["name"]} logo"') + f'></span><span>{l["name"]}</span></li>'
+        for n, l in enumerate(_L))
     return ('<ul aria-hidden="true">' if hidden else "<ul>") + items + "</ul>"
 logos = re.sub(r'<div class="track">.*?</div></div>', lambda m: '<div class="track">' + _logo_list(False) + _logo_list(True) + "</div></div>", logos, count=1, flags=re.S)
 assert logos.count('class="lg"') == 2 * len(_L)
+CSS += "\n" + "\n".join(f'.lg{n} {{ --c: {l["hex"]}; }} .lg{n} .lg {{ --m: url({l["mask"]}); width: {round(20 * l["ratio"])}px; }}' for n, l in enumerate(_L)) + "\n"
 
 home_body = f"""<main id="top">
   {hero}
@@ -629,7 +598,7 @@ about_body = f"""<main id="top">
     <div class="container">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span>/</span><span>About</span></nav>
       <h1>About me and how I work</h1>
-      <p class="sub">What I bring, where I work, and the principles behind the product calls in each tool.</p>
+      <p class="sub">What I bring, where I work and the principles behind my product calls.</p>
     </div>
   </section>
 
@@ -678,6 +647,24 @@ for n, (cid, slug, demo) in enumerate(TOOLS):
 # ---------- Write ----------
 os.makedirs(os.path.join(HERE, "assets"), exist_ok=True)
 os.makedirs(os.path.join(HERE, "work"), exist_ok=True)
+# ---------- Remove style rules for parts of the page that no longer exist ----------
+DEAD = {".pill", ".pill .badge", ".pulse", ".pulse::after", ".track li.mark img", ".stackband .track li.mark img",
+        ".note-y", ".note-m", ".note-p", ".note-b", ".board-note", ".lane-head h3", ".note .go",
+        ".board .lane .tile.note:nth-of-type(odd)", ".board .lane .tile.note:nth-of-type(even)",
+        ".board .tile.note", ".board .tile.note:hover", ".board .tile.note::before", ".lane"}
+def _prune(css):
+    def fix(m):
+        notes = "".join(re.findall(r"/\*.*?\*/", m.group(1), re.S))
+        sels = [x.strip() for x in re.sub(r"/\*.*?\*/", "", m.group(1), flags=re.S).split(",")]
+        keep = [x for x in sels if x not in DEAD]
+        if not keep:
+            return notes
+        return (notes + "\n" if notes else "") + ", ".join(keep) + " {" + m.group(2) + "}"
+    return re.sub(r"(?<![@\w-])([.#:\[\w][^{}@;]*?)\s*\{([^{}]*)\}", fix, css)
+CSS = re.sub(r"/\*.*?\*/", "", CSS, flags=re.S)
+CSS = re.sub(r"\n\s*\n+", "\n", CSS)
+CSS = _prune(CSS)
+
 # ---------- Motion: subtle, once, and off when Reduce Motion is on ----------
 CSS += r"""
 /* Hero entrance on load */
