@@ -664,6 +664,100 @@ for n, (cid, slug, demo) in enumerate(TOOLS):
 # ---------- Write ----------
 os.makedirs(os.path.join(HERE, "assets"), exist_ok=True)
 os.makedirs(os.path.join(HERE, "work"), exist_ok=True)
+# ---------- Motion: subtle, once, and off when Reduce Motion is on ----------
+CSS += r"""
+/* Hero entrance on load */
+@media (prefers-reduced-motion: no-preference) {
+  .hero .eyebrow, .hero h1, .hero .lede, .hero .actions, .hero .profile { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
+  .hero h1 { animation-delay: .08s; }
+  .hero .lede { animation-delay: .16s; }
+  .hero .actions { animation-delay: .24s; }
+  .hero .profile { animation-delay: .3s; }
+  .pagehead h1, .pagehead .sub, .case-page .crumbs, .case-page .switcher, .case-page .case { animation: rise .6s cubic-bezier(.2,.7,.2,1) both; }
+  .pagehead .sub, .case-page .switcher { animation-delay: .08s; }
+  .case-page .case { animation-delay: .14s; }
+}
+@keyframes rise { from { opacity: 0; translate: 0 14px; } to { opacity: 1; translate: 0 0; } }
+
+/* Sections and cards ease in as they scroll into view */
+.rv { opacity: 0; translate: 0 18px; transition: opacity .6s ease, translate .6s cubic-bezier(.2,.7,.2,1); }
+.rv.in { opacity: 1; translate: 0 0; }
+
+/* Process steps: a highlight travels Specify, Prototype, Test, Build */
+.flowrow li .icon-tile { transition: background .35s, color .35s, transform .35s; }
+.flowrow li.on .icon-tile { background: var(--brand); color: #fff; transform: scale(1.08); }
+.flowrow li.arrow { transition: color .35s, transform .35s; }
+.flowrow li.arrow.on { color: var(--brand); transform: translateX(3px); }
+"""
+
+ANIM_JS = """
+  /* ---------- Motion ---------- */
+  if (!reduce) {
+    // Count up the headline figures when they come into view.
+    var nums = $$(".metric .num, .kpi .num").filter(function (el) {
+      return (el.textContent.match(/\\d[\\d,]*(\\.\\d+)?/g) || []).length === 1;
+    });
+    function countUp(el) {
+      var full = el.textContent, m = full.match(/^(.*?)(\\d[\\d,]*(?:\\.\\d+)?)(.*)$/);
+      if (!m) return;
+      var target = parseFloat(m[2].replace(/,/g, "")), dec = (m[2].split(".")[1] || "").length, comma = m[2].indexOf(",") > -1;
+      var t0 = performance.now(), dur = 1100;
+      (function tick(t) {
+        var k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3), v = target * e;
+        var txt = dec ? v.toFixed(dec) : String(Math.round(v));
+        if (comma) txt = Number(txt).toLocaleString("en-GB", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+        el.textContent = k < 1 ? m[1] + txt + m[3] : full;
+        if (k < 1) requestAnimationFrame(tick);
+      })(t0);
+    }
+
+    // Ease in sections and cards that start below the fold.
+    var cand = $$(".section .head, #tiles .tile, .pillar, .metric, .flowrow, .stackband, .contact-card, .scope, .pwins .metric, .steps li, .tldr div, .kpi, .pn a, .backall");
+    var fold = window.innerHeight;
+    cand.forEach(function (el) {
+      if (el.getBoundingClientRect().top > fold * 0.92) {
+        var sibs = Array.prototype.indexOf.call(el.parentNode.children, el);
+        el.style.transitionDelay = Math.min(sibs, 5) * 70 + "ms";
+        el.classList.add("rv");
+      }
+    });
+
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          var el = en.target;
+          if (el.classList.contains("rv")) el.classList.add("in");
+          if (el.classList.contains("num")) countUp(el);
+          io.unobserve(el);
+        });
+      }, { threshold: 0.15, rootMargin: "0px 0px -6% 0px" });
+      $$(".rv").forEach(function (el) { io.observe(el); });
+      nums.forEach(function (el) { io.observe(el); });
+    } else {
+      $$(".rv").forEach(function (el) { el.classList.add("in"); });
+    }
+    // Safety: never leave anything hidden.
+    setTimeout(function () { $$(".rv:not(.in)").forEach(function (el) { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add("in"); }); }, 2500);
+
+    // Process steps highlight on the home page.
+    var flow = $(".flowrow");
+    if (flow) {
+      var steps = $$("li", flow), si = 0;
+      setInterval(function () {
+        if (document.hidden) return;
+        steps.forEach(function (li) { li.classList.remove("on"); });
+        steps[si].classList.add("on");
+        if (steps[si + 1] && steps[si + 1].classList.contains("arrow")) steps[si + 1].classList.add("on");
+        si = (si + 2) % steps.length;
+      }, 1300);
+    }
+  }
+"""
+JS = JS.rstrip()
+assert JS.endswith("})();")
+JS = JS[:-5] + ANIM_JS + "})();"
+
 open(os.path.join(HERE, "assets", "site.css"), "w", encoding="utf-8").write(CSS.strip() + "\n")
 open(os.path.join(HERE, "assets", "site.js"), "w", encoding="utf-8").write(JS.strip() + "\n")
 for path, html in pages.items():

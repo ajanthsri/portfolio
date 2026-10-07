@@ -289,4 +289,67 @@
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !mobileMenu.hidden) setMenu(false); });
     window.addEventListener("resize", function () { if (innerWidth > 1024) setMenu(false); });
   }
+
+  /* ---------- Motion ---------- */
+  if (!reduce) {
+    // Count up the headline figures when they come into view.
+    var nums = $$(".metric .num, .kpi .num").filter(function (el) {
+      return (el.textContent.match(/\d[\d,]*(\.\d+)?/g) || []).length === 1;
+    });
+    function countUp(el) {
+      var full = el.textContent, m = full.match(/^(.*?)(\d[\d,]*(?:\.\d+)?)(.*)$/);
+      if (!m) return;
+      var target = parseFloat(m[2].replace(/,/g, "")), dec = (m[2].split(".")[1] || "").length, comma = m[2].indexOf(",") > -1;
+      var t0 = performance.now(), dur = 1100;
+      (function tick(t) {
+        var k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3), v = target * e;
+        var txt = dec ? v.toFixed(dec) : String(Math.round(v));
+        if (comma) txt = Number(txt).toLocaleString("en-GB", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+        el.textContent = k < 1 ? m[1] + txt + m[3] : full;
+        if (k < 1) requestAnimationFrame(tick);
+      })(t0);
+    }
+
+    // Ease in sections and cards that start below the fold.
+    var cand = $$(".section .head, #tiles .tile, .pillar, .metric, .flowrow, .stackband, .contact-card, .scope, .pwins .metric, .steps li, .tldr div, .kpi, .pn a, .backall");
+    var fold = window.innerHeight;
+    cand.forEach(function (el) {
+      if (el.getBoundingClientRect().top > fold * 0.92) {
+        var sibs = Array.prototype.indexOf.call(el.parentNode.children, el);
+        el.style.transitionDelay = Math.min(sibs, 5) * 70 + "ms";
+        el.classList.add("rv");
+      }
+    });
+
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          var el = en.target;
+          if (el.classList.contains("rv")) el.classList.add("in");
+          if (el.classList.contains("num")) countUp(el);
+          io.unobserve(el);
+        });
+      }, { threshold: 0.15, rootMargin: "0px 0px -6% 0px" });
+      $$(".rv").forEach(function (el) { io.observe(el); });
+      nums.forEach(function (el) { io.observe(el); });
+    } else {
+      $$(".rv").forEach(function (el) { el.classList.add("in"); });
+    }
+    // Safety: never leave anything hidden.
+    setTimeout(function () { $$(".rv:not(.in)").forEach(function (el) { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add("in"); }); }, 2500);
+
+    // Process steps highlight on the home page.
+    var flow = $(".flowrow");
+    if (flow) {
+      var steps = $$("li", flow), si = 0;
+      setInterval(function () {
+        if (document.hidden) return;
+        steps.forEach(function (li) { li.classList.remove("on"); });
+        steps[si].classList.add("on");
+        if (steps[si + 1] && steps[si + 1].classList.contains("arrow")) steps[si + 1].classList.add("on");
+        si = (si + 2) % steps.length;
+      }, 1300);
+    }
+  }
 })();
