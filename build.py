@@ -14,6 +14,11 @@ NAME = "Ajanth Sri Kathirkamanthan"
 SITE = "https://ajanth-portfolio.vercel.app"
 import datetime as _dt
 UPDATED = _dt.date.today().strftime("%b %Y")
+NOW_ITEMS = [
+    "Building the Tamil learning app, starting with the beginner experience in Sri Lankan Tamil.",
+    "Piloting Supplier Framework with public sector consultants and acting on their feedback.",
+    "Finding PrepPO's first users before building the paid version.",
+]
 
 # Tool pages, in the order visitors step through them.
 TOOLS = [
@@ -551,6 +556,9 @@ hero = hero.replace('<aside class="profile"', '<aside class="profile pinned"')
 hero = hero.replace('<p class="eyebrow">Product Owner · London, United Kingdom</p>',
                     '<p class="eyebrow tagline">product owner · ai tools · procurement saas · london, united kingdom</p>')
 assert "tagline" in hero
+_since = '<div><svg class="i"><use href="#i-brief"/></svg><span>At Efficio since 2022</span></div>'
+assert _since in hero
+hero = hero.replace(_since, _since + '\n            <div><svg class="i"><use href="#i-file"/></svg><span>Previously a Software Engineer, in Java, Spring and SQL</span></div>')
 
 # Ticket keys, like Jira, in the order visitors step through the tools.
 KEYS = {cid: f"AJ-{n + 1:02d}" for n, (cid, _, _) in enumerate(TOOLS)}
@@ -615,12 +623,23 @@ logos = re.sub(r'<div class="track">.*?</div></div>', lambda m: '<div class="tra
 assert logos.count('class="lg"') == 2 * len(_L)
 CSS += "\n" + "\n".join(f'.lg{n} {{ --c: {l["hex"]}; }} .lg{n} .lg {{ --m: url({l["mask"]}); width: {round(20 * l["ratio"])}px; }}' for n, l in enumerate(_L)) + "\n"
 
+NOW_STRIP = f"""<section class="nowstrip" aria-label="What I am working on now">
+    <div class="container">
+      <div class="nowbar">
+        <p class="eyebrow tagline">now · {UPDATED.lower()}</p>
+        <ul>{"".join(f"<li>{x}</li>" for x in NOW_ITEMS)}</ul>
+        <a class="nowlink" href="log.html">See the shipped log<svg class="i"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </section>"""
 home_body = f"""<main id="top">
   {hero}
 
   {metrics}
 
   {work}
+
+  {NOW_STRIP}
 
   {teaser}
 
@@ -732,11 +751,7 @@ log_body = f"""<main id="top">
     <div class="container log-wrap">
       <aside class="now">
         <p class="eyebrow tagline">now · {UPDATED.lower()}</p>
-        <ul class="checks">
-          <li>Building the Tamil learning app, starting with the beginner experience in Sri Lankan Tamil.</li>
-          <li>Piloting Supplier Framework with public sector consultants and acting on their feedback.</li>
-          <li>Finding PrepPO's first users before building the paid version.</li>
-        </ul>
+        <ul class="checks">{"".join(f"<li>{x}</li>" for x in NOW_ITEMS)}</ul>
       </aside>
       <div>
         <ol class="log">{"".join(_entry(*e) for e in LOG)}</ol>
@@ -789,6 +804,16 @@ CSS += r"""
 .sb-gap { flex: 1; }
 .statusbar kbd { background: transparent; color: #fff; border-color: #6C6C68; }
 @media (max-width: 720px) { .sb-gap, .sb-hint, .sb-name { display: none; } }
+
+/* Home: Now strip */
+.nowstrip { padding-block: 8px 0; }
+.nowbar { display: grid; grid-template-columns: 150px minmax(0,1fr) auto; gap: 16px 28px; align-items: start; background: var(--note-yellow); border-radius: 8px; padding: 18px 22px; box-shadow: 0 6px 14px -10px rgba(29,29,27,.3); }
+.nowbar ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.nowbar li { color: var(--fg); font-size: 15px; padding-left: 16px; position: relative; }
+.nowbar li::before { content: ""; position: absolute; left: 0; top: .6em; width: 7px; height: 7px; border-radius: 50%; background: var(--brand); }
+.nowlink { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 14px; color: var(--fg); white-space: nowrap; }
+.nowlink svg { width: 16px; height: 16px; }
+@media (max-width: 900px) { .nowbar { grid-template-columns: minmax(0,1fr); } }
 
 /* About: career path */
 .path { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; position: relative; }

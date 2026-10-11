@@ -520,6 +520,16 @@ body { background-image: radial-gradient(#E3E5E8 1px, transparent 1.1px); }
 .statusbar kbd { background: transparent; color: #fff; border-color: #6C6C68; }
 @media (max-width: 720px) { .sb-gap, .sb-hint, .sb-name { display: none; } }
 
+/* Home: Now strip */
+.nowstrip { padding-block: 8px 0; }
+.nowbar { display: grid; grid-template-columns: 150px minmax(0,1fr) auto; gap: 16px 28px; align-items: start; background: var(--note-yellow); border-radius: 8px; padding: 18px 22px; box-shadow: 0 6px 14px -10px rgba(29,29,27,.3); }
+.nowbar ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.nowbar li { color: var(--fg); font-size: 15px; padding-left: 16px; position: relative; }
+.nowbar li::before { content: ""; position: absolute; left: 0; top: .6em; width: 7px; height: 7px; border-radius: 50%; background: var(--brand); }
+.nowlink { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 14px; color: var(--fg); white-space: nowrap; }
+.nowlink svg { width: 16px; height: 16px; }
+@media (max-width: 900px) { .nowbar { grid-template-columns: minmax(0,1fr); } }
+
 /* About: career path */
 .path { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; position: relative; }
 .path li { display: flex; flex-direction: column; gap: 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 20px; box-shadow: 0 6px 14px -10px rgba(29,29,27,.25); }
