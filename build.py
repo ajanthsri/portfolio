@@ -556,6 +556,8 @@ hero = hero.replace('<aside class="profile"', '<aside class="profile pinned"')
 hero = hero.replace('<p class="eyebrow">Product Owner · London, United Kingdom</p>',
                     '<p class="eyebrow tagline">product owner · ai tools · procurement saas · london, united kingdom</p>')
 assert "tagline" in hero
+assert hero.count("</h1>") == 1
+hero = hero.replace("</h1>", '</h1>\n        <p class="motto">I build the tools I wish I had, then hand them to the team.</p>')
 _since = '<div><svg class="i"><use href="#i-brief"/></svg><span>At Efficio since 2022</span></div>'
 assert _since in hero
 hero = hero.replace(_since, _since + '\n            <div><svg class="i"><use href="#i-file"/></svg><span>Previously a Software Engineer, in Java, Spring and SQL</span></div>')
@@ -805,6 +807,10 @@ CSS += r"""
 .statusbar kbd { background: transparent; color: #fff; border-color: #6C6C68; }
 @media (max-width: 720px) { .sb-gap, .sb-hint, .sb-name { display: none; } }
 
+/* Home: personal line under the headline */
+.hero .motto { font: 500 clamp(18px, 2vw, 21px)/1.4 var(--sans); color: var(--fg); margin-top: 34px; max-width: 32em; }
+.hero .motto + .lede { margin-top: 12px; }
+
 /* Home: Now strip */
 .nowstrip { padding-block: 8px 0; }
 .nowbar { display: grid; grid-template-columns: 150px minmax(0,1fr) auto; gap: 16px 28px; align-items: start; background: var(--note-yellow); border-radius: 8px; padding: 18px 22px; box-shadow: 0 6px 14px -10px rgba(29,29,27,.3); }
@@ -855,7 +861,8 @@ CSS += r"""
 CSS += r"""
 /* Hero entrance on load */
 @media (prefers-reduced-motion: no-preference) {
-  .hero .eyebrow, .hero h1, .hero .lede, .hero .actions, .hero .profile { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
+  .hero .eyebrow, .hero h1, .hero .motto, .hero .lede, .hero .actions, .hero .profile { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
+  .hero .motto { animation-delay: .12s; }
   .hero h1 { animation-delay: .08s; }
   .hero .lede { animation-delay: .16s; }
   .hero .actions { animation-delay: .24s; }
