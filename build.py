@@ -11,6 +11,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = open(os.path.join(HERE, "src", "source.html"), encoding="utf-8").read()
 
 NAME = "Ajanth Sri Kathirkamanthan"
+SITE = "https://ajanth-portfolio.vercel.app"
+import datetime as _dt
+UPDATED = _dt.date.today().strftime("%b %Y")
 
 # Tool pages, in the order visitors step through them.
 TOOLS = [
@@ -405,6 +408,7 @@ items += [
     '    { l: "Open PrepPO live", g: "Link", url: "https://prep-po.vercel.app" }',
     '    { l: "All work", g: "Page", page: "index.html", tab: "work" }',
     '    { l: "About and how I work", g: "Page", page: "about.html" }',
+    '    { l: "Shipped log", g: "Page", page: "log.html" }',
     '    { l: "Contact details", g: "Section", h: "#contact" }',
     '    { l: "Copy email address", g: "Action", act: "email" }',
     '    { l: "Open LinkedIn profile", g: "Link", url: "https://www.linkedin.com/in/ajanthsrik/" }'
@@ -450,7 +454,7 @@ def tool_links(root, current_cid, compact=False):
     return out
 
 
-def shell(root, title, desc, body, current=None, tool=None):
+def shell(root, title, desc, body, current=None, tool=None, path="index.html"):
     on = lambda key: ' class="current"' if current == key else ""
     work_href = "#work" if current == "home" else root + "index.html#work"
     dd = tool_links(root, tool)
@@ -469,6 +473,7 @@ def shell(root, title, desc, body, current=None, tool=None):
         </div>
       </div>
       <a href="{root}about.html"{on('about')}>About</a>
+      <a href="{root}log.html"{on('log')}>Log</a>
       <a href="#contact">Contact</a>
     </nav>
     <div class="spacer"></div>
@@ -485,6 +490,7 @@ def shell(root, title, desc, body, current=None, tool=None):
       <div class="m-links">
         <a href="{work_href}">All work</a>
         <a href="{root}about.html"{on('about')}>About and how I work</a>
+        <a href="{root}log.html"{on('log')}>Shipped log</a>
         <a href="#contact">Contact</a>
       </div>
       <a class="btn primary m-cta" href="#contact">Get in touch</a>
@@ -501,6 +507,13 @@ def shell(root, title, desc, body, current=None, tool=None):
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="website">
+<meta property="og:url" content="{SITE}/{path.replace('index.html', '').replace('.html', '')}">
+<meta property="og:image" content="{SITE}/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ajanth Sri Kathirkamanthan, a Product Owner who builds the product">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{SITE}/assets/og.png">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#FAFAF8">
 {FAVICON}
@@ -515,7 +528,7 @@ if (/vercel\\.app$/.test(location.hostname)) {{ var va = document.createElement(
 <div class="scrollbar" aria-hidden="true"><div id="scrollFill"></div></div>
 {header}
 {body}
-{TAIL}<script src="{root}assets/site.js"></script>
+{status_footer(root)}{TAIL_REST}<script src="{root}assets/site.js"></script>
 </body>
 </html>
 """
@@ -535,12 +548,42 @@ hero = hero.replace('<span class="grad">builds the product.</span>',
                     '<span class="grad scribble-wrap">builds the product.<svg class="scribble" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true">'
                     '<path d="M3 17 C 70 6, 160 4, 297 12 M 40 21 C 110 14, 200 13, 270 17"/></svg></span>')
 hero = hero.replace('<aside class="profile"', '<aside class="profile pinned"')
+hero = hero.replace('<p class="eyebrow">Product Owner · London, United Kingdom</p>',
+                    '<p class="eyebrow tagline">product owner · ai tools · procurement saas · london, united kingdom</p>')
+assert "tagline" in hero
+
+# Ticket keys, like Jira, in the order visitors step through the tools.
+KEYS = {cid: f"AJ-{n + 1:02d}" for n, (cid, _, _) in enumerate(TOOLS)}
+
+# Status bar footer: live and pilot counts read from the tool statuses.
+_status = re.findall(r'<a class="tile[^"]*" href="#\w+"[^>]*><div class="top">.*?<span class="badge (\w+)"><span class="dot"></span>([^<]+)</span>', SRC, re.S)
+assert len(_status) == len(TOOLS), _status
+N_PILOT = sum(1 for _, label in _status if label == "Pilot")
+N_LIVE = len(_status) - N_PILOT
+TAIL_REST = re.sub(r"<footer>.*?</footer>", "", TAIL, flags=re.S)
+def status_footer(root):
+    return f"""<footer class="statusbar">
+  <div class="container sb">
+    <span class="sb-mode">SHIPPING</span>
+    <span class="sb-item"><i class="sb-dot live"></i>{N_LIVE} live</span>
+    <span class="sb-item"><i class="sb-dot pilot"></i>{N_PILOT} in pilot</span>
+    <a class="sb-item sb-link" href="{root}log.html">open the log</a>
+    <span class="sb-gap"></span>
+    <span class="sb-item sb-hint">press <kbd>/</kbd> to jump to a tool</span>
+    <span class="sb-item">updated {UPDATED}</span>
+    <span class="sb-item sb-name">{NAME}</span>
+  </div>
+</footer>
+"""
 metrics = SRC[SRC.index('<div class="container">\n    <div class="metrics">'):SRC.index('<section class="section" id="bring"')].rstrip()
 work = section_by_id("work")
 for cid, slug, demo in TOOLS:
     work = work.replace(f'<a class="tile" href="#{cid}"', f'<a class="tile" href="work/{slug}.html" data-href="work/{slug}.html"')
     work = work.replace(f'<a class="tile wide" href="#{cid}"', f'<a class="tile wide" href="work/{slug}.html" data-href="work/{slug}.html"')
 assert 'href="#' not in re.sub(r'href="#i-', "", work), "a tile still points at an in page anchor"
+for cid, slug, demo in TOOLS:
+    work = re.sub(r'(href="work/%s\.html".*?)<h3>' % re.escape(slug), lambda m: m.group(1) + f'<span class="key">{KEYS[cid]}</span><h3>', work, count=1, flags=re.S)
+assert work.count('class="key"') == len(TOOLS)
 
 # The work section stays a grid of cards (the board layout was dropped).
 
@@ -590,6 +633,21 @@ home = shell("", f"{NAME} | Product Owner",
              home_body, current="home")
 
 # ---------- About ----------
+WHOAMI = """<section class="section" id="whoami">
+    <div class="container">
+      <div class="head">
+        <p class="eyebrow tagline">$ whoami</p>
+        <h2>Engineer first, Product Owner now</h2>
+        <p class="sub">Why I can build the tools I specify.</p>
+      </div>
+      <ol class="path">
+        <li><span class="path-n">01</span><div><h3>BSc Actuarial Science</h3><p class="where">Bayes Business School</p><p>A grounding in numbers, models and evidence.</p></div></li>
+        <li><span class="path-n">02</span><div><h3>Software Engineer</h3><p class="where">Albany Beck</p><p>Built software in Java, Spring and SQL.</p></div></li>
+        <li><span class="path-n">03</span><div><h3>Product Support</h3><p class="where">Efficio</p><p>Wrote complex SQL every day to find and extract data, and migrated users across applications.</p></div></li>
+        <li><span class="path-n">04</span><div><h3>Product Owner</h3><p class="where">Efficio</p><p>Backlog prioritisation and feature delivery for Connected Platform, across three delivery teams.</p></div></li>
+      </ol>
+    </div>
+  </section>"""
 bring = section_by_id("bring").replace(' style="padding-top:24px"', "")
 platform = section_by_id("platform")
 approach = section_by_id("approach").replace('<section class="section" id="approach">', '<section class="section" id="approach-full">')
@@ -602,6 +660,8 @@ about_body = f"""<main id="top">
     </div>
   </section>
 
+  {WHOAMI}
+
   {relink(bring, "")}
 
   {relink(platform, "")}
@@ -612,13 +672,13 @@ about_body = f"""<main id="top">
 </main>"""
 about = shell("", f"About | {NAME}",
               "What I bring, where I work, and how I make product calls.",
-              about_body, current="about")
+              about_body, current="about", path="about.html")
 
 # ---------- Tool pages ----------
 pages = {"index.html": home, "about.html": about}
 for n, (cid, slug, demo) in enumerate(TOOLS):
     art = article(cid)
-    art = art.replace("<h3>", "<h1>", 1).replace("</h3>", "</h1>", 1).replace('<article class="case"', '<article class="case pinned"', 1)
+    art = art.replace("<h3>", f'<span class="key">{KEYS[cid]}</span><h1>', 1).replace("</h3>", "</h1>", 1).replace('<article class="case"', '<article class="case pinned"', 1)
     prev_cid, prev_slug, _ = TOOLS[n - 1]
     next_cid, next_slug, _ = TOOLS[(n + 1) % len(TOOLS)]
     t = INFO[cid]
@@ -642,7 +702,55 @@ for n, (cid, slug, demo) in enumerate(TOOLS):
 
   {CONTACT}
 </main>"""
-    pages[f"work/{slug}.html"] = shell("../", f"{t['title']} | {NAME}", summary_text(art), body, current="work", tool=cid)
+    pages[f"work/{slug}.html"] = shell("../", f"{t['title']} | {NAME}", summary_text(art), body, current="work", tool=cid, path=f"work/{slug}.html")
+
+# ---------- Shipped log ----------
+def _entry(date, cid, label, text):
+    slug = SLUG[cid]
+    return (f'<li class="log-item"><time>{date}</time><div><p class="log-tool"><a href="work/{slug}.html"><span class="key">{KEYS[cid]}</span>{INFO[cid]["title"]}</a>'
+            f'<span class="badge {"brand" if label == "Pilot" else "ok"}"><span class="dot"></span>{label}</span></p><p>{text}</p></div></li>')
+LOG = [
+    ("Oct 2026", "tamil", "Live", "Proof of concept live, starting with Sri Lankan Tamil for beginners."),
+    ("29 Sep to 1 Oct 2026", "supplier", "Pilot", "First version built in three days, then released to public sector consultants as a pilot."),
+    ("27 to 28 Sep 2026", "backlog", "Shipped", "Full redesign, separate intake per product line, anonymous voting with reasons and sprint scope control."),
+    ("Aug 2026", "backlog", "Shipped", "Delivery change tracking and the first Feature Insights roadmap themes."),
+    ("Jul 2026", "backlog", "Shipped", "Sprint history, carry over reviews, ideation and stakeholder briefs."),
+    ("13 Jun 2026", "preppo", "Live", "Free public beta live on Vercel: CV and job upload, five turn coaching, cheat sheet and mock interview."),
+    ("9 to 11 Jun 2026", "backlog", "Shipped", "First version: scoring, Jira sync, team capacity and sprint planning."),
+]
+EARLIER = "".join(f'<li><a href="work/{SLUG[c]}.html"><span class="key">{KEYS[c]}</span>{INFO[c]["title"]}</a><span>{INFO[c]["result"]}</span></li>' for c in ("contract", "market", "toolkit"))
+log_body = f"""<main id="top">
+  <section class="pagehead">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span>/</span><span>Log</span></nav>
+      <h1>Shipped log</h1>
+      <p class="sub">Release notes for the tools I build, newest first.</p>
+    </div>
+  </section>
+
+  <section class="section log-section">
+    <div class="container log-wrap">
+      <aside class="now">
+        <p class="eyebrow tagline">now · {UPDATED.lower()}</p>
+        <ul class="checks">
+          <li>Building the Tamil learning app, starting with the beginner experience in Sri Lankan Tamil.</li>
+          <li>Piloting Supplier Framework with public sector consultants and acting on their feedback.</li>
+          <li>Finding PrepPO's first users before building the paid version.</li>
+        </ul>
+      </aside>
+      <div>
+        <ol class="log">{"".join(_entry(*e) for e in LOG)}</ol>
+        <div class="earlier">
+          <h2>Earlier at Efficio</h2>
+          <ul>{EARLIER}</ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {CONTACT}
+</main>"""
+pages["log.html"] = shell("", f"Shipped log | {NAME}", "Release notes for the tools Ajanth Sri Kathirkamanthan builds, newest first.", log_body, current="log", path="log.html")
 
 # ---------- Write ----------
 os.makedirs(os.path.join(HERE, "assets"), exist_ok=True)
@@ -664,6 +772,59 @@ def _prune(css):
 CSS = re.sub(r"/\*.*?\*/", "", CSS, flags=re.S)
 CSS = re.sub(r"\n\s*\n+", "\n", CSS)
 CSS = _prune(CSS)
+
+CSS += r"""
+/* Monospace accents: tagline, ticket keys, status bar */
+.eyebrow.tagline { font: 500 13px/1.5 var(--mono); letter-spacing: 0; text-transform: none; color: var(--fg-2); }
+.key { display: block; font: 500 12px var(--mono); color: var(--fg-3); letter-spacing: .02em; }
+.tile .key { margin-bottom: -8px; }
+.case-head .key { margin-bottom: 6px; }
+.statusbar { background: var(--fg); color: #DADAD3; font: 500 12.5px var(--mono); }
+.statusbar .sb { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; padding-block: 12px; }
+.sb-mode { background: var(--brand); color: #fff; padding: 3px 10px; border-radius: 4px; letter-spacing: .08em; font-weight: 500; }
+.sb-item { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+.sb-dot { width: 7px; height: 7px; border-radius: 50%; background: #4CC992; }
+.sb-dot.pilot { background: #FEC84B; }
+.sb-link { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.sb-gap { flex: 1; }
+.statusbar kbd { background: transparent; color: #fff; border-color: #6C6C68; }
+@media (max-width: 720px) { .sb-gap, .sb-hint, .sb-name { display: none; } }
+
+/* About: career path */
+.path { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; position: relative; }
+.path li { display: flex; flex-direction: column; gap: 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 20px; box-shadow: 0 6px 14px -10px rgba(29,29,27,.25); }
+.path li:last-child { border-color: var(--brand-ring); background: var(--brand-soft); }
+.path-n { font: 500 12px var(--mono); color: var(--fg-3); }
+.path h3 { font-size: 18px; }
+.path .where { font: 500 13px var(--mono); color: var(--brand-strong); margin-top: 2px; }
+.path p:not(.where) { color: var(--fg-2); font-size: 15px; margin-top: 8px; }
+@media (max-width: 900px) { .path { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 560px) { .path { grid-template-columns: minmax(0,1fr); } }
+
+/* Shipped log */
+.log-section { padding-top: 32px; }
+.log-wrap { display: grid; grid-template-columns: 300px minmax(0,1fr); gap: 48px; align-items: start; }
+.now { position: sticky; top: 24px; background: var(--note-yellow); border-radius: 6px; padding: 22px; box-shadow: 0 6px 14px -8px rgba(29,29,27,.28); display: flex; flex-direction: column; gap: 12px; }
+.now .checks li { font-size: 15px; }
+.log { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--line); }
+.log-item { display: grid; grid-template-columns: 170px minmax(0,1fr); gap: 20px; padding: 0 0 28px 24px; position: relative; }
+.log-item::before { content: ""; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--brand); }
+.log-item time { font: 500 13px/1.6 var(--mono); color: var(--fg-2); }
+.log-tool { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 6px; }
+.log-tool a { display: inline-flex; align-items: baseline; gap: 10px; font-weight: 700; font-family: var(--display); color: var(--fg); text-decoration: none; font-size: 18px; }
+.log-tool a:hover { color: var(--brand-strong); }
+.log-tool .key, .earlier .key { display: inline; }
+.log-item p:not(.log-tool) { color: var(--fg-2); }
+.earlier { margin-top: 12px; padding-top: 24px; border-top: 1px solid var(--line); }
+.earlier h2 { font-size: 20px; margin-bottom: 12px; }
+.earlier ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.earlier li { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; }
+.earlier a { display: inline-flex; gap: 10px; align-items: baseline; font-weight: 600; color: var(--fg); text-decoration: none; }
+.earlier a:hover { color: var(--brand-strong); }
+.earlier li span:last-child { color: var(--fg-2); font-size: 15px; }
+@media (max-width: 900px) { .log-wrap { grid-template-columns: minmax(0,1fr); gap: 32px; } .now { position: static; } }
+@media (max-width: 560px) { .log-item { grid-template-columns: minmax(0,1fr); gap: 4px; } }
+"""
 
 # ---------- Motion: subtle, once, and off when Reduce Motion is on ----------
 CSS += r"""

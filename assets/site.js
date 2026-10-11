@@ -205,6 +205,7 @@
     { l: "Open PrepPO live", g: "Link", url: "https://prep-po.vercel.app" },
     { l: "All work", g: "Page", page: "index.html", tab: "work" },
     { l: "About and how I work", g: "Page", page: "about.html" },
+    { l: "Shipped log", g: "Page", page: "log.html" },
     { l: "Contact details", g: "Section", h: "#contact" },
     { l: "Copy email address", g: "Action", act: "email" },
     { l: "Open LinkedIn profile", g: "Link", url: "https://www.linkedin.com/in/ajanthsrik/" }

@@ -8,6 +8,13 @@
 <meta property="og:title" content="About | Ajanth Sri Kathirkamanthan">
 <meta property="og:description" content="What I bring, where I work, and how I make product calls.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://ajanth-portfolio.vercel.app/about">
+<meta property="og:image" content="https://ajanth-portfolio.vercel.app/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ajanth Sri Kathirkamanthan, a Product Owner who builds the product">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ajanth-portfolio.vercel.app/assets/og.png">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#FAFAF8">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23FFE27A'/%3E%3Ctext x='16' y='21' font-family='Arial,sans-serif' font-size='13' font-weight='700' fill='%231D1D1B' text-anchor='middle'%3EAS%3C/text%3E%3C/svg%3E">
@@ -65,12 +72,13 @@ if (/vercel\.app$/.test(location.hostname)) { var va = document.createElement("s
 <a class="dd-item" href="work/supplier-framework.html"><span class="icon-tile"><svg class="i"><use href="#i-search"/></svg></span><span><b>Supplier Framework</b><small>537 suppliers across 73 public sector frameworks, searchable in one place.</small></span></a>
 <a class="dd-item" href="work/po-toolkit.html"><span class="icon-tile"><svg class="i"><use href="#i-layers"/></svg></span><span><b>AI Product Owner Toolkit</b><small>Used by Product Owners across Efficio, from stories to retrospectives.</small></span></a></div>
           <div class="dd-col"><p class="dd-h">Personal</p><a class="dd-item" href="work/preppo.html"><span class="icon-tile"><svg class="i"><use href="#i-chat"/></svg></span><span><b>PrepPO</b><small>AI interview coach for Product Owners, live and free.</small></span></a>
-<a class="dd-item" href="work/tamil-app.html"><span class="icon-tile"><svg class="i"><use href="#i-book"/></svg></span><span><b>Tamil learning app</b><small>Proof of concept spec complete, build under way.</small></span></a>
+<a class="dd-item" href="work/tamil-app.html"><span class="icon-tile"><svg class="i"><use href="#i-book"/></svg></span><span><b>Tamil learning app</b><small>Live proof of concept for learning spoken Tamil, starting with Sri Lankan Tamil.</small></span></a>
             <a class="dd-all" href="index.html#work">See all seven tools<svg class="i"><use href="#i-arrow"/></svg></a>
           </div>
         </div>
       </div>
       <a href="about.html" class="current">About</a>
+      <a href="log.html">Log</a>
       <a href="#contact">Contact</a>
     </nav>
     <div class="spacer"></div>
@@ -92,6 +100,7 @@ if (/vercel\.app$/.test(location.hostname)) { var va = document.createElement("s
       <div class="m-links">
         <a href="index.html#work">All work</a>
         <a href="about.html" class="current">About and how I work</a>
+        <a href="log.html">Shipped log</a>
         <a href="#contact">Contact</a>
       </div>
       <a class="btn primary m-cta" href="#contact">Get in touch</a>
@@ -104,6 +113,22 @@ if (/vercel\.app$/.test(location.hostname)) { var va = document.createElement("s
       <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span>/</span><span>About</span></nav>
       <h1>About me and how I work</h1>
       <p class="sub">What I bring, where I work and the principles behind my product calls.</p>
+    </div>
+  </section>
+
+  <section class="section" id="whoami">
+    <div class="container">
+      <div class="head">
+        <p class="eyebrow tagline">$ whoami</p>
+        <h2>Engineer first, Product Owner now</h2>
+        <p class="sub">Why I can build the tools I specify.</p>
+      </div>
+      <ol class="path">
+        <li><span class="path-n">01</span><div><h3>BSc Actuarial Science</h3><p class="where">Bayes Business School</p><p>A grounding in numbers, models and evidence.</p></div></li>
+        <li><span class="path-n">02</span><div><h3>Software Engineer</h3><p class="where">Albany Beck</p><p>Built software in Java, Spring and SQL.</p></div></li>
+        <li><span class="path-n">03</span><div><h3>Product Support</h3><p class="where">Efficio</p><p>Wrote complex SQL every day to find and extract data, and migrated users across applications.</p></div></li>
+        <li><span class="path-n">04</span><div><h3>Product Owner</h3><p class="where">Efficio</p><p>Backlog prioritisation and feature delivery for Connected Platform, across three delivery teams.</p></div></li>
+      </ol>
     </div>
   </section>
 
@@ -196,7 +221,19 @@ if (/vercel\.app$/.test(location.hostname)) { var va = document.createElement("s
     </div>
   </section>
 </main>
-<footer><div class="container"><span>Ajanth Sri Kathirkamanthan</span><span>Press <kbd>⌘K</kbd> or <kbd>/</kbd> to jump anywhere</span></div></footer>
+<footer class="statusbar">
+  <div class="container sb">
+    <span class="sb-mode">SHIPPING</span>
+    <span class="sb-item"><i class="sb-dot live"></i>6 live</span>
+    <span class="sb-item"><i class="sb-dot pilot"></i>1 in pilot</span>
+    <a class="sb-item sb-link" href="log.html">open the log</a>
+    <span class="sb-gap"></span>
+    <span class="sb-item sb-hint">press <kbd>/</kbd> to jump to a tool</span>
+    <span class="sb-item">updated Oct 2026</span>
+    <span class="sb-item sb-name">Ajanth Sri Kathirkamanthan</span>
+  </div>
+</footer>
+
 
 <div class="overlay" id="overlay" hidden>
   <div class="palette" role="dialog" aria-modal="true" aria-label="Jump to">
