@@ -522,6 +522,8 @@ def shell(root, title, desc, body, current=None, tool=None, path="index.html"):
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#FAFAF8">
 {FAVICON}
+<link rel="icon" type="image/png" sizes="32x32" href="{root}assets/icon-32.png">
+<link rel="apple-touch-icon" href="{root}assets/apple-touch-icon.png">
 {HEAD_LINKS}
 <link rel="stylesheet" href="{root}assets/site.css">
 <script>window.va = window.va || function () {{ (window.vaq = window.vaq || []).push(arguments); }};
@@ -614,6 +616,7 @@ teaser = f"""<section class="section alt" id="approach">
     </div>
   </section>"""
 logos = block('<section class="stackband"', "</section>")
+logos = logos.replace('<div class="marquee">', '<div class="marquee" role="region" aria-label="Platforms behind these tools" tabindex="0">', 1)
 import json as _json
 _L = _json.load(open(os.path.join(HERE, "src", "logos.json"), encoding="utf-8"))
 def _logo_list(hidden):
@@ -642,8 +645,6 @@ home_body = f"""<main id="top">
   {work}
 
   {NOW_STRIP}
-
-  {teaser}
 
   {logos}
 
@@ -699,7 +700,8 @@ about = shell("", f"About | {NAME}",
 pages = {"index.html": home, "about.html": about}
 for n, (cid, slug, demo) in enumerate(TOOLS):
     art = article(cid)
-    art = art.replace("<h3>", f'<span class="key">{KEYS[cid]}</span><h1>', 1).replace("</h3>", "</h1>", 1).replace('<article class="case"', '<article class="case pinned"', 1)
+    art = art.replace("<h3>", f'<span class="key">{KEYS[cid]}</span><h1>', 1).replace("</h3>", "</h1>", 1)
+    art = art.replace("<h4>", '<h2 class="h4">').replace("</h4>", "</h2>").replace("<h5>", '<h3 class="h5">').replace("</h5>", "</h3>").replace('<article class="case"', '<article class="case pinned"', 1)
     prev_cid, prev_slug, _ = TOOLS[n - 1]
     next_cid, next_slug, _ = TOOLS[(n + 1) % len(TOOLS)]
     t = INFO[cid]
@@ -707,8 +709,8 @@ for n, (cid, slug, demo) in enumerate(TOOLS):
         f'<a class="sw" href="{s2}.html"' + (' aria-current="page"' if c2 == cid else "") + f'><svg class="i"><use href="#{INFO[c2]["icon"]}"/></svg>{INFO[c2]["title"]}</a>'
         for c2, s2, _ in TOOLS)
     pn = f"""<div class="pn">
-        <a class="prev" href="{prev_slug}.html"><span class="k"><svg class="i"><use href="#i-arrow"/></svg>Previous tool</span><h3>{INFO[prev_cid]['title']}</h3><p>{INFO[prev_cid]['result']}</p></a>
-        <a class="next" href="{next_slug}.html"><span class="k">Next tool<svg class="i"><use href="#i-arrow"/></svg></span><h3>{INFO[next_cid]['title']}</h3><p>{INFO[next_cid]['result']}</p></a>
+        <a class="prev" href="{prev_slug}.html"><span class="k"><svg class="i"><use href="#i-arrow"/></svg>Previous tool</span><p class="pn-t">{INFO[prev_cid]['title']}</p><p>{INFO[prev_cid]['result']}</p></a>
+        <a class="next" href="{next_slug}.html"><span class="k">Next tool<svg class="i"><use href="#i-arrow"/></svg></span><p class="pn-t">{INFO[next_cid]['title']}</p><p>{INFO[next_cid]['result']}</p></a>
       </div>
       <a class="backall" href="../index.html#work"><svg class="i"><use href="#i-arrow"/></svg>Back to all work</a>"""
     body = f"""<main id="top">
@@ -857,6 +859,66 @@ CSS += r"""
 @media (max-width: 560px) { .log-item { grid-template-columns: minmax(0,1fr); gap: 4px; } }
 """
 
+CSS += r"""
+/* ---------- Stage 2 polish ---------- */
+/* Fewer visual ideas: no tape, no red. Sticky notes, ticket keys and the status bar stay. */
+:root { --marker: #0B7A5F; }
+.pinned::before { display: none !important; }
+.scribble path { opacity: .55; }
+
+/* Tool page sub headings, now real h2 and h3 for screen readers, same look as before */
+.case h2.h4 { font-family: var(--display); font-size: 16px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+.case .callout h2.h4 { color: var(--brand-strong); font-size: 15px; }
+.case .callout.warn h2.h4 { color: var(--warn); }
+.case h3.h5 { margin: 0; font-family: var(--sans); font-size: 16px; font-weight: 600; letter-spacing: normal; line-height: 1.6; }
+
+/* About steps: the travelling highlight */
+.steps li .icon-tile { transition: background .35s, color .35s, transform .35s; }
+.steps li h3 { transition: color .35s; }
+.steps li.on .icon-tile { background: var(--brand); color: #fff; transform: scale(1.06); }
+.steps li.on h3 { color: var(--brand-strong); }
+
+.pn .pn-t { font-family: var(--display); font-size: 18px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; color: var(--fg); }
+
+/* Contact: email no longer breaks mid word */
+.citem .v { overflow-wrap: break-word; }
+
+/* Logo strip focus ring when reached by keyboard */
+.marquee:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; border-radius: 8px; }
+
+/* Page not found */
+.nf { padding-block: 72px 96px; }
+.nf .sub { margin-bottom: 24px; }
+.nf-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.nf-h { font-size: 18px; margin: 48px 0 12px; }
+.nf-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px 24px; max-width: 640px; }
+.nf-list a { display: inline-flex; gap: 10px; align-items: baseline; color: var(--fg); font-weight: 600; text-decoration: none; }
+.nf-list a:hover { color: var(--brand-strong); }
+.nf-list .key { display: inline; }
+
+/* Phone */
+@media (max-width: 720px) {
+  .metrics { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; padding-block: 32px; }
+  .metric { padding: 14px; gap: 4px; }
+  .metric .num { font-size: 22px; }
+  .metric .sub, .metric p:first-child { font-size: 12.5px; }
+  .kpis { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+  .kpis > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .kpi { padding: 12px 14px; }
+  .kpi .num { font-size: 20px; }
+  .tabbar { flex-wrap: wrap; overflow: visible; }
+  .tabbar button { margin-right: 14px; padding: 10px 2px; }
+  .citem .v { font-size: 15px; overflow-wrap: normal; }
+  .citem > .btn { grid-column: 2; justify-self: start; margin-top: -4px; }
+  .metric .sub { display: block; }
+  .path li { flex-direction: row; align-items: flex-start; gap: 14px; padding: 16px; }
+  .path p:not(.where) { margin-top: 4px; }
+  .pillar { padding: 20px; gap: 10px; }
+  .nf-list { grid-template-columns: minmax(0,1fr); }
+  .hero .profile .cover { height: 56px; }
+}
+"""
+
 # ---------- Motion: subtle, once, and off when Reduce Motion is on ----------
 CSS += r"""
 /* Hero entrance on load */
@@ -934,16 +996,14 @@ ANIM_JS = """
     // Safety: never leave anything hidden.
     setTimeout(function () { $$(".rv:not(.in)").forEach(function (el) { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add("in"); }); }, 2500);
 
-    // Process steps highlight on the home page.
-    var flow = $(".flowrow");
+    // Process steps: a highlight travels Specify, Prototype, Test, Build.
+    var flow = $(".steps");
     if (flow) {
       var steps = $$("li", flow), si = 0;
       setInterval(function () {
         if (document.hidden) return;
-        steps.forEach(function (li) { li.classList.remove("on"); });
-        steps[si].classList.add("on");
-        if (steps[si + 1] && steps[si + 1].classList.contains("arrow")) steps[si + 1].classList.add("on");
-        si = (si + 2) % steps.length;
+        steps.forEach(function (li) { li.classList.toggle("on", li === steps[si]); });
+        si = (si + 1) % steps.length;
       }, 1300);
     }
   }
@@ -951,6 +1011,26 @@ ANIM_JS = """
 JS = JS.rstrip()
 assert JS.endswith("})();")
 JS = JS[:-5] + ANIM_JS + "})();"
+
+# ---------- Page not found (served by Vercel for any unknown address, so links are absolute) ----------
+NF_LIST = "".join(f'<li><a href="/work/{slug}.html"><span class="key">{KEYS[cid]}</span>{INFO[cid]["title"]}</a></li>' for cid, slug, _ in TOOLS)
+nf_body = f"""<main id="top">
+  <section class="pagehead nf">
+    <div class="container">
+      <p class="eyebrow tagline">404 · not in the backlog</p>
+      <h1>Page not found</h1>
+      <p class="sub">This page is not in the backlog. The link may be mistyped, or the page may have moved.</p>
+      <div class="nf-actions"><a class="btn primary" href="/">Go to the home page</a><a class="btn" href="/log.html">See what I have shipped</a></div>
+      <h2 class="nf-h">Or open a tool</h2>
+      <ul class="nf-list">{NF_LIST}</ul>
+    </div>
+  </section>
+</main>"""
+pages["404.html"] = shell("/", f"Page not found | {NAME}", "This page is not in the backlog.", nf_body, current=None, path="404.html")
+
+def _external_new_tab(html):
+    return re.sub(r'<a (?![^>]*\btarget=)([^>]*\bhref="https?://[^"]+"[^>]*)>', r'<a \1 target="_blank" rel="noopener">', html)
+pages = {k: _external_new_tab(v) for k, v in pages.items()}
 
 open(os.path.join(HERE, "assets", "site.css"), "w", encoding="utf-8").write(CSS.strip() + "\n")
 open(os.path.join(HERE, "assets", "site.js"), "w", encoding="utf-8").write(JS.strip() + "\n")

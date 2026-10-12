@@ -340,16 +340,14 @@
     // Safety: never leave anything hidden.
     setTimeout(function () { $$(".rv:not(.in)").forEach(function (el) { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add("in"); }); }, 2500);
 
-    // Process steps highlight on the home page.
-    var flow = $(".flowrow");
+    // Process steps: a highlight travels Specify, Prototype, Test, Build.
+    var flow = $(".steps");
     if (flow) {
       var steps = $$("li", flow), si = 0;
       setInterval(function () {
         if (document.hidden) return;
-        steps.forEach(function (li) { li.classList.remove("on"); });
-        steps[si].classList.add("on");
-        if (steps[si + 1] && steps[si + 1].classList.contains("arrow")) steps[si + 1].classList.add("on");
-        si = (si + 2) % steps.length;
+        steps.forEach(function (li) { li.classList.toggle("on", li === steps[si]); });
+        si = (si + 1) % steps.length;
       }, 1300);
     }
   }

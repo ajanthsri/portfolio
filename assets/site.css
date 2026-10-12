@@ -569,6 +569,64 @@ body { background-image: radial-gradient(#E3E5E8 1px, transparent 1.1px); }
 @media (max-width: 900px) { .log-wrap { grid-template-columns: minmax(0,1fr); gap: 32px; } .now { position: static; } }
 @media (max-width: 560px) { .log-item { grid-template-columns: minmax(0,1fr); gap: 4px; } }
 
+/* ---------- Stage 2 polish ---------- */
+/* Fewer visual ideas: no tape, no red. Sticky notes, ticket keys and the status bar stay. */
+:root { --marker: #0B7A5F; }
+.pinned::before { display: none !important; }
+.scribble path { opacity: .55; }
+
+/* Tool page sub headings, now real h2 and h3 for screen readers, same look as before */
+.case h2.h4 { font-family: var(--display); font-size: 16px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+.case .callout h2.h4 { color: var(--brand-strong); font-size: 15px; }
+.case .callout.warn h2.h4 { color: var(--warn); }
+.case h3.h5 { margin: 0; font-family: var(--sans); font-size: 16px; font-weight: 600; letter-spacing: normal; line-height: 1.6; }
+
+/* About steps: the travelling highlight */
+.steps li .icon-tile { transition: background .35s, color .35s, transform .35s; }
+.steps li h3 { transition: color .35s; }
+.steps li.on .icon-tile { background: var(--brand); color: #fff; transform: scale(1.06); }
+.steps li.on h3 { color: var(--brand-strong); }
+
+.pn .pn-t { font-family: var(--display); font-size: 18px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; color: var(--fg); }
+
+/* Contact: email no longer breaks mid word */
+.citem .v { overflow-wrap: break-word; }
+
+/* Logo strip focus ring when reached by keyboard */
+.marquee:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; border-radius: 8px; }
+
+/* Page not found */
+.nf { padding-block: 72px 96px; }
+.nf .sub { margin-bottom: 24px; }
+.nf-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.nf-h { font-size: 18px; margin: 48px 0 12px; }
+.nf-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px 24px; max-width: 640px; }
+.nf-list a { display: inline-flex; gap: 10px; align-items: baseline; color: var(--fg); font-weight: 600; text-decoration: none; }
+.nf-list a:hover { color: var(--brand-strong); }
+.nf-list .key { display: inline; }
+
+/* Phone */
+@media (max-width: 720px) {
+  .metrics { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; padding-block: 32px; }
+  .metric { padding: 14px; gap: 4px; }
+  .metric .num { font-size: 22px; }
+  .metric .sub, .metric p:first-child { font-size: 12.5px; }
+  .kpis { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+  .kpis > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .kpi { padding: 12px 14px; }
+  .kpi .num { font-size: 20px; }
+  .tabbar { flex-wrap: wrap; overflow: visible; }
+  .tabbar button { margin-right: 14px; padding: 10px 2px; }
+  .citem .v { font-size: 15px; overflow-wrap: normal; }
+  .citem > .btn { grid-column: 2; justify-self: start; margin-top: -4px; }
+  .metric .sub { display: block; }
+  .path li { flex-direction: row; align-items: flex-start; gap: 14px; padding: 16px; }
+  .path p:not(.where) { margin-top: 4px; }
+  .pillar { padding: 20px; gap: 10px; }
+  .nf-list { grid-template-columns: minmax(0,1fr); }
+  .hero .profile .cover { height: 56px; }
+}
+
 /* Hero entrance on load */
 @media (prefers-reduced-motion: no-preference) {
   .hero .eyebrow, .hero h1, .hero .motto, .hero .lede, .hero .actions, .hero .profile { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
