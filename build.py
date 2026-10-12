@@ -577,7 +577,7 @@ def status_footer(root):
     <span class="sb-mode">SHIPPING</span>
     <span class="sb-item"><i class="sb-dot live"></i>{N_LIVE} live</span>
     <span class="sb-item"><i class="sb-dot pilot"></i>{N_PILOT} in pilot</span>
-    <a class="sb-item sb-link" href="{root}log.html">open the log</a>
+    <a class="sb-item sb-link" href="{root}log.html">see what I&#39;ve shipped</a>
     <span class="sb-gap"></span>
     <span class="sb-item sb-hint">press <kbd>/</kbd> to jump to a tool</span>
     <span class="sb-item">updated {UPDATED}</span>
